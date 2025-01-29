@@ -1,0 +1,28 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    color: black;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 12px;
+    }
+    .logo {
+        width: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 9px;
+    }
+    .logo {
+        width: 35%;
+    }
+}
+
+.logo {
+    display: flex;
+    margin: auto;
+}
