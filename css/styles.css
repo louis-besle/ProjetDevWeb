@@ -4,6 +4,11 @@ body {
     color: black;
 }
 
+.logo {
+    display: flex;
+    margin: auto;
+}
+
 @media (max-width: 768px) {
     html {
         font-size: 12px;
@@ -20,9 +25,4 @@ body {
     .logo {
         width: 35%;
     }
-}
-
-.logo {
-    display: flex;
-    margin: auto;
 }
