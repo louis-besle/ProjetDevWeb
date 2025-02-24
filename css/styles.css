@@ -1,28 +1,91 @@
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: white;
-    color: black;
-}
+/*  PAGE DE CONNEXION   */
 
-.logo {
+/* Style général du corps */
+#body_connexion {
     display: flex;
-    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
 }
 
-@media (max-width: 768px) {
-    html {
-        font-size: 12px;
-    }
-    .logo {
-        width: 50%;
-    }
+/* Conteneur du logo */
+#logo_page_connexion {
+    margin-bottom: 20px; /* Espace entre le logo et le formulaire */
 }
 
-@media (max-width: 480px) {
-    html {
-        font-size: 9px;
-    }
-    .logo {
-        width: 35%;
-    }
+#logo_page_connexion img {
+    max-width: 150px; /* Ajuste la taille du logo si nécessaire */
+    height: auto;
+}
+
+/* Conteneur principal de la connexion */
+#login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 320px;
+    text-align: center;
+}
+
+/* Style du formulaire */
+#login_form h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Lien mot de passe oublié */
+.input-group p {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.input-group p a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.input-group p a:hover {
+    text-decoration: underline;
+}
+
+/* Bouton de connexion */
+#connexion_submit_buton {
+    width: 100%;
+    padding: 10px;
+    background-color: #C6AEEB;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#connexion_submit_buton:hover {
+    background-color: #8A7AE2;;
 }
