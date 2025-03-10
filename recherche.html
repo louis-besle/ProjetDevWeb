@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres - StageUp</title>
+    <link rel="icon" href="images/Sta_eUp_2.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body id="body_offres">
+    <header class="header_menu">
+        <nav>
+            <div class="logo">
+                <a href="accueil.html"><img src="images/Sta_eUp_3.png" alt="logo"></a>
+            </div>
+
+            <div class="menu">
+                <ul class="menu-list">
+                    <li><a href="recherche.html"><img src="images/book-open-white.png" alt="offres">Recherches</a></li>
+                    <!-- <li><a href="entreprises.html"><img src="images/building-white.png" alt="entreprises">Entreprises</a></li> -->
+                    <li><a href="dashboard.html"><img src="images/Account.png" alt="account">Dashboard</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="mainindex">
+        <div id="barre_de_recherche">
+            <form id="recherche">
+                <label for="quoi">Quoi :</label>
+                <input type="text" id="quoi" name="quoi" placeholder="Que recherchez-vous ?">
+
+                <label for="ou">Où :</label>
+                <input type="text" id="ou" name="ou" placeholder="Où ?">
+                <div id="btn_group">
+                    <button type="reset"><img src="images/refresh-ccw_1.png" alt="refresh">Réinitialiser</button>
+                    <button type="submit"><img src="images/search_1.png" alt="search">Rechercher</button>
+                </div>
+            </form>
+        </div>
+
+        <article id="offer_list">
+            <h1>Plus de 5000 offres disponibles !</h1>
+
+            <!-- Bouton pour afficher les filtres -->
+            <div class="filter-button-container">
+                <button class="filter-btn" id="filterBtn">Filtres</button>
+            </div>
+
+            <!-- Menu des filtres -->
+            <div class="filter-menu" id="filterMenu">
+                <label for="entreprise">Entreprise :</label>
+                <select id="entreprise" name="entreprise">
+                    <option value="exia">Exia</option>
+                    <option value="google">Google</option>
+                    <option value="microsoft">Microsoft</option>
+                </select>
+
+                <label for="lieu">Lieu :</label>
+                <select id="lieu" name="lieu">
+                    <option value="orleans">Orléans</option>
+                    <option value="paris">Paris</option>
+                    <option value="lyon">Lyon</option>
+                </select>
+
+                <button id="validateFilters">Valider les filtres</button>
+            </div>
+
+            <div id="list_offer">
+                <a href="offre_onclick.html" class="offer_link">
+                    <div class="offer_offerpage">
+                        <div class="offer_details">
+                            <p class="title_offer">Stage Informatique H/F 1</p>
+                            <p class="entreprise_offer">Exia</p>
+                            <p class="ville_offer">Orléans</p>
+                            <p class="date_offer">Mise en ligne il y a 15h</p>
+                        </div>
+                        <div class="offer_image">
+                            <img src="images/logo-page.png" alt="Logo entreprise">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        
+        </article>
+    </main>
+
+    <footer id="footerindex">
+        <p>
+            &copy; 2025 StageUp Tous droits réservés. |
+            <a href="#">Mentions légales</a> -
+            <a href="#">Conditions générales d'utilisation</a> -
+            <a href="#">Politique de confidentialité</a> -
+            <a href="#">Cookies</a> -
+            <a href="#">Contact</a>
+        </p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
