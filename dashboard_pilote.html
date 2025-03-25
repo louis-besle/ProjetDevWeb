@@ -9,47 +9,50 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body id="body_accueil">
-    <header class="header_menu">
+<body>
+    <header>
         <nav>
             <div class="logo">
                 <a href="accueil.html"><img src="images/Sta_eUp_3.png" alt="logo"></a>
             </div>
 
             <div class="menu">
-                <ul class="menu-list">
+                <ul class="menu_interact">
                     <li><a href="recherche.html"><img src="images/book-open-white.png" alt="offres">Recherches</a></li>
-                    <!-- <li><a href="entreprises.html"><img src="images/building-white.png" alt="entreprises">Entreprises</a></li> -->
                     <li><a href="dashboard.html"><img src="images/Account.png" alt="account">Dashboard</a></li>
                 </ul>
             </div>
         </nav>
     </header>
-    <main id="mainindex">
-        <div id="barre_de_recherche">
-            <form id="recherche">
+
+    <main>
+        <div class="menu_recherche">
+            <form class="recherche">
                 <label for="quoi">Quoi :</label>
                 <input type="text" id="quoi" name="quoi" placeholder="Que recherchez-vous ?">
 
                 <label for="ou">Où :</label>
                 <input type="text" id="ou" name="ou" placeholder="Où ?">
-                <div id="btn_group">
-                    <button type="reset"><img src="images/refresh-ccw_1.png" alt="refresh">Réinitialiser</button>
-                    <button type="submit"><img src="images/search_1.png" alt="search">Rechercher</button>
+                <div class="bouton_recherche">
+                    <button type="reset" class="bouton_"><img src="images/refresh-ccw_1.png"
+                            alt="refresh-ccw_1">Réinitialiser</button>
+                    <button type="submit" class="bouton_"><img src="images/search_1.png"
+                            alt="search_1">Rechercher</button>
                 </div>
             </form>
         </div>
-        <ul class="navbar_dashboard_admin">
+
+        <ul class="navbar_dashboard">
             <li><a href="add_offer.html">Créer/Modifier une offre</a></li>
-            <li><a href="add_account.html">Créer/Modifier un compte</a></li>
+            <li><a href="add_account.html">Gestion comptes</a></li>
             <li><a href="add_enterprise.html">Créer/Modifier une entreprise</a></li>
         </ul>
-        <article id="main_page_admin">
+        <article>
             <h1>Ceci est la page pilote</h1>
             <p>Nombre d'Étudiant : 45</p>
         </article>
     </main>
-    <footer id="footerindex">
+    <footer>
         <p>
             &copy; 2025 StageUp Tous droits réservés. | <a href="#">Mentions légales - </a>
             <a href="#">Conditions générales d'utilisation - </a>

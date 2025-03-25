@@ -9,35 +9,36 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body id="body_offres">
-    <header class="header_menu">
+<body>
+    <header>
         <nav>
             <div class="logo">
                 <a href="accueil.html"><img src="images/Sta_eUp_3.png" alt="logo"></a>
             </div>
 
             <div class="menu">
-                <ul class="menu-list">
+                <ul class="menu_interact">
                     <li><a href="recherche.html"><img src="images/book-open-white.png" alt="offres">Recherches</a></li>
-                    <!-- <li><a href="entreprises.html"><img src="images/building-white.png" alt="entreprises">Entreprises</a></li> -->
                     <li><a href="dashboard.html"><img src="images/Account.png" alt="account">Dashboard</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <main id="mainofferonclick">
+    <main>
 
-        <div id="barre_de_recherche">
-            <form id="recherche">
+        <div class="menu_recherche">
+            <form class="recherche">
                 <label for="quoi">Quoi :</label>
                 <input type="text" id="quoi" name="quoi" placeholder="Que recherchez-vous ?">
 
                 <label for="ou">Où :</label>
                 <input type="text" id="ou" name="ou" placeholder="Où ?">
-                <div id="btn_group">
-                    <button type="reset"><img src="images/refresh-ccw_1.png" alt="refresh">Réinitialiser</button>
-                    <button type="submit"><img src="images/search_1.png" alt="search">Rechercher</button>
+                <div class="bouton_recherche">
+                    <button type="reset" class="bouton_"><img src="images/refresh-ccw_1.png"
+                            alt="refresh-ccw_1">Réinitialiser</button>
+                    <button type="submit" class="bouton_"><img src="images/search_1.png"
+                            alt="search_1">Rechercher</button>
                 </div>
             </form>
         </div>
@@ -87,14 +88,14 @@
             <h2>Commentaires supplémentaires</h2>
             <textarea></textarea>
 
-            <div id="btnpostul">
-                <button type="submit" id="submit-offre">Envoyer</button>
-                <button type="reset" id="reset-offre">Réinitialiser</button>
+            <div class="grp_bouton">
+                <button type="submit" class="bouton_">Postuler</button>
+                <button type="reset" class="bouton_">Réinitialiser</button>
             </div>
         </form>
     </main>
 
-    <footer id="footerindex">
+    <footer>
         <p>
             &copy; 2025 StageUp Tous droits réservés. |
             <a href="#">Mentions légales</a> -

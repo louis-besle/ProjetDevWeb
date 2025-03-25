@@ -9,48 +9,49 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body id="body_offres">
-    <header class="header_menu">
+<body>
+    <header>
         <nav>
             <div class="logo">
                 <a href="accueil.html"><img src="images/Sta_eUp_3.png" alt="logo"></a>
             </div>
 
             <div class="menu">
-                <ul class="menu-list">
+                <ul class="menu_interact">
                     <li><a href="recherche.html"><img src="images/book-open-white.png" alt="offres">Recherches</a></li>
-                    <!-- <li><a href="entreprises.html"><img src="images/building-white.png" alt="entreprises">Entreprises</a></li> -->
                     <li><a href="dashboard.html"><img src="images/Account.png" alt="account">Dashboard</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <main id="mainindex">
-        <div id="barre_de_recherche">
-            <form id="recherche">
+    <main>
+        <div class="menu_recherche">
+            <form class="recherche">
                 <label for="quoi">Quoi :</label>
                 <input type="text" id="quoi" name="quoi" placeholder="Que recherchez-vous ?">
 
                 <label for="ou">Où :</label>
                 <input type="text" id="ou" name="ou" placeholder="Où ?">
-                <div id="btn_group">
-                    <button type="reset"><img src="images/refresh-ccw_1.png" alt="refresh">Réinitialiser</button>
-                    <button type="submit"><img src="images/search_1.png" alt="search">Rechercher</button>
+                <div class="bouton_recherche">
+                    <button type="reset" class="bouton_"><img src="images/refresh-ccw_1.png"
+                            alt="refresh-ccw_1">Réinitialiser</button>
+                    <button type="submit" class="bouton_"><img src="images/search_1.png"
+                            alt="search_1">Rechercher</button>
                 </div>
             </form>
         </div>
 
-        <article id="offer_list">
+        <article class="affichage_offre">
             <h1>Plus de 5000 offres disponibles !</h1>
 
             <!-- Bouton pour afficher les filtres -->
-            <div class="filter-button-container">
-                <button class="filter-btn" id="filterBtn">Filtres</button>
+            <div class="contenu_bouton_filtres">
+                <button class="bouton_filtre" id="bouton_filtre">Filtres</button>
             </div>
 
             <!-- Menu des filtres -->
-            <div class="filter-menu" id="filterMenu">
+            <div class="filtres" id="filtres">
                 <label for="entreprise">Entreprise :</label>
                 <select id="entreprise" name="entreprise">
                     <option value="exia">Exia</option>
@@ -65,19 +66,19 @@
                     <option value="lyon">Lyon</option>
                 </select>
 
-                <button id="validateFilters">Valider les filtres</button>
+                <button id="valider">Valider les filtres</button>
             </div>
 
-            <div id="list_offer">
+            <div class="offre_stage">
                 <a href="offre_onclick.html" class="offer_link">
-                    <div class="offer_offerpage">
-                        <div class="offer_details">
-                            <p class="title_offer">Stage Informatique H/F 1</p>
-                            <p class="entreprise_offer">Exia</p>
-                            <p class="ville_offer">Orléans</p>
-                            <p class="date_offer">Mise en ligne il y a 15h</p>
+                    <div class="offre_indiv">
+                        <div class="details_offre">
+                            <p class="titre_offre">Stage Informatique H/F 1</p>
+                            <p class="entreprise_offre">Exia</p>
+                            <p class="offre_ville">Orléans</p>
+                            <p class="offre_date">Mise en ligne il y a 15h</p>
                         </div>
-                        <div class="offer_image">
+                        <div class="offre_image">
                             <img src="images/logo-page.png" alt="Logo entreprise">
                         </div>
                     </div>
@@ -87,13 +88,12 @@
         </article>
     </main>
 
-    <footer id="footerindex">
+    <footer>
         <p>
-            &copy; 2025 StageUp Tous droits réservés. |
-            <a href="#">Mentions légales</a> -
-            <a href="#">Conditions générales d'utilisation</a> -
-            <a href="#">Politique de confidentialité</a> -
-            <a href="#">Cookies</a> -
+            &copy; 2025 StageUp Tous droits réservés. | <a href="#">Mentions légales - </a>
+            <a href="#">Conditions générales d'utilisation - </a>
+            <a href="#">Politique de confidentialité des données - </a>
+            <a href="#">Cookies - </a>
             <a href="#">Contact</a>
         </p>
     </footer>

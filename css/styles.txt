@@ -1,50 +1,7 @@
-/*CSS qui sera le même pour toutes les pages*/
-body {
-    font-family: Arial, sans-serif;
-}
+/*  PAGE DE CONNEXION   */
 
-main {
-    width: 70%;
-    margin: 0 auto;
-    text-align: justify;
-}
-
-h2 {
-    margin-bottom: 10px;
-}
-
-footer {
-    color: white;
-    padding: 30px 0;
-    text-align: center;
-    background-color: #380F49;
-    font-family: Arial, sans-serif;
-    width: 70%;
-    margin: 0 auto;
-}
-
-footer p {
-    margin: 0;
-    font-size: 16px;
-}
-
-footer p a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-footer p a:hover {
-    color: #C6AEEB;
-}
-
-footer p a:focus {
-    outline: 2px solid #C6AEEB;
-}
-
-/*Style de la balise main de la page de connexion*/
-.mainconnexion {
+/* Style général du corps */
+#body_connexion {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -52,21 +9,21 @@ footer p a:focus {
     height: 100vh;
     margin: 0;
     background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
 }
 
-/*Style de l'emplacement du logo de la page de connexion*/
-.logoconnexion {
+/* Conteneur du logo */
+#logo_page_connexion {
     margin-bottom: 20px;
 }
 
-/*Style du logo de la page de connexion*/
-.logoconnexion img {
+#logo_page_connexion img {
     max-width: 150px;
     height: auto;
 }
 
-/*Style de la division contenant le formulaire de connexion*/
-.connexion {
+/* Conteneur principal de la connexion */
+#login-container {
     background-color: #fff;
     padding: 40px;
     border-radius: 8px;
@@ -75,26 +32,25 @@ footer p a:focus {
     text-align: center;
 }
 
-/*Style des titres du formulaire de connexxion*/
-.formulaire_connexion h2 {
+/* Style du formulaire */
+#login_form h2 {
     margin-bottom: 20px;
     font-size: 22px;
     color: #333;
 }
 
-/*Style des entrées utilisateurs de la page de connexion*/
-.entrees_utilisateurs {
+.input-group {
     margin-bottom: 15px;
     text-align: left;
 }
 
-.entrees_utilisateurs label {
+.input-group label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.entrees_utilisateurs input {
+.input-group input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -102,22 +58,23 @@ footer p a:focus {
     font-size: 16px;
 }
 
-.entrees_utilisateurs p {
+/* Lien mot de passe oublié */
+.input-group p {
     margin-top: 5px;
     font-size: 14px;
 }
 
-.entrees_utilisateurs p a {
+.input-group p a {
     text-decoration: none;
     color: #007bff;
 }
 
-.entrees_utilisateurs p a:hover {
+.input-group p a:hover {
     text-decoration: underline;
 }
 
-/*Style des boutons d'interaction avec la connexion*/
-.bouton_interact {
+/* Bouton de connexion */
+#connexion_submit_buton {
     width: 100%;
     padding: 10px;
     background-color: #C6AEEB;
@@ -129,18 +86,25 @@ footer p a:focus {
     transition: background 0.3s ease;
 }
 
-
-.bouton_interact:hover {
+#connexion_submit_buton:hover {
     background-color: #8A7AE2;
+    ;
 }
 
-/*Style de la balise header contenu le menu de navigation*/
-header {
+/* Page d'accueil du site après la connexion */
+/* Style général du corps*/
+#body_accueil {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f8f8;
+}
+
+/*Style du header*/
+.header_menu {
     width: 70%;
     margin: 0 auto;
 }
 
-/*Style de l'emplacement du logo du site*/
+/* Logo */
 .logo {
     text-align: center;
     display: flex;
@@ -148,14 +112,13 @@ header {
     align-items: center;
 }
 
-/*Style du logo du site*/
 .logo img {
     width: 150px;
     height: auto;
     max-width: 200px;
 }
 
-/*Style de la balise de navigation contenant le menu de navigation*/
+/* Menu */
 nav {
     display: flex;
     justify-content: space-between;
@@ -163,25 +126,23 @@ nav {
     padding: 1rem 2rem;
 }
 
-/*Emplacement des liens de navigations (Recherches et Dashboard)*/
 .menu {
     display: flex;
     align-items: center;
 }
 
-/*Style des liens de navigations*/
-.menu_interact {
+.menu-list {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.menu_interact li {
+.menu-list li {
     margin: 0 1rem;
 }
 
-.menu_interact a {
+.menu-list a {
     display: flex;
     align-items: center;
     color: #333;
@@ -193,14 +154,34 @@ nav {
     background-color: #C6AEEB;
 }
 
-.menu_interact a img {
+.menu-list a img {
     margin-right: 0.5rem;
     width: 20px;
     height: 20px;
 }
 
-/*Style de l'emplacement des barres de recherches pour trouver une offre*/
-.menu_recherche {
+.menu-list a:hover {
+    background-color: #8A7AE2;
+}
+
+/* Styles des menus */
+.navbar {
+    padding: 0.5rem;
+    background-color: #C6AEEB;
+    border-radius: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*Contenu de la page*/
+
+#mainindex {
+    width: 70%;
+    margin: 0 auto;
+}
+
+/*Style de la barre de recherche*/
+#barre_de_recherche {
     background-color: #380F49;
     display: flex;
     justify-content: center;
@@ -208,8 +189,8 @@ nav {
     min-height: 200px;
 }
 
-/*Style des barres de recherches*/
-.recherche {
+/*Element contenant la barre ed recherche*/
+#recherche {
     width: 500px;
     background-color: white;
     display: flex;
@@ -221,18 +202,17 @@ nav {
     font-weight: bold;
 }
 
-.recherche input {
+#recherche input {
     border-radius: 5px;
 }
 
-.bouton_recherche {
+#btn_group {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
 }
 
-/*Style généraux des boutons*/
-.bouton_ {
+#btn_group button {
     width: 25%;
     padding: 5px;
     background-color: #C6AEEB;
@@ -248,18 +228,18 @@ nav {
     display: flex;
 }
 
-.bouton_:hover {
+#btn_group button:hover {
     background-color: #8A7AE2;
 }
 
-.bouton_ img {
+#btn_group button img {
     width: 20px;
     height: 20px;
     padding-right: 5px;
 }
 
-/*Styles du bloc de bienvenue*/
-.article_bienvenue {
+/*Style du bloc de l'article de bienvenue*/
+#article_bienvenue {
     text-align: justify;
     display: flex;
     flex-direction: column;
@@ -268,19 +248,19 @@ nav {
     margin: 10px auto;
 }
 
-/*Style des offres qui s'affiche en page d'accueil*/
-.dernieres_offres {
+/*Style du bloc de l'article des dernières offres*/
+#last_offer {
     margin: 20px auto;
 }
 
-.conteneurs_dernieres_offres {
+#offers_container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin: 0 auto;
 }
 
-.offres {
+.offer_accueil {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -293,25 +273,25 @@ nav {
     transition: transform 0.2s ease-in-out;
 }
 
-.offres:hover {
+.offer_accueil:hover {
     transform: scale(1.03);
 }
 
-.titre_derniere_offre {
+.title_accueil {
     font-size: 18px;
     font-weight: bold;
     color: #333;
     margin-bottom: 5px;
 }
 
-.entreprise_derniere_offre {
+.entreprise_accueil {
     font-size: 16px;
     color: #6A0DAD;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.informations {
+.footer_offer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -319,7 +299,7 @@ nav {
     color: #666;
 }
 
-.informations a {
+.footer_offer a {
     background-color: #6A0DAD;
     color: white;
     padding: 8px 12px;
@@ -332,12 +312,17 @@ nav {
     text-align: center;
 }
 
-.informations a:hover {
+.footer_offer a:hover {
     background-color: #550A8A;
 }
 
-/*Style du blocc entreprises reconnues par le site sur la page d'accueil*/
-.entreprises_reconnues h1 {
+/*Style du bloc de l'article des entreprises reconnues*/
+#entreprises_reconnues {
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+#entreprises_reconnues h1 {
     font-size: 24px;
     font-weight: bold;
     color: #333;
@@ -345,33 +330,33 @@ nav {
     margin-bottom: 20px;
 }
 
-.entreprises_reconnues_conteneur {
+.entreprises_reconnues_container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
 }
 
-.entreprises_reconnues_conteneur p {
+.text_accueil_entreprises_reconnues {
     font-size: 16px;
     color: #555;
     line-height: 1.6;
     flex: 1;
 }
 
-.entreprises_reconnues_conteneur img {
+.entreprises_reconnues_container img {
     width: 35%;
     height: auto;
     border-radius: 8px;
 }
 
-/*Style du bloc candidature simplifiée du site sur la page d'accueil*/
-.candidature_simple {
+/*Style du bloc de l'article sur la candidature simplifiée*/
+#candidature_simple {
     padding: 20px;
     background-color: #f5f5f5;
 }
 
-.candidature_simple h1 {
+#candidature_simple h1 {
     font-size: 24px;
     font-weight: bold;
     color: #333;
@@ -379,37 +364,72 @@ nav {
     margin-bottom: 20px;
 }
 
-.candidature_simple_conteneur {
+.candidature_simple_container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
 }
 
-.candidature_simple_conteneur p {
+.text_accueil_candidature_simple {
     font-size: 16px;
     color: #555;
     line-height: 1.6;
 }
 
-.candidature_simple_conteneur img {
+.candidature_simple_container img {
     width: 35%;
     height: auto;
 }
 
-.affichage_offre {
-    transition: margin-top 0.3s ease;
-    padding-top: 20px;
+/* Footer */
+#footerindex {
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+    background-color: #380F49;
+    font-family: Arial, sans-serif;
+    width: 70%;
+    margin: 0 auto;
 }
 
-.offre_stage {
+
+#footerindex p {
+    margin: 0;
+    font-size: 16px;
+}
+
+#footerindex p a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#footerindex p a:hover {
+    color: #C6AEEB;
+}
+
+#footerindex p a:focus {
+    outline: 2px solid #C6AEEB;
+}
+
+/*Page pour voir toutes les offres*/
+#body_offres {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f8f8;
+}
+
+/* Conteneur principal des offres */
+#list_offer {
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 20px;
 }
 
-.offre_indiv {
+/* Une offre individuelle (bouton cliquable) */
+.offer_offerpage {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -425,17 +445,10 @@ nav {
     position: relative;
 }
 
-.offre_indiv:hover {
+
+.offer_offerpage:hover {
     background-color: #f5f5f5;
     transform: scale(1.03);
-}
-
-.offre_indiv::after {
-    content: "";
-    height: 100%;
-    width: 1px;
-    background-color: #000;
-    margin-left: 15px;
 }
 
 .offer_link{
@@ -448,14 +461,23 @@ nav {
     height: auto;
 }
 
-.details_offre {
+/* Séparation entre le texte et l'image */
+.offer_offerpage::after {
+    content: "";
+    height: 100%;
+    width: 1px;
+    background-color: #000;
+    margin-left: 15px;
+}
+/* Contenu de l'offre */
+.offer_details {
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
-/*Titre de l'offre*/
-.titre_offre {
+/* Titre de l'offre */
+.title_offer {
     font-size: 18px;
     font-weight: bold;
     color: #000;
@@ -463,27 +485,27 @@ nav {
 }
 
 /* Nom de l'entreprise */
-.entreprise_offre {
+.entreprise_offer {
     font-size: 16px;
     color: #333;
 }
 
 /* Ville */
-.offre_ville {
+.ville_offer {
     font-size: 14px;
     color: #555;
 }
 
 /* Date de mise en ligne */
-.offre_date {
+.date_offer {
     font-size: 12px;
     color: #777;
     text-align: right;
     margin-top: auto;
 }
 
-/*Image de l'offre*/
-.offre_image {
+/* Conteneur de l'image */
+.offer_image {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -491,12 +513,20 @@ nav {
     font-weight: bold;
 }
 
-/*Style du bouton des filtres*/
-.contenu_bouton_filtres {
+/* Rendre toute l'offre cliquable */
+.offer_offerpage a {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+
+
+/* Bouton Filtres */
+.filter-button-container {
     margin: 20px 0;
 }
 
-.bouton_filtre {
+.filter-btn {
     padding: 10px 20px;
     background-color: #C6AEEB;
     color: white;
@@ -505,12 +535,12 @@ nav {
     cursor: pointer;
 }
 
-.bouton_filtre:hover {
+.filter-btn:hover {
     background-color: #8A7AE2;
 }
 
-/*Menu des filtres*/
-.filtres {
+/* Menu des filtres */
+.filter-menu {
     display: none;
     padding: 15px;
     background-color: #fff;
@@ -521,19 +551,19 @@ nav {
     border-radius: 5px;
 }
 
-.filtres label {
+.filter-menu label {
     display: block;
     margin-bottom: 5px;
 }
 
-.filtres select {
+.filter-menu select {
     width: 100%;
     padding: 8px;
     font-size: 14px;
     margin-bottom: 15px;
 }
 
-.filtres button {
+.filter-menu button {
     padding: 10px 20px;
     background-color: #28a745;
     color: white;
@@ -542,21 +572,36 @@ nav {
     cursor: pointer;
 }
 
-.filtres button:hover {
+.filter-menu button:hover {
     background-color: #218838;
 }
 
-/*Style pour la page offre_onclick*/
+
+#offer_list {
+    transition: margin-top 0.3s ease;
+    padding-top: 20px;
+}
+
+/*page offreonclick*/
 
 
-.competences {
+
+
+
+
+
+
+
+
+
+.info {
     display: flex;
     align-items: center;
     margin-left: -50px;
     margin-top: -10px;
 }
 
-.competences li {
+.info li {
     list-style-type: none;
     margin-left: 10px;
     border: 2px solid #333;
@@ -565,17 +610,49 @@ nav {
     font-size: 10px;
 }
 
-/*Style du formulaire pour postuler à une offre*/
+#formulaire_offre {
+    font-family: Arial, sans-serif;
+}
 
-.conteneur_formulaire {
+#formulaire-container {
     display: flex;
     flex-direction: column;
 }
 
-.entrees_utilisateur {
+h2 {
+    margin-bottom: 10px;
+}
+
+.input-offre {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
+}
+
+#btnpostul {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+#btnpostul button {
+    width: 10%;
+    padding: 10px;
+    background-color: #C6AEEB;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#btnpostul button:hover {
+    background-color: #8A7AE2;
 }
 
 textarea {
@@ -587,14 +664,11 @@ textarea {
     height: 150px;
 }
 
-.grp_bouton {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 20px;
+button {
+    padding: 10px 20px;
+    font-size: 16px;
 }
 
-/*Style de l'élément pour noter l'entreprise*/
 .note_entreprise {
     display: flex;
     flex-direction: row;
@@ -621,25 +695,26 @@ textarea {
     color: gold;
 }
 
-/*Style de la dashboard*/
-.navbar_dashboard {
+
+/*Menu dashboard admin*/
+.navbar_dashboard_admin {
     list-style: none;
     display: flex;
     justify-content: center;
     padding: 15px;
 }
 
-.navbar_dashboard li {
+.navbar_dashboard_admin li {
     margin: 0 15px;
 }
 
-.navbar_dashboard a {
+.navbar_dashboard_admin a {
     text-decoration: none;
     color: black;
     font-size: 16px;
 }
 
-.contact {
+#contact {
     display: flex;
     flex-direction: column;
     gap: 10px;
