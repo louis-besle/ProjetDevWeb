@@ -1,10 +1,12 @@
+<!-- Template fait -->
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - StageUp</title>
+    <title>Offres - StageUp</title>
     <link rel="icon" href="/static/images/Sta_eUp_2.png">
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
@@ -41,31 +43,54 @@
                 </div>
             </form>
         </div>
+
+        <article class="affichage_offre">
+            <h1>Plus de 5000 offres disponibles !</h1>
+
+            <!-- Bouton pour afficher les filtres -->
+            <div class="contenu_bouton_filtres">
+                <button class="bouton_filtre" id="bouton_filtre">Filtres</button>
+            </div>
+
+            <!-- Menu des filtres -->
+            <div class="filtres" id="filtres">
+                <label for="entreprise">Entreprise :</label>
+                <select id="entreprise" name="entreprise">
+                    <option value="exia">Exia</option>
+                    <option value="google">Google</option>
+                    <option value="microsoft">Microsoft</option>
+                </select>
+
+                <label for="lieu">Lieu :</label>
+                <select id="lieu" name="lieu">
+                    <option value="orleans">Orléans</option>
+                    <option value="paris">Paris</option>
+                    <option value="lyon">Lyon</option>
+                </select>
+
+                <button id="valider">Valider les filtres</button>
+            </div>
+
+            <div class="offre_stage">
+                <a href="offre_onclick.html" class="offer_link">
+                    <div class="offre_indiv">
+                        <div class="details_offre">
+                            <p class="titre_offre">Stage Informatique H/F 1<button class="fav_bouton" onclick="toggleFavoris(this)">💜</button></p>
+                            <p class="entreprise_offre">Exia</p>
+                            <p class="offre_ville">Orléans</p>
+                            <p class="offre_date">Mise en ligne il y a 15h</p>
+                        </div>
+                        <div class="offre_image">
+                            <img src="/static/images/logo-page.png" alt="Logo entreprise">
+                        </div>
+                    </div>
+                </a>
+            </div>
         
-        <ul class="navbar_dashboard">
-            <li><a href="wishlist.html">Wishlist</a></li>
-            <li><a href="cv.html">Mes CV</a></li>
-            <li><a href="offre_postule.html">Offres Postulées</a></li>
-        </ul>
-
-        <div class="offre_stage">
-            <a href="offre_onclick.html" class="offer_link">
-                <div class="offre_indiv">
-                    <div class="details_offre">
-                        <p class="titre_offre">Stage Informatique H/F 1<button class="fav_bouton" onclick="toggleFavoris(this)">💜</button></p>
-                        <p class="entreprise_offre">Exia</p>
-                        <p class="offre_ville">Orléans</p>
-                        <p class="offre_date">Mise en ligne il y a 15h</p>
-                    </div>
-                    <div class="offre_image">
-                        <img src="/static/images/logo-page.png" alt="Logo entreprise">
-                    </div>
-                </div>
-            </a>
-        </div>
-
+        </article>
     </main>
-    <footer id="footerindex">
+
+    <footer>
         <p>
             &copy; 2025 StageUp Tous droits réservés. | <a href="#">Mentions légales - </a>
             <a href="#">Conditions générales d'utilisation - </a>

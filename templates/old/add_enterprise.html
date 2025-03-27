@@ -1,3 +1,5 @@
+<!-- Template fait -->
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -41,31 +43,46 @@
                 </div>
             </form>
         </div>
-        
+
         <ul class="navbar_dashboard">
-            <li><a href="#">Wishlist</a></li>
-            <li><a href="cv.html">Mes CV</a></li>
-            <li><a href="offre_postule.html">Offres Postulées</a></li>
+            <li><a href="add_offer.html">Créer/Modifier une offre</a></li>
+            <li><a href="add_account.html">Gestion des comptes</a></li>
+            <li><a href="add_enterprise.html">Créer/Modifier une entreprise</a></li>
         </ul>
 
-        <div class="offre_stage">
-            <a href="offre_onclick.html" class="offer_link">
-                <div class="offre_indiv">
-                    <div class="details_offre">
-                        <p class="titre_offre">Stage Informatique H/F 1<button class="fav_bouton" onclick="toggleFavoris(this)">💜</button></p>
-                        <p class="entreprise_offre">Exia</p>
-                        <p class="offre_ville">Orléans</p>
-                        <p class="offre_date">Mise en ligne il y a 15h</p>
-                    </div>
-                    <div class="offre_image">
-                        <img src="/static/images/logo-page.png" alt="Logo entreprise">
-                    </div>
-                </div>
-            </a>
-        </div>
+        <form>
+            <h2>Nom de l'entreprise</h2>
+            <input type="text">
 
+            <h2>Villes</h2>
+            <label for="select_ville">Sélectionnez une ville</label>
+            <select id="borne-select_ville">
+                <option value="">-- Choisissez une ville --</option>
+                <option value="ville1">Orléans</option>
+                <option value="ville2">Olivet</option>
+                <option value="ville3">Jargeau</option>
+            </select>
+
+            <h2>Présentation de l'entreprise</h2>
+            <textarea></textarea>
+
+            <h2>Image illustration</h2>
+            <input type="file">
+
+
+            <h2>Contacts</h2>
+            <div class="contact">
+                <label>Téléphone <input type="text"></label>
+                <label>Email <input type="email"></label>
+            </div>
+            <div class="grp_bouton">
+                <button type="submit" class="bouton_">Postuler</button>
+                <button type="reset" class="bouton_">Réinitialiser</button>
+            </div>
+        </form>
+        
     </main>
-    <footer id="footerindex">
+    <footer>
         <p>
             &copy; 2025 StageUp Tous droits réservés. | <a href="#">Mentions légales - </a>
             <a href="#">Conditions générales d'utilisation - </a>
