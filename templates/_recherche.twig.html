@@ -1,17 +1,17 @@
-{% include 'base_haut.twig.html' %}
+{% include 'morceaux/base_haut.twig.html' %}
 
 <body>
-    {% include 'header.twig.html' %}
+    {% include 'morceaux/header.twig.html' %}
     <main>
-        {% include 'menu_recherche.twig.html' %}
+        {% include 'morceaux/menu_recherche.twig.html' %}
 
         <article class="affichage_offre">
             <h1>Plus de 5000 offres disponibles !</h1>
 
-            {% include 'bouton_filtre.twig.html' %}
-            {% include 'offre.twig.html' %}
+            {% include 'morceaux/bouton_filtre.twig.html' %}
+            {% include 'morceaux/offre.twig.html' %}
 
         </article>
     </main>
 </body>
-{% include 'footer.twig.html' %}
+{% include 'morceaux/footer.twig.html' %}
