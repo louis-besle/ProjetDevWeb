@@ -44,6 +44,15 @@ footer p a:focus {
 }
 
 /*Style de la balise main de la page de connexion*/
+.bodyconnexion {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8;
+}
+
 .mainconnexion {
     display: flex;
     flex-direction: column;
@@ -51,7 +60,6 @@ footer p a:focus {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f8f8f8;
 }
 
 /*Style de l'emplacement du logo de la page de connexion*/
@@ -336,6 +344,23 @@ nav {
     background-color: #550A8A;
 }
 
+.fav_bouton {
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    margin-left: 10px;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+}
+
+.fav_bouton.active {
+    color: #FF0000;
+}
+
+
 /*Style du blocc entreprises reconnues par le site sur la page d'accueil*/
 .entreprises_reconnues h1 {
     font-size: 24px;
@@ -406,7 +431,7 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 20px;
+    justify-content: center;
 }
 
 .offre_indiv {
@@ -416,7 +441,7 @@ nav {
     background-color: #fff;
     border-radius: 8px;
     border: 1px solid #ccc;
-    padding: 15px;
+    margin-bottom: 10px;;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     cursor: pointer;
@@ -449,6 +474,8 @@ nav {
 }
 
 .details_offre {
+    padding-top: 10px;
+    padding-left: 25px;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -588,6 +615,7 @@ textarea {
 }
 
 .grp_bouton {
+    justify-content: center;
     display: flex;
     gap: 10px;
     margin-top: 15px;
@@ -643,4 +671,41 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+/* Style du tableau pour affiche les comptes */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+thead {
+    background-color: #C6AEEB;
+    color: white;
+    font-weight: bold;
+}
+
+thead th {
+    padding: 15px;
+    text-align: center;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+tbody td {
+    padding: 10px;
+    color: #333;
 }

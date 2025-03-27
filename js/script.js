@@ -13,3 +13,8 @@ document.getElementById("valider").addEventListener("click", function() {
     document.getElementById("filtres").style.display = "none";
     document.body.classList.remove("show-filters");
 });
+
+function toggleFavoris(element) {
+    element.classList.toggle("active");
+    element.textContent = element.classList.contains("active") ? "❤️" : "💜";
+}

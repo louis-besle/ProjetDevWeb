@@ -44,33 +44,92 @@
 
         <ul class="navbar_dashboard">
             <li><a href="add_offer.html">Créer/Modifier une offre</a></li>
-            <li><a href="add_account.html">Gestion comptes</a></li>
+            <li><a href="add_account.html">Gestion des comptes</a></li>
             <li><a href="add_enterprise.html">Créer/Modifier une entreprise</a></li>
         </ul>
 
-        <form>
-            <h2>Civilité</h2>
-            <select id="borne-select_civilite">
-                <option value="civilite1">Homme</option>
-                <option value="civilite2">Femme</option>
-                <option value="civilite3">Autre</option>
-            </select>
+<form>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Formulaire d'inscription</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><label for="account_type">Civilité</label></td>
+                <td>
+                    <select id="account_type">
+                        <option value="type1">Etudiant</option>
+                        <option value="type2">Pilote</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="nom">Nom</label></td>
+                <td><input type="text" id="nom"></td>
+            </tr>
+            <tr>
+                <td><label for="prenom">Prénom</label></td>
+                <td><input type="text" id="prenom"></td>
+            </tr>
+            <tr>
+                <td><label for="courriel">Courriel</label></td>
+                <td><input type="email" id="courriel"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="grp_bouton">
+                        <button type="submit" class="bouton_">Ajouter</button>
+                        <button type="reset" class="bouton_">Réinitialiser</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
 
-            <h2>Nom</h2>
-            <input type="text">
-            
-            <h2>Prénom</h2>
-            <input type="text">
+        
 
-            <h2>Courriel</h2>
-            <input type="email">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Courriel</th>
+                    <th>Type de compte</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Donnée 1</td>
+                    <td>Donnée 2</td>
+                    <td>Donnée 3</td>
+                    <td>Donnée 4</td>
+                    <td>
+                        <div class="grp_bouton">
+                            <button type="submit" class="bouton_">Ajouter</button>
+                            <button type="submit" class="bouton_">Supprimer</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Donnée 6</td>
+                    <td>Donnée 7</td>
+                    <td>Donnée 8</td>
+                    <td>Donnée 9</td>
+                    <td>
+                        <div class="grp_bouton">
+                            <button type="submit" class="bouton_">Ajouter</button>
+                            <button type="submit" class="bouton_">Supprimer</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-            <div class="grp_bouton">
-                <button type="submit" class="bouton_">Postuler</button>
-                <button type="reset" class="bouton_">Réinitialiser</button>
-            </div>
 
-        </form>
     </main>
     <footer>
         <p>
