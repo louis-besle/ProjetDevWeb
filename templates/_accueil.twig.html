@@ -1,9 +1,9 @@
-{% include 'morceaux/base_haut.twig.html' %}
+{% include 'composants/base_haut.twig.html' %}
 
 <body>
-    {% include 'morceaux/header.twig.html' %}
+    {% include 'composants/header.twig.html' %}
     <main>
-        {% include 'morceaux/menu_recherche.twig.html' %}
+        {% include 'composants/menu_recherche.twig.html' %}
 
         <article class="article_bienvenue">
             <h1>Bienvenue sur StageUp !</h1>
@@ -29,7 +29,7 @@
                     <p class="entreprise_derniere_offre">EXIA</p>
                     <div class="informations">
                         <p>Date de mise en ligne 24/02/2025</p>
-                        <a href="offre_onclick.html">Voir l'offre</a>
+                        <a href="/?uri=offre">Voir l'offre</a>
                         <button class="fav_bouton" onclick="toggleFavoris(this)">💜</button>
                     </div>
                 </div>
@@ -80,7 +80,6 @@
 
             </div>
         </article>
-
     </main>
 </body>
-{% include 'morceaux/footer.twig.html' %}
+{% include 'composants/footer.twig.html' %}

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "vendor/autoload.php"; // Chargement des dépendances
+require "../vendor/autoload.php"; // Chargement des dépendances
 
 // Importation de la classe SiteController
 use App\Controllers\SiteController;
@@ -8,7 +8,7 @@ use App\Controllers\SiteController;
 use App\Controllers\AuthController;
 
 // Initialisation de Twig
-$loader = new \Twig\Loader\FilesystemLoader('templates');
+$loader = new \Twig\Loader\FilesystemLoader('../templates');
 $twig = new \Twig\Environment($loader, [
     'debug' => true
 ]);

@@ -1,18 +1,18 @@
-{% include 'morceaux/base_haut.twig.html' %}
+{% include 'composants/base_haut.twig.html' %}
 
 <body>
-    {% include 'morceaux/header.twig.html' %}
+    {% include 'composants/header.twig.html' %}
     <main>
-        {% include 'morceaux/menu_recherche.twig.html' %}
+        {% include 'composants/menu_recherche.twig.html' %}
 
         <article class="affichage_offre">
             <h1>Plus de 5000 offres disponibles !</h1>
 
-            {% include 'morceaux/bouton_filtre.twig.html' %}
-            {% include 'morceaux/offre.twig.html' %}
-            {% include 'morceaux/entreprise.twig.html' %}
+            {% include 'composants/bouton_filtre.twig.html' %}
+            {% include 'composants/offre.twig.html' %}
+            {% include 'composants/entreprise.twig.html' %}
 
         </article>
     </main>
 </body>
-{% include 'morceaux/footer.twig.html' %}
+{% include 'composants/footer.twig.html' %}

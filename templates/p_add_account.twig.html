@@ -1,16 +1,17 @@
-{% include 'morceaux/base_haut.twig.html' %}
+{% include 'composants/base_haut.twig.html' %}
 
 <body>
-    {% include 'morceaux/header.twig.html' %}
+    {% include 'composants/header.twig.html' %}
     <main>
-        {% include 'morceaux/menu_recherche.twig.html' %}
+        {% include 'composants/menu_recherche.twig.html' %}
 
-        {% include 'morceaux/navbar_dashboard.twig.html' %}
+        {% include 'composants/navbar_dashboard.twig.html' %}
 
-        {% include 'fmorceaux/ormulaire_add_account.twig.html' %}
+        {% include 'fcomposants/formulaire_add_account_pilote.twig.html' %}
 
-        {% include 'morceaux/affichage_account_pilote.twig.html' %}
+        {% include 'composants/affichage_account_pilote.twig.html' %}
 
     </main>
 </body>
-{% include 'fmorceaux/footer.twig.html' %}
+<script src="/static/js/formulaire_add_account.js"></script>
+{% include 'fcomposants/footer.twig.html' %}

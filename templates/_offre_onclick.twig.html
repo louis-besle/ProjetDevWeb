@@ -1,9 +1,9 @@
-{% include 'morceaux/base_haut.twig.html' %}
+{% include 'composants/base_haut.twig.html' %}
 
 <body>
-    {% include 'morceaux/header.twig.html' %}
+    {% include 'composants/header.twig.html' %}
     <main>
-        {% include 'morceaux/menu_recherche.twig.html' %}
+        {% include 'composants/menu_recherche.twig.html' %}
         <h1>Stagiaire Informatique H/F<button class="fav_bouton" onclick="toggleFavoris(this)">💜</button></h1>
         <h3>Résumé de l'offre</h3>
 
@@ -52,37 +52,28 @@
         <div class="conteneur_formulaire">
             <h2>Votre message au recruteur</h2>
 
-            <form action="#">
+            <form id="formulaire_offre" action="/?uri=postuler" method="POST" enctype="multipart/form-data">
                 <div class="entrees_utilisateur">
-                    <textarea id="description" name="description" placeholder="Écrivez quelque chose..."></textarea>
+                    <textarea id="description" name="description" placeholder="Écrivez quelque chose..."
+                        required></textarea>
                 </div>
 
                 <div class="entrees_utilisateur">
                     <label for="fichier">Lettre de motivation</label>
-                    <input type="file" id="fichier" name="fichier" class="file-input" onchange="updateFileName()">
+                    <input type="file" id="fichier" name="fichier" class="file-input"
+                        accept=".pdf,.doc,.docx,.txt,.odt" required>
                 </div>
 
                 <h2>Informations supplémentaires</h2>
-                <p>Le développement informatique est un domaine en constante évolution, où les technologies, les
-                    langages et les outils progressent à un rythme effréné. Chaque jour, de nouvelles innovations
-                    voient le jour,
-                    offrant aux développeurs des solutions toujours plus performantes pour répondre aux besoins du
-                    marché. Que
-                    ce soit dans le domaine du web, de l'intelligence artificielle ou encore de la cybersécurité,
-                    les opportunités
-                    sont nombreuses et variées. Il est essentiel pour tout professionnel de rester à jour sur les
-                    tendances,
-                    d'expérimenter de nouvelles approches et d'adopter les bonnes pratiques pour garantir des
-                    résultats optimaux.</p>
+                <p>Le développement informatique est un domaine en constante évolution...</p>
 
                 <div class="grp_bouton">
                     <button type="submit" class="bouton_">Postuler</button>
                     <button type="reset" class="bouton_">Réinitialiser</button>
                 </div>
             </form>
-
         </div>
-
     </main>
 </body>
-{% include 'morceaux/footer.twig.html' %}
+<script src="/static/js/formulaire_postuler_offre.js"></script>
+{% include 'composants/footer.twig.html' %}

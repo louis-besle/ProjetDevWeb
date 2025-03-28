@@ -1,0 +1,41 @@
+<form id="registration_form" method="POST" action="/?uri=formulaire_compte">
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Formulaire d'inscription</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><label for="account_type">Type</label></td>
+                <td>
+                    <select id="account_type" name="account_type" required>
+                        <option value="type1">Etudiant</option>
+                        <option value="type2">Pilote</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="nom">Nom</label></td>
+                <td><input type="text" id="nom" name="nom" pattern="[A-Za-zéèêëàâäôöùûüç]+" required autocomplete="name"></td>
+            </tr>
+            <tr>
+                <td><label for="prenom">Prénom</label></td>
+                <td><input type="text" id="prenom" name="prenom" pattern="[A-Za-zéèêëàâäôöùûüç]+" required autocomplete="given-name"></td>
+            </tr>
+            <tr>
+                <td><label for="courriel">Courriel</label></td>
+                <td><input type="email" id="courriel" name="courriel" required autocomplete="email"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="grp_bouton">
+                        <button type="submit" class="bouton_">Ajouter</button>
+                        <button type="reset" class="bouton_">Réinitialiser</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>    
+</form>
