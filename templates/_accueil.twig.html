@@ -1,5 +1,9 @@
 {% include 'composants/base_haut.twig.html' %}
 
+{% for info in infos %}
+<h1>{{info}}</h1>
+{% endfor %}
+
 <body>
     {% include 'composants/header.twig.html' %}
     <main>
