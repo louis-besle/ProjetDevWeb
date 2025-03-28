@@ -23,9 +23,10 @@ class AuthController extends Controller {
                 if($email === $user['email'] && $motDePasse === $user['mot_de_passe']) {
                     // Stocker l'utilisateur en session
                     $_SESSION['user'] = [
-                        'id' => $user['id_utilisateurs'],
-                        'nom' => $user['nom'],
-                        'role' => $user['role'],
+                        'id' => $user['id_utilisateur'],
+                        'nom' => $user['nom_utilisateur'],
+                        'prenom' => $user['prenom_utilisateur'],
+                        'role' => $this->connection->getRecordById('Role',$user['id_role'])['nom_role'],
                         'dateConnexion' => date('Y-m-d H:i:s')
                     ];
                     $isvalid = true;

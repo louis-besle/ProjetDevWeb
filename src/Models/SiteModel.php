@@ -13,4 +13,7 @@ class SiteModel extends Model
         }
     }
 
+    public function getInfos() {
+        return $_SESSION['user'];
+    }
 }

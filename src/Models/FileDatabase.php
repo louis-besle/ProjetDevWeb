@@ -23,4 +23,9 @@ class FileDatabase implements Database
         return $sql->fetchAll();
     }
 
+    public function getRecordById($table,$id) {
+        $sql = $this->pdo->query("SELECT * FROM {$table} WHERE id_{$table} = {$id}");
+        return $sql->fetch();
+    }
+
 }
