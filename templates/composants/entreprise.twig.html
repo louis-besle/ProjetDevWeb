@@ -1,16 +1,22 @@
-<div class="offre_stage">
-    <a href="/?uri=entreprise" class="offer_link">
-        <div class="offre_indiv">
-            <div class="details_offre">
-                <p class="titre_offre">eXia<button class="fav_bouton"
-                        onclick="toggleFavoris(this)">💜</button></p>
-                <p class="entreprise_offre">Orléans</p>
-                <p class="offre_ville">Informatique</p>
-                <p class="offre_date">Mise en ligne il y a 15h</p>
+{% for entreprise in entreprises %}
+    <div class="entreprise">
+        <a href="/?uri=entreprise&id={{ entreprise.id }}" class="offer_link">
+            <div class="offre_indiv">
+                <div class="details_offre">
+                    <p class="titre_offre">
+                        {{ entreprise.nom }} 
+                        <button class="fav_bouton" onclick="toggleFavoris(this)">💜</button>
+                    </p>
+                    <p class="entreprise_nom">{{ entreprise.nom }}</p>
+                    <p class="entreprise_ville">{{ entreprise.ville }}</p>
+                    <p class="entreprise_miseenligne">{{ entreprise.miseenligne }}</p>
+                </div>
+                <div class="entreprise_image">
+                    <img src="/static/images/logo-page.png" alt="Logo entreprise">
+                </div>
             </div>
-            <div class="offre_image">
-                <img src="/static/images/logo-page.png" alt="Logo entreprise">
-            </div>
-        </div>
-    </a>
-</div>
+        </a>
+    </div>
+{% else %}
+    <p>Aucune entreprise trouvée.</p>
+{% endfor %}
