@@ -20,7 +20,7 @@ class AuthController extends Controller {
             // Vérification de l'utilisateur
             $users = $this->connection->getAllRecords('Utilisateurs');
             foreach ($users as $user){
-                if($email === $user['email'] && $motDePasse === $user['mot_de_passe']) {
+                if($email === $user['email'] && password_verify($motDePasse, $user['mot_de_passe'])) {
                     // Stocker l'utilisateur en session
                     $_SESSION['user'] = [
                         'id' => $user['id_utilisateur'],
@@ -36,17 +36,16 @@ class AuthController extends Controller {
                 header("Location: ?uri=accueil");
                 exit();
             } else {
-                echo $motDePasse;
-                echo $user['mot_de_passe'];
+                header("Location: /");
             }
         } else {
-            header("Location: /full.php");
+            header("Location: /");
         }
     }
 
     public function logout() {
         session_destroy();
-        header("Location: /hdtp.php");
+        header("Location: /");
         exit();
     }
 }
