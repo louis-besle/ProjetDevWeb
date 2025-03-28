@@ -45,7 +45,7 @@ class AuthController extends Controller {
 
     public function logout() {
         session_destroy();
-        header("Location: /hdtp.php");
+        header("Location: /");
         exit();
     }
 }
