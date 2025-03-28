@@ -1,15 +1,20 @@
 <div class="menu_recherche">
-    <form class="recherche">
+    <form class="recherche" method="POST" action="/?uri=recherche">
         <label for="quoi">Quoi :</label>
-        <input type="text" id="quoi" name="quoi" placeholder="Que recherchez-vous ?">
-
+        <input type="search" id="quoi" name="quoi" placeholder="Que recherchez-vous ?" 
+            required maxlength="100" pattern="^[a-zA-Z0-9À-ÿ '-]{1,100}$" autocomplete="off">
+    
         <label for="ou">Où :</label>
-        <input type="text" id="ou" name="ou" placeholder="Où ?">
+        <input type="search" id="ou" name="ou" placeholder="Où ?" 
+            required maxlength="100" pattern="^[a-zA-Z0-9À-ÿ '-]{1,100}$" autocomplete="off">
+    
         <div class="bouton_recherche">
-            <button type="reset" class="bouton_"><img src="/static/images/refresh-ccw_1.png"
-                    alt="refresh-ccw_1">Réinitialiser</button>
-            <button type="submit" class="bouton_"><img src="/static/images/search_1.png"
-                    alt="search_1">Rechercher</button>
+            <button type="reset" class="bouton_">
+                <img src="/static/images/refresh-ccw_1.png" alt="Réinitialiser">Réinitialiser
+            </button>
+            <button type="submit" class="bouton_">
+                <img src="/static/images/search_1.png" alt="Rechercher">Rechercher
+            </button>
         </div>
     </form>
 </div>

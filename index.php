@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../vendor/autoload.php"; // Chargement des dépendances
+require "vendor/autoload.php"; // Chargement des dépendances
 
 // Importation de la classe SiteController
 use App\Controllers\SiteController;
@@ -8,7 +8,7 @@ use App\Controllers\SiteController;
 use App\Controllers\AuthController;
 
 // Initialisation de Twig
-$loader = new \Twig\Loader\FilesystemLoader('../templates');
+$loader = new \Twig\Loader\FilesystemLoader('templates');
 $twig = new \Twig\Environment($loader, [
     'debug' => true
 ]);
@@ -45,6 +45,31 @@ switch ($uri) {
     case 'logout':
         $authController->logout();
         break;
+    case 'dashboard':
+        $controller->_Page_Dashboard();
+        break;
+    case 'wishlist':
+        $controller->_Page_Wishlist();
+        break;
+    case 'cv':
+        $controller->_Page_CV();
+        break;
+    case 'offres_postulees':
+        $controller->_Page_OffrePostulees();
+        break;
+
+
+    case 'ajouter_offre':
+        $controller->_Page_Ajouter_Offre();
+        break;
+    case 'ajouter_compte':
+        $controller->_Page_Ajouter_Compte();
+        break;
+    case 'ajouter_entreprise':
+        $controller->_Page_Ajouter_Entreprise();
+        break;
+
+
     default:
         echo '404 Not Found';
         break;

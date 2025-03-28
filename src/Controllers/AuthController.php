@@ -1,52 +1,45 @@
-<?php 
+<?php
+
 namespace App\Controllers;
 
-use App\Models\FileDatabase;
+use App\Models\UserModel;
 
-class AuthController extends Controller {
-    private $connection;
-    public function __construct($connection = null) {
-        if(is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
-        } else {
-            $this->connection = $connection;
-        }
+class AuthController extends Controller
+{
+    private $userModel;
+
+    public function __construct($connection = null)
+    {
+        $this->userModel = new UserModel($connection);
     }
-    public function login() {
+
+    public function login()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $motDePasse = $_POST['password'];
-            $isvalid = false;
-            // Vérification de l'utilisateur
-            $users = $this->connection->getAllRecords('Utilisateurs');
-            foreach ($users as $user){
-                if($email === $user['email'] && $motDePasse === $user['mot_de_passe']) {
-                    // Stocker l'utilisateur en session
-                    $_SESSION['user'] = [
-                        'id' => $user['id_utilisateur'],
-                        'nom' => $user['nom_utilisateur'],
-                        'prenom' => $user['prenom_utilisateur'],
-                        'role' => $this->connection->getRecordById('Role',$user['id_role'])['nom_role'],
-                        'dateConnexion' => date('Y-m-d H:i:s')
-                    ];
-                    $isvalid = true;
-                }
-            }
-            if ($isvalid) {
+
+            $user = $this->userModel->getUserByEmail($email);
+
+            if ($user && $motDePasse === $user['mot_de_passe']) {
+                $_SESSION['user'] = [
+                    'id' => $user['id_utilisateur'],
+                    'nom' => $user['nom_utilisateur'],
+                    'prenom' => $user['prenom_utilisateur'],
+                    'role' => $this->userModel->getRoleById($user['id_role']),
+                    'dateConnexion' => date('Y-m-d H:i:s')
+                ];
                 header("Location: ?uri=accueil");
                 exit();
-            } else {
-                echo $motDePasse;
-                echo $user['mot_de_passe'];
             }
-        } else {
-            header("Location: /full.php");
         }
+        header("Location: /");
     }
 
-    public function logout() {
+    public function logout()
+    {
         session_destroy();
-        header("Location: /hdtp.php");
+        header("Location: /");
         exit();
     }
 }
