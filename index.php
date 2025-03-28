@@ -1,10 +1,11 @@
 <?php
-
 session_start();
 require "vendor/autoload.php"; // Chargement des dépendances
 
 // Importation de la classe SiteController
 use App\Controllers\SiteController;
+// Importation de la classe SiteController
+use App\Controllers\AuthController;
 
 // Initialisation de Twig
 $loader = new \Twig\Loader\FilesystemLoader('templates');
@@ -20,6 +21,7 @@ if (isset($_GET['uri'])) {
 }
 
 $controller = new SiteController($twig);
+$authController = new AuthController();
 
 switch ($uri) {
     case '/':
@@ -36,6 +38,12 @@ switch ($uri) {
         break;
     case 'entreprise':
         $controller->_Page_EntrepriseOnClick();
+        break;
+    case 'login':
+        $authController->login();
+        break;
+    case 'logout':
+        $authController->logout();
         break;
     default:
         echo '404 Not Found';
