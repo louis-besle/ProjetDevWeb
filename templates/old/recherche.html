@@ -1,0 +1,106 @@
+<!-- Template fait -->
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres - StageUp</title>
+    <link rel="icon" href="/static/images/Sta_eUp_2.png">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="accueil.html"><img src="/static/images/Sta_eUp_3.png" alt="logo"></a>
+            </div>
+
+            <div class="menu">
+                <ul class="menu_interact">
+                    <li><a href="recherche.html"><img src="/static/images/book-open-white.png" alt="offres">Recherches</a></li>
+                    <li><a href="dashboard.html"><img src="/static/images/Account.png" alt="account">Dashboard</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="menu_recherche">
+            <form class="recherche">
+                <label for="quoi">Quoi :</label>
+                <input type="text" id="quoi" name="quoi" placeholder="Que recherchez-vous ?">
+
+                <label for="ou">Où :</label>
+                <input type="text" id="ou" name="ou" placeholder="Où ?">
+                <div class="bouton_recherche">
+                    <button type="reset" class="bouton_"><img src="/static/images/refresh-ccw_1.png"
+                            alt="refresh-ccw_1">Réinitialiser</button>
+                    <button type="submit" class="bouton_"><img src="/static/images/search_1.png"
+                            alt="search_1">Rechercher</button>
+                </div>
+            </form>
+        </div>
+
+        <article class="affichage_offre">
+            <h1>Plus de 5000 offres disponibles !</h1>
+
+            <!-- Bouton pour afficher les filtres -->
+            <div class="contenu_bouton_filtres">
+                <button class="bouton_filtre" id="bouton_filtre">Filtres</button>
+            </div>
+
+            <!-- Menu des filtres -->
+            <div class="filtres" id="filtres">
+                <label for="entreprise">Entreprise :</label>
+                <select id="entreprise" name="entreprise">
+                    <option value="exia">Exia</option>
+                    <option value="google">Google</option>
+                    <option value="microsoft">Microsoft</option>
+                </select>
+
+                <label for="lieu">Lieu :</label>
+                <select id="lieu" name="lieu">
+                    <option value="orleans">Orléans</option>
+                    <option value="paris">Paris</option>
+                    <option value="lyon">Lyon</option>
+                </select>
+
+                <button id="valider">Valider les filtres</button>
+            </div>
+
+            <div class="offre_stage">
+                <a href="offre_onclick.html" class="offer_link">
+                    <div class="offre_indiv">
+                        <div class="details_offre">
+                            <p class="titre_offre">Stage Informatique H/F 1<button class="fav_bouton" onclick="toggleFavoris(this)">💜</button></p>
+                            <p class="entreprise_offre">Exia</p>
+                            <p class="offre_ville">Orléans</p>
+                            <p class="offre_date">Mise en ligne il y a 15h</p>
+                        </div>
+                        <div class="offre_image">
+                            <img src="/static/images/logo-page.png" alt="Logo entreprise">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        
+        </article>
+    </main>
+
+    <footer>
+        <p>
+            &copy; 2025 StageUp Tous droits réservés. | <a href="#">Mentions légales - </a>
+            <a href="#">Conditions générales d'utilisation - </a>
+            <a href="#">Politique de confidentialité des données - </a>
+            <a href="#">Cookies - </a>
+            <a href="#">Contact</a>
+        </p>
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+</body>
+
+</html>
