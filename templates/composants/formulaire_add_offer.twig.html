@@ -3,47 +3,27 @@
     <input type="text" id="offer_title" name="offer_title" required placeholder="Titre de l'offre">
 
     <h2>Entreprises</h2>
-    <div>
-        <label>
-            <input type="radio" name="entreprise" value="eXia1" required> eXia1
-        </label>
-        <label>
-            <input type="radio" name="entreprise" value="eXia2" required> eXia2
-        </label>
-        <label>
-            <input type="radio" name="entreprise" value="eXia3" required> eXia3
-        </label>
-        <label>
-            <input type="radio" name="entreprise" value="eXia4" required> eXia4
-        </label>
-        <label>
-            <input type="radio" name="entreprise" value="eXia5" required> eXia5
-        </label>
-        <label>
-            <input type="radio" name="entreprise" value="eXia6" required> eXia6
-        </label>
-    </div>
+    <label for="borne-select_entreprise">Sélectionnez une entreprise</label>
+    <select id="borne-select_entreprise" name="entreprise" required>
+        <option value="">-- Choisissez une entreprise --</option>
+        {% for ent in entreprise %}
+            <option value="{{ ent.id_offre }}">{{ ent.nom }}</option>
+        {% endfor %}
+    </select>
 
     <h2>Villes</h2>
     <label for="borne-select_ville">Sélectionnez une ville</label>
     <select id="borne-select_ville" name="ville" required>
         <option value="">-- Choisissez une ville --</option>
-        <option value="ville1">Orléans</option>
-        <option value="ville2">Olivet</option>
-        <option value="ville3">Jargeau</option>
+        {% for v in ville %}
+        <option value="{{ v.id_ville }}">{{ v.nom_ville }}</option>
+        {% endfor %}
+
     </select>
 
     <h2>Durée du stage</h2>
-    <input type="text" id="duration" name="duration" required placeholder="Durée du stage">
-
-    <h2>Secteur d'activité</h2>
-    <label for="sector_select">Sélectionnez un secteur d'activité</label>
-    <select id="sector_select" name="sector" required>
-        <option value="">-- Choisissez un secteur d'activité --</option>
-        <option value="informatique">Informatique</option>
-        <option value="btp">BTP</option>
-        <option value="industrie">Industrie</option>
-    </select>
+    <input type="text" id="duration" name="duration" required placeholder="Date début du stage">
+    <input type="text" id="duration" name="duration" required placeholder="Date fin du stage">
 
     <h2>Niveau d'étude requis</h2>
     <label for="borne-select_niveau">Sélectionnez un niveau d'étude</label>
@@ -55,13 +35,15 @@
     </select>
 
     <h2>Présentation du poste</h2>
-    <textarea id="job_description" name="job_description" required placeholder="Détaillez la présentation du poste"></textarea>
+    <textarea id="job_description" name="job_description" required
+        placeholder="Détaillez la présentation du poste"></textarea>
 
     <h2>Profil requis</h2>
     <textarea id="profile" name="profile" required placeholder="Détaillez le profil requis pour le poste"></textarea>
 
     <h2>Informations supplémentaires</h2>
-    <textarea id="additional_info" name="additional_info" placeholder="Ajoutez des informations supplémentaires"></textarea>
+    <textarea id="additional_info" name="additional_info"
+        placeholder="Ajoutez des informations supplémentaires"></textarea>
 
     <div class="grp_bouton">
         <button type="submit" class="bouton_">Postuler</button>

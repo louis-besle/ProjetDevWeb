@@ -61,7 +61,9 @@ class SiteController extends Controller
     }
     public function _Page_Ajouter_Offre()
     {
-        echo $this->templateEngine->render('_add_offer.twig.html');
+        $entreprise = $this->model->getEntreprise();
+        $ville = $this->model->getVille();
+        echo $this->templateEngine->render('_add_offer.twig.html', ['entreprise' => $entreprise ,'ville' => $ville]);
     }
     public function _Page_Ajouter_Compte()
     {

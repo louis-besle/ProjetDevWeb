@@ -16,4 +16,11 @@ class SiteModel extends Model
     public function getInfos() {
         return $_SESSION['user'];
     }
+
+    public function getEntreprise() {
+        return $this->connection->getAllRecords('entreprises');
+    }
+    public function getVille() {
+        return $this->connection->getAllRecords('ville');
+    }
 }
