@@ -7,7 +7,7 @@ class AuthController extends Controller {
     private $connection;
     public function __construct($connection = null) {
         if(is_null($connection)) {
-            $this->connection = new FileDatabase('','','','');
+            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
         } else {
             $this->connection = $connection;
         }
@@ -15,34 +15,37 @@ class AuthController extends Controller {
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
-            $motDePasse = $_POST['motDePasse'];
-
+            $motDePasse = $_POST['password'];
+            $isvalid = false;
             // Vérification de l'utilisateur
-            $user = $this->connection->getAllRecords('utilisateurs');
-
-            if ($email === $user['email'] && $motDePasse === $user['motDePasse']) {
-                // Stocker l'utilisateur en session
-                $_SESSION['user'] = [
-                    'id' => $user['id_utilisateurs'],
-                    'nom' => $user['email'],
-                    'role' => $user['role'],
-                    'dateConnexion' => date('Y-m-d H:i:s')
-                ];
-
-                // Rediriger selon le rôle
-                header("Location: ?uri=role");
+            $users = $this->connection->getAllRecords('Utilisateurs');
+            foreach ($users as $user){
+                if($email === $user['email'] && $motDePasse === $user['mot_de_passe']) {
+                    // Stocker l'utilisateur en session
+                    $_SESSION['user'] = [
+                        'id' => $user['id_utilisateurs'],
+                        'nom' => $user['nom'],
+                        'role' => $user['role'],
+                        'dateConnexion' => date('Y-m-d H:i:s')
+                    ];
+                    $isvalid = true;
+                }
+            }
+            if ($isvalid) {
+                header("Location: ?uri=accueil");
                 exit();
             } else {
-                header("Location: ?uri=connexion");
+                echo $motDePasse;
+                echo $user['mot_de_passe'];
             }
         } else {
-            header("Location: ?uri=connexion");
+            header("Location: /full.php");
         }
     }
 
     public function logout() {
         session_destroy();
-        header("Location: ?uri=connexion");
+        header("Location: /hdtp.php");
         exit();
     }
 }
