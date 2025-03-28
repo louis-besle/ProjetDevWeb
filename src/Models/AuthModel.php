@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+class AuthModel extends Model
+{
+    public function __construct($connection = null)
+    {
+        if (is_null($connection)) {
+            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+        } else {
+            $this->connection = $connection;
+        }
+    }
+
+    public function connexion($email,$motDePasse) {
+        $isvalid = false;
+        // Vérification de l'utilisateur
+        $users = $this->connection->getAllRecords('Utilisateurs');
+        foreach ($users as $user){
+            if($email === $user['email'] && password_verify($motDePasse, $user['mot_de_passe'])) {
+                // Stocker l'utilisateur en session
+                $_SESSION['user'] = [
+                    'id' => $user['id_utilisateur'],
+                    'nom' => $user['nom_utilisateur'],
+                    'prenom' => $user['prenom_utilisateur'],
+                    'role' => $this->connection->getRecordById('Role',$user['id_role'])['nom_role'],
+                    'dateConnexion' => date('Y-m-d H:i:s')
+                ];
+                $isvalid = true;
+            }
+        }
+        return $isvalid;
+    }
+}
