@@ -1,14 +1,15 @@
-{% include 'morceaux/base_haut.twig.html' %}
+{% include 'composants/base_haut.twig.html' %}
 
 <body>
-    {% include 'morceaux/header.twig.html' %}
+    {% include 'composants/header.twig.html' %}
     <main>
-        {% include 'morceaux/menu_recherche.twig.html' %}
+        {% include 'composants/menu_recherche.twig.html' %}
 
-        {% include 'morceaux/navbar_dashboard_e.twig.html' %}
+        {% include 'composants/navbar_dashboard_e.twig.html' %}
 
-        {% include 'morceaux/formulaire_cv.twig.html' %}
+        {% include 'composants/formulaire_cv.twig.html' %}
 
     </main>
 </body>
-{% include 'morceaux/footer.twig.html' %}
+<script src="/static/js/formulaire_cv.js"></script>
+{% include 'composants/footer.twig.html' %}
