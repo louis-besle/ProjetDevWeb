@@ -1,0 +1,147 @@
+<!-- Template fait -->
+
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres - StageUp</title>
+    <link rel="icon" href="/static/images/Sta_eUp_2.png">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="accueil.html"><img src="/static/images/Sta_eUp_3.png" alt="logo"></a>
+            </div>
+
+            <div class="menu">
+                <ul class="menu_interact">
+                    <li><a href="recherche.html"><img src="/static/images/book-open-white.png" alt="offres">Recherches</a></li>
+                    <li><a href="dashboard.html"><img src="/static/images/Account.png" alt="account">Dashboard</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="menu_recherche">
+            <form class="recherche">
+                <label for="quoi">Quoi :</label>
+                <input type="text" id="quoi" name="quoi" placeholder="Que recherchez-vous ?">
+
+                <label for="ou">Où :</label>
+                <input type="text" id="ou" name="ou" placeholder="Où ?">
+                <div class="bouton_recherche">
+                    <button type="reset" class="bouton_"><img src="/static/images/refresh-ccw_1.png"
+                            alt="refresh-ccw_1">Réinitialiser</button>
+                    <button type="submit" class="bouton_"><img src="/static/images/search_1.png"
+                            alt="search_1">Rechercher</button>
+                </div>
+            </form>
+        </div>
+
+
+
+
+        <h1>Stagiaire Informatique H/F<button class="fav_bouton" onclick="toggleFavoris(this)">💜</button></h1>
+        <h3>Résumé de l'offre</h3>
+
+        <ul class="competences">
+            <li>3 mois</li>
+            <li>Bac +2, Bac +3</li>
+            <li>Systèmes, Réseaux, Cloud</li>
+            <li>Exp. - 1 ans</li>
+        </ul>
+        <p>Nombre de personne ayant postulées à cette offre : 42</p>
+        <img src="#" alt="image de l'entreprise">
+        <h2>Présentation de l'entreprise</h2>
+        <p>Le développement informatique est un domaine en constante évolution, où les technologies, les langages et
+            les
+            outils progressent à un rythme effréné. Chaque jour, de nouvelles innovations voient le jour, offrant
+            aux
+            développeurs des solutions toujours plus performantes pour répondre aux besoins du marché. Que ce soit
+            dans
+            le domaine du web, de l'intelligence artificielle ou encore de la cybersécurité, les opportunités sont
+            nombreuses et variées. Il est essentiel pour tout professionnel de rester à jour sur les tendances,
+            d'expérimenter de nouvelles approches et d'adopter les bonnes pratiques pour garantir des résultats
+            optimaux.</p>
+        <h2>Présentation du poste</h2>
+        <p>Le développement informatique est un domaine en constante évolution, où les technologies, les langages et
+            les
+            outils progressent à un rythme effréné. Chaque jour, de nouvelles innovations voient le jour, offrant
+            aux
+            développeurs des solutions toujours plus performantes pour répondre aux besoins du marché. Que ce soit
+            dans
+            le domaine du web, de l'intelligence artificielle ou encore de la cybersécurité, les opportunités sont
+            nombreuses et variées. Il est essentiel pour tout professionnel de rester à jour sur les tendances,
+            d'expérimenter de nouvelles approches et d'adopter les bonnes pratiques pour garantir des résultats
+            optimaux.</p>
+        <h2>Profil requis</h2>
+        <p>Le développement informatique est un domaine en constante évolution, où les technologies, les langages et
+            les
+            outils progressent à un rythme effréné. Chaque jour, de nouvelles innovations voient le jour, offrant
+            aux
+            développeurs des solutions toujours plus performantes pour répondre aux besoins du marché. Que ce soit
+            dans
+            le domaine du web, de l'intelligence artificielle ou encore de la cybersécurité, les opportunités sont
+            nombreuses et variées. Il est essentiel pour tout professionnel de rester à jour sur les tendances,
+            d'expérimenter de nouvelles approches et d'adopter les bonnes pratiques pour garantir des résultats
+            optimaux.</p>
+
+            <div class="conteneur_formulaire">
+                <h2>Votre message au recruteur</h2>
+
+                <form action="#">
+                    <div class="entrees_utilisateur">
+                        <textarea id="description" name="description" placeholder="Écrivez quelque chose..."></textarea>
+                    </div>
+
+                    <div class="entrees_utilisateur">
+                        <label for="fichier">Lettre de motivation</label>
+                        <input type="file" id="fichier" name="fichier" class="file-input" onchange="updateFileName()">
+                    </div>
+
+                    <h2>Informations supplémentaires</h2>
+                    <p>Le développement informatique est un domaine en constante évolution, où les technologies, les
+                        langages et les outils progressent à un rythme effréné. Chaque jour, de nouvelles innovations
+                        voient le jour,
+                        offrant aux développeurs des solutions toujours plus performantes pour répondre aux besoins du
+                        marché. Que
+                        ce soit dans le domaine du web, de l'intelligence artificielle ou encore de la cybersécurité,
+                        les opportunités
+                        sont nombreuses et variées. Il est essentiel pour tout professionnel de rester à jour sur les
+                        tendances,
+                        d'expérimenter de nouvelles approches et d'adopter les bonnes pratiques pour garantir des
+                        résultats optimaux.</p>
+
+                    <div class="grp_bouton">
+                        <button type="submit" class="bouton_">Postuler</button>
+                        <button type="reset" class="bouton_">Réinitialiser</button>
+                    </div>
+                </form>
+
+            </div>
+
+
+    </main>
+
+    <footer>
+        <p>
+            &copy; 2025 StageUp Tous droits réservés. |
+            <a href="#">Mentions légales</a> -
+            <a href="#">Conditions générales d'utilisation</a> -
+            <a href="#">Politique de confidentialité</a> -
+            <a href="#">Cookies</a> -
+            <a href="#">Contact</a>
+        </p>
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+</body>
+
+</html>
