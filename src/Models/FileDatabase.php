@@ -18,10 +18,14 @@ class FileDatabase implements Database
         }
     }
 
-    public function getAllRecords($table)
-    {}
+    public function getAllRecords($table) {
+        $sql = $this->pdo->query("SELECT * FROM {$table}");
+        return $sql->fetchAll();
+    }
 
-    public function getRecord($table,$id)
-    {}
+    public function getRecordById($table,$id) {
+        $sql = $this->pdo->query("SELECT * FROM {$table} WHERE id_{$table} = {$id}");
+        return $sql->fetch();
+    }
 
 }
