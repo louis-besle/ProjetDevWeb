@@ -25,6 +25,18 @@ switch ($uri) {
     case '/':
         $controller->_Page_Connexion();
         break;
+    case 'accueil':
+        $controller->_Page_Accueil();
+        break;
+    case 'recherche':
+        $controller->_Page_Recherche();
+        break;
+    case 'offre':
+        $controller->_Page_OffreOnClick();
+        break;
+    case 'entreprise':
+        $controller->_Page_EntrepriseOnClick();
+        break;
     default:
         echo '404 Not Found';
         break;
