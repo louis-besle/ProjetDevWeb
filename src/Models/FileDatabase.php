@@ -28,4 +28,10 @@ class FileDatabase implements Database
         return $sql->fetch();
     }
 
+    public function getLastRecord($table,$limite,$ordre) {
+        $sql = $this->pdo->prepare("SELECT * FROM {$table} ORDER BY {$ordre} DESC LIMIT {$limite}");
+        $sql->execute();
+        return $sql->fetchAll();
+    }
+
 }

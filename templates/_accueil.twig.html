@@ -24,16 +24,18 @@
 
             
             <div class="conteneurs_dernieres_offres">
+            {% for offre in offres %}
+                {% set entreprise = entreprises[offre.id_entreprises] %}
                 <div class="offres">
-                    <p class="titre_derniere_offre">Stage informatique H/F</p>
-                    <p class="entreprise_derniere_offre">EXIA</p>
+                    <p class="titre_derniere_offre">{{offre.titre}}</p>
+                    <p class="entreprise_derniere_offre">{{entreprise.nom}}</p>
                     <div class="informations">
                         <p>Date de mise en ligne 24/02/2025</p>
                         <a href="/?uri=offre">Voir l'offre</a>
                         <button class="fav_bouton" onclick="toggleFavoris(this)">💜</button>
                     </div>
                 </div>
-
+            {% endfor %}
 
             </div>
         </article>
