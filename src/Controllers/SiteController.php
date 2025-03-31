@@ -15,7 +15,9 @@ class SiteController extends Controller {
     }
 
     public function _Page_Accueil(){
-        echo $this->templateEngine->render('_accueil.twig.html');
+        $offres = $this->model->getOffresAccueil();
+        $entreprises = $this->model->getEntreprises($offres);
+        echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres,'entreprises' => $entreprises]);
     }
     public function _Page_Recherche(){
         echo $this->templateEngine->render('_recherche.twig.html');

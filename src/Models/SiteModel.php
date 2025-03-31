@@ -16,4 +16,16 @@ class SiteModel extends Model
     public function getInfos() {
         return $_SESSION['user'];
     }
+
+    public function getOffresAccueil() {
+        return $this->connection->getLastRecord('offre',8,'mise_en_ligne');
+    }
+
+    public function getEntreprises($offres) {
+        $entreprises = [];
+        foreach ($offres as $row) {
+            $entreprises = $this->connection->getRecordById('entreprise',$row['id_entreprise']);
+        }
+        return $entreprises;
+    }
 }

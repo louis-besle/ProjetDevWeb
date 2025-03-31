@@ -19,13 +19,21 @@ class FileDatabase implements Database
     }
 
     public function getAllRecords($table) {
-        $sql = $this->pdo->query("SELECT * FROM {$table}");
+        $sql = $this->pdo->prepare("SELECT * FROM {$table}");
+        $sql->execute();
         return $sql->fetchAll();
     }
 
     public function getRecordById($table,$id) {
-        $sql = $this->pdo->query("SELECT * FROM {$table} WHERE id_{$table} = {$id}");
+        $sql = $this->pdo->prepare("SELECT * FROM {$table} WHERE id_{$table} = {$id}");
+        $sql->execute();
         return $sql->fetch();
+    }
+
+    public function getLastRecord($table,$limite,$ordre) {
+        $sql = $this->pdo->prepare("SELECT * FROM {$table} ORDER BY {$ordre} DESC LIMIT {$limite}");
+        $sql->execute();
+        return $sql->fetchAll();
     }
 
 }

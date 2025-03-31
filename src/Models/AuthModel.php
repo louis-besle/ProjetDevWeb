@@ -16,7 +16,7 @@ class AuthModel extends Model
     public function connexion($email,$motDePasse) {
         $isvalid = false;
         // Vérification de l'utilisateur
-        $users = $this->connection->getAllRecords('Utilisateurs');
+        $users = $this->connection->getAllRecords('utilisateur');
         foreach ($users as $user){
             if($email === $user['email'] && password_verify($motDePasse, $user['mot_de_passe'])) {
                 // Stocker l'utilisateur en session
@@ -24,7 +24,7 @@ class AuthModel extends Model
                     'id' => $user['id_utilisateur'],
                     'nom' => $user['nom_utilisateur'],
                     'prenom' => $user['prenom_utilisateur'],
-                    'role' => $this->connection->getRecordById('Role',$user['id_role'])['nom_role'],
+                    'role' => $this->connection->getRecordById('role',$user['id_role'])['nom_role'],
                     'dateConnexion' => date('Y-m-d H:i:s')
                 ];
                 $isvalid = true;
