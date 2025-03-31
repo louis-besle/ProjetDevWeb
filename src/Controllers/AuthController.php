@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Controllers;
 
 use App\Models\AuthModel;
@@ -21,9 +22,11 @@ class AuthController extends Controller {
         } else {
             header("Location: /");
         }
+        header("Location: /");
     }
 
-    public function logout() {
+    public function logout()
+    {
         session_destroy();
         header("Location: /");
         exit();

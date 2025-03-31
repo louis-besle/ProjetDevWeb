@@ -9,13 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return emailPattern.test(email);
     }
 
-    //valider le mot de passe
-    function validatePassword(password) {
-        //vérifier si le mot de passe contient au moins 8 caractères, une majuscule, une minuscule et un chiffre
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-        return passwordPattern.test(password);
-    }
-
     //on met un écouteur d'événement pour vérifier l'envoie du formulaire
     form.addEventListener("submit", function(event) {
         event.preventDefault();  //empeche la soumission automatique
@@ -27,12 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
         //valide l'email
         if (!validateEmail(email)) {
             alert("L'email n'est pas valide.");
-            return;
-        }
-
-        //valide le mot de passe
-        if (!validatePassword(password)) {
-            alert("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.");
             return;
         }
 

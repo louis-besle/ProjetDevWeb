@@ -16,17 +16,14 @@ function validateForm(event) {
         return false;
     }
 
-    //vérification de si une entreprise est sélectionnée
-    let entrepriseSelected = false;
-    entrepriseRadio.forEach((radio) => {
-        if (radio.checked) entrepriseSelected = true;
-    });
-
-    if (!entrepriseSelected) {
-        alert('Vous devez sélectionner une entreprise.');
+    //vérification de l'entreprise sélectionner
+    if (villeSelect.value === '') {
+        alert('Veuillez sélectionner une ville.');
+        villeSelect.focus();
         event.preventDefault();
         return false;
     }
+
 
     //vérification de la ville sélectionnée
     if (villeSelect.value === '') {
@@ -44,13 +41,6 @@ function validateForm(event) {
         return false;
     }
 
-    //vérification du secteur d'activités
-    if (sectorSelect.value === '') {
-        alert('Veuillez sélectionner un secteur d\'activité.');
-        sectorSelect.focus();
-        event.preventDefault();
-        return false;
-    }
 
     //vérification du niveau d'étude
     if (niveauSelect.value === '') {
