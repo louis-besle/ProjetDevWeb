@@ -37,7 +37,7 @@ class SiteController extends Controller
 
     public function _Page_Dashboard()
     {
-        if ($_SESSION['user']['role'] === 'admin') {
+        if ($_SESSION['user']['role'] === 'administrateur') {
             echo $this->templateEngine->render('a_dashboard.twig.html');
         } 
         else if ($_SESSION['user']['role'] === 'pilote') {
@@ -61,13 +61,13 @@ class SiteController extends Controller
     }
     public function _Page_Ajouter_Offre()
     {
-        $entreprise = $this->model->getEntreprise();
-        $ville = $this->model->getVille();
-        echo $this->templateEngine->render('_add_offer.twig.html', ['entreprise' => $entreprise ,'ville' => $ville]);
+        $selection = $this->model->getEntrepriseByVille();
+
+        echo $this->templateEngine->render('_add_offer.twig.html', ['entreprise' => $selection ,'ville' => $selection]);
     }
     public function _Page_Ajouter_Compte()
     {
-        if ($_SESSION['user']['role'] === 'admin') {
+        if ($_SESSION['user']['role'] === 'administrateur') {
             echo $this->templateEngine->render('a_add_account.twig.html');
         } 
         else if ($_SESSION['user']['role'] === 'pilote') {

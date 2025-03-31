@@ -1,4 +1,4 @@
-<form class="add_offer" action="/formulaire_offre" method="POST" enctype="multipart/form-data">
+<form class="add_offer" action="/?uri=formulaire_offre" method="POST" enctype="multipart/form-data">
     <h2>Titre de l'offre</h2>
     <input type="text" id="offer_title" name="offer_title" required placeholder="Titre de l'offre">
 
@@ -6,12 +6,22 @@
     <label for="borne-select_entreprise">Sélectionnez une entreprise</label>
     <select id="borne-select_entreprise" name="entreprise" required>
         <option value="">-- Choisissez une entreprise --</option>
-        {% for ent in entreprise %}
-            <option value="{{ ent.id_offre }}">{{ ent.nom }}</option>
+        {% for sel in selection %}
+            <option value="{{ sel.id_offre }}">{{ sel.nom }}</option>
         {% endfor %}
     </select>
 
-    <h2>Villes</h2>
+    <!-- <h2>Villes</h2>
+    <label for="borne-select_ville">Sélectionnez une ville</label>
+    <select id="borne-select_ville" name="ville" required>
+        <option value="">-- Choisissez une ville --</option>
+        {% for v in ville %}
+        <option value="{{ v.id_ville }}">{{ v.nom_ville }}</option>
+        {% endfor %}
+
+    </select> -->
+
+    <h2>Compétences</h2>
     <label for="borne-select_ville">Sélectionnez une ville</label>
     <select id="borne-select_ville" name="ville" required>
         <option value="">-- Choisissez une ville --</option>
@@ -25,6 +35,9 @@
     <input type="text" id="duration" name="duration" required placeholder="Date début du stage">
     <input type="text" id="duration" name="duration" required placeholder="Date fin du stage">
 
+    <h2>Rémunération</h2>
+    <input type="text" id="duration" name="duration" required>
+
     <h2>Niveau d'étude requis</h2>
     <label for="borne-select_niveau">Sélectionnez un niveau d'étude</label>
     <select id="borne-select_niveau" name="niveau" required>
@@ -34,16 +47,10 @@
         <option value="bac5">Bac+5</option>
     </select>
 
-    <h2>Présentation du poste</h2>
+    <h2>Description</h2>
     <textarea id="job_description" name="job_description" required
         placeholder="Détaillez la présentation du poste"></textarea>
 
-    <h2>Profil requis</h2>
-    <textarea id="profile" name="profile" required placeholder="Détaillez le profil requis pour le poste"></textarea>
-
-    <h2>Informations supplémentaires</h2>
-    <textarea id="additional_info" name="additional_info"
-        placeholder="Ajoutez des informations supplémentaires"></textarea>
 
     <div class="grp_bouton">
         <button type="submit" class="bouton_">Postuler</button>

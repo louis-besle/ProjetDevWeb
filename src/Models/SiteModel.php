@@ -18,9 +18,13 @@ class SiteModel extends Model
     }
 
     public function getEntreprise() {
-        return $this->connection->getAllRecords('entreprises');
+        return $this->connection->getAllRecords('entreprise');
     }
     public function getVille() {
         return $this->connection->getAllRecords('ville');
+    }
+
+    public function getEntrepriseByVille(){
+        return $this->connection->getRecordBetween2Table('entreprise','situer','ville');
     }
 }

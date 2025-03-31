@@ -15,7 +15,7 @@ class UserModel extends Model
 
     public function getUserByEmail($email)
     {
-        $users = $this->connection->getAllRecords('Utilisateurs');
+        $users = $this->connection->getAllRecords('utilisateur');
         foreach ($users as $user) {
             if ($email === $user['email']) {
                 return $user;

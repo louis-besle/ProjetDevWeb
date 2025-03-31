@@ -28,4 +28,9 @@ class FileDatabase implements Database
         return $sql->fetch();
     }
 
+    public function getRecordBetween2Table($table1,$relation,$table2){
+        $sql = $this->pdo->query("SELECT * FROM {$table1} inner join {$relation} on {$table1}.id_{$table1} = {$relation}.id_{$table1} INNER JOIN {$table2} on {$relation}.id_{$table2} = {$table2}.id_{$table2}");
+        return $sql->fetch();
+    }
+
 }
