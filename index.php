@@ -137,7 +137,6 @@ switch ($uri) {
         }
         break;
 
-
     case 'ajouter_compte':
         if ($isConnect) {
             $controller->_Page_Ajouter_Compte();
