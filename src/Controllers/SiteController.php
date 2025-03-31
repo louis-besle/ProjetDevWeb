@@ -89,11 +89,11 @@ class SiteController extends Controller
 
             $offer_title = isset($_POST['offer_title']) ? htmlspecialchars($_POST['offer_title'], ENT_QUOTES, 'UTF-8') : '';
             $entreprise = isset($_POST['entreprise']) ? htmlspecialchars($_POST['entreprise'], ENT_QUOTES, 'UTF-8') : '';
-            $competence = isset($_POST['competence']) ? $_POST['competence'] : []; // Tableau de compétences et de niveaux
+            $competence = isset($_POST['competence']) ? $_POST['competence'] : [];
             $start = isset($_POST['duration_start']) ? htmlspecialchars($_POST['duration_start'], ENT_QUOTES, 'UTF-8') : '';
             $end = isset($_POST['duration_end']) ? htmlspecialchars($_POST['duration_end'], ENT_QUOTES, 'UTF-8') : '';
             $remuneration = isset($_POST['remuneration']) ? htmlspecialchars($_POST['remuneration'], ENT_QUOTES, 'UTF-8') : '';
-            $niveau = isset($_POST['niveau']) ? $_POST['niveau'] : []; // Tableau de niveaux d'étude (en même format que les compétences)
+            $niveau = isset($_POST['niveau']) ? $_POST['niveau'] : [];
             $job_description = isset($_POST['job_description']) ? htmlspecialchars($_POST['job_description'], ENT_QUOTES, 'UTF-8') : '';
 
 

@@ -41,8 +41,8 @@ class SiteModel extends Model
         return $this->connection->getRecordCompetence('competence', 'Bac');
     }
 
-    public function insertoffer($offer_title, $entreprise, $data, $start, $end, $remuneration, $job_description)
-    {
-        $this->connection->InsertRecordIntoOffre($offer_title, $entreprise, $data, $start, $end, $remuneration, $job_description);
-    }
+        public function insertoffer($offer_title, $entreprise, $data, $start, $end, $remuneration, $job_description)
+        {
+            $this->connection->InsertRecordIntoOffre($offer_title, $entreprise, $data, $start, $end, $remuneration, $job_description);
+        }
 }
