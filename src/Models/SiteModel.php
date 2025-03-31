@@ -18,13 +18,13 @@ class SiteModel extends Model
     }
 
     public function getOffresAccueil() {
-        return $this->connection->getLastRecord('Offres',8,'date_debut');
+        return $this->connection->getLastRecord('offre',8,'mise_en_ligne');
     }
 
     public function getEntreprises($offres) {
         $entreprises = [];
         foreach ($offres as $row) {
-            $entreprises = $this->connection->getRecordById('Entreprises',$row['id_entreprises']);
+            $entreprises = $this->connection->getRecordById('entreprise',$row['id_entreprise']);
         }
         return $entreprises;
     }
