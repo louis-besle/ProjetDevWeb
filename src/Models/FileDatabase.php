@@ -18,19 +18,6 @@ class FileDatabase implements Database
         }
     }
 
-    public function getRecordBetweenTableEntrepriseVille($table1, $relation, $table2)
-    {
-        $sql = "SELECT entreprise.id_entreprise, entreprise.nom, ville.nom_ville 
-                FROM `$table1`
-                INNER JOIN `$relation` ON `$table1`.id_{$table1} = `$relation`.id_{$table1}
-                INNER JOIN `$table2` ON `$relation`.id_{$table2} = `$table2`.id_{$table2}";
-
-        $requete = $this->pdo->prepare($sql);
-        $requete->execute();
-
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public function getRecordCompetence($table, $start)
     {
         $sql = "SELECT * FROM $table WHERE competence LIKE :start";
@@ -103,13 +90,15 @@ class FileDatabase implements Database
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getRecordBetweenTableEntrepriseVille($table1, $relation, $table2, $options = [])
+    public function getRecordBetweenTableEntrepriseVille($table1, $relation, $table2, $options = null)
     {
         $sql = "SELECT e.id_entreprise, e.nom, v.nom_ville, e.image_illustration 
                 FROM `$table1` e
                 INNER JOIN `$relation` s ON e.id_{$table1} = s.id_{$table1}
-                INNER JOIN `$table2` v ON s.id_{$table2} = v.id_{$table2}
-                WHERE $options";
+                INNER JOIN `$table2` v ON s.id_{$table2} = v.id_{$table2}";
+                if ($options) {
+                    $sql .= " WHERE $options";
+                }
     
         $requete = $this->pdo->prepare($sql);
         $requete->execute();
