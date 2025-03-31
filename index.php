@@ -126,6 +126,18 @@ switch ($uri) {
             exit();
         }
         break;
+
+    case 'formulaire_offre':
+        if ($isConnect) {
+            $controller->formulaire_offre();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+
+
     case 'ajouter_compte':
         if ($isConnect) {
             $controller->_Page_Ajouter_Compte();

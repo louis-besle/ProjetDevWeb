@@ -7,44 +7,51 @@
     <select id="borne-select_entreprise" name="entreprise" required>
         <option value="">-- Choisissez une entreprise --</option>
         {% for sel in selection %}
-            <option value="{{ sel.id_offre }}">{{ sel.nom }}</option>
+            <option value="{{ sel.id_entreprise }}">{{ sel.nom }} - {{ sel.nom_ville }}</option>
         {% endfor %}
     </select>
 
-    <!-- <h2>Villes</h2>
-    <label for="borne-select_ville">Sélectionnez une ville</label>
-    <select id="borne-select_ville" name="ville" required>
-        <option value="">-- Choisissez une ville --</option>
-        {% for v in ville %}
-        <option value="{{ v.id_ville }}">{{ v.nom_ville }}</option>
-        {% endfor %}
-
-    </select> -->
-
     <h2>Compétences</h2>
-    <label for="borne-select_ville">Sélectionnez une ville</label>
-    <select id="borne-select_ville" name="ville" required>
-        <option value="">-- Choisissez une ville --</option>
-        {% for v in ville %}
-        <option value="{{ v.id_ville }}">{{ v.nom_ville }}</option>
+    <label for="borne-select_competence">Sélectionnez une compétences</label>
+    <select id="borne-select_competence" name="competence[]" required>
+        <option value="">-- Choisissez une compétence --</option>
+        {% for comp in competence %}
+        <option value="{{ comp.id_competence }}">{{ comp.competence }}</option>
         {% endfor %}
-
+    </select>
+    <select id="borne-select_competence" name="competence[]" required>
+        <option value="">-- Choisissez une compétence --</option>
+        {% for comp in competence %}
+        <option value="{{ comp.id_competence }}">{{ comp.competence }}</option>
+        {% endfor %}
+    </select>
+    <select id="borne-select_competence" name="competence[]" required>
+        <option value="">-- Choisissez une compétence --</option>
+        {% for comp in competence %}
+        <option value="{{ comp.id_competence }}">{{ comp.competence }}</option>
+        {% endfor %}
+    </select>
+    <select id="borne-select_competence" name="competence[]" required>
+        <option value="">-- Choisissez une compétence --</option>
+        {% for comp in competence %}
+        <option value="{{ comp.id_competence }}">{{ comp.competence }}</option>
+        {% endfor %}
     </select>
 
     <h2>Durée du stage</h2>
-    <input type="text" id="duration" name="duration" required placeholder="Date début du stage">
-    <input type="text" id="duration" name="duration" required placeholder="Date fin du stage">
+    <input type="date" id="duration" name="duration_start" required placeholder="Date début du stage">
+    <input type="date" id="duration" name="duration_end" required placeholder="Date fin du stage">
 
     <h2>Rémunération</h2>
-    <input type="text" id="duration" name="duration" required>
+    <input type="text" id="remuneration" name="remuneration" required>
 
     <h2>Niveau d'étude requis</h2>
     <label for="borne-select_niveau">Sélectionnez un niveau d'étude</label>
-    <select id="borne-select_niveau" name="niveau" required>
+    <select id="borne-select_niveau" name="niveau[]" required>
         <option value="">-- Choisissez un niveau d'étude --</option>
-        <option value="bac">Bac</option>
-        <option value="bac2">Bac+2</option>
-        <option value="bac5">Bac+5</option>
+        {% for niv in niveau %}
+        <option value="{{ niv.id_competence }}">{{ niv.competence }}</option>
+        {% endfor %}
     </select>
 
     <h2>Description</h2>
