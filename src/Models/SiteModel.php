@@ -7,7 +7,7 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('127.0.0.1','dev-web','root','nouveaumdp');
+            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
         } else {
             $this->connection = $connection;
         }
