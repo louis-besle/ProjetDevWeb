@@ -7,7 +7,7 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('localhost', 'stageup', 'root', '');
+            $this->connection = new FileDatabase('127.0.0.1','dev-web','root','nouveaumdp');
         } else {
             $this->connection = $connection;
         }
@@ -45,4 +45,46 @@ class SiteModel extends Model
         {
             $this->connection->InsertRecordIntoOffre($offer_title, $entreprise, $data, $start, $end, $remuneration, $job_description);
         }
+    public function getOffresAccueil() {
+        return $this->connection->getLastRecord('offre',8,'mise_en_ligne');
+    }
+
+    public function getEntreprisesAccueil($offres) {
+        $entreprises = [];
+        foreach ($offres as $row) {
+            $entreprises = $this->connection->getRecordById('entreprise',$row['id_entreprise']);
+        }
+        return $entreprises;
+    }
+
+    public function getPageActuelle(){
+        if (isset($_GET['p'])) {
+            return $_GET['p'];
+        } else {
+            return 1;
+        }
+    }
+
+    public function getOffreRecherche($page_actuelle) {        
+        $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise');
+        $output = array_slice($offres, ($page_actuelle - 1)*5, 5);
+        return $output;
+    }
+
+    public function getEntreprisesRecherche($page_actuelle) {
+        $entreprises = $this->connection->getAllRecords('entreprise');
+        $output = array_slice($entreprises, ($page_actuelle - 1)*5, 5);
+        return $output;
+    }
+
+    public function getVillesEntreprises($page_actuelle) {
+        $start = (($page_actuelle - 1) * 5) + 1;
+        $end = ($page_actuelle * 5);
+        $options = "e.id_entreprise BETWEEN $start AND $end";
+        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options);
+    }
+
+    public function getNbPages(){
+        return max(count($this->connection->getAllRecords('entreprise')), count($this->connection->getAllRecords('offre')));
+    }
 }

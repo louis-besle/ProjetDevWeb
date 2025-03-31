@@ -18,13 +18,18 @@ class SiteController extends Controller
         echo $this->templateEngine->render('_connexion.twig.html');
     }
 
-    public function _Page_Accueil()
-    {
-        echo $this->templateEngine->render('_accueil.twig.html');
+    public function _Page_Accueil(){
+        $offres = $this->model->getOffresAccueil();
+        $entreprises = $this->model->getEntreprisesAccueil($offres);
+        echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres,'entreprises' => $entreprises]);
     }
-    public function _Page_Recherche()
-    {
-        echo $this->templateEngine->render('_recherche.twig.html');
+    public function _Page_Recherche(){
+        $page_actuelle = $this->model->getPageActuelle();
+        $nbpages = $this->model->getNbPages();
+        $entreprises = $this->model->getEntreprisesRecherche($page_actuelle);
+        $offres = $this->model->getOffreRecherche($page_actuelle);
+        $entreprises = $this->model->getVillesEntreprises($page_actuelle);
+        echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres,'entreprises' => $entreprises,'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages]);
     }
     public function _Page_OffreOnClick()
     {
