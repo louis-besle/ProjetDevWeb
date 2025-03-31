@@ -54,7 +54,6 @@ class FileDatabase implements Database
 
     public function InsertRecordIntoOffre($titre, $entreprise, $competence, $debut, $fin, $remu, $description)
     {
-        // Insérer l'offre dans la table 'offre'
         $sql = "INSERT INTO offre (titre, description, remuneration, date_debut, date_fin, mise_en_ligne, id_entreprise)
                 VALUES (:titre, :descr, :remu, :debut, :fin, NOW(), :entreprise)";
         
@@ -66,25 +65,20 @@ class FileDatabase implements Database
         $stmt->bindParam(':fin', $fin, PDO::PARAM_STR);
         $stmt->bindParam(':entreprise', $entreprise, PDO::PARAM_INT);
         
-        // Exécuter l'insertion de l'offre
         if ($stmt->execute()) {
-            // Récupérer l'ID de l'offre insérée
             $sql = "SELECT id_offre FROM offre ORDER BY id_offre DESC LIMIT 1";
             $requete = $this->pdo->prepare($sql);
             $requete->execute();
             $result = $requete->fetch();
-            $id_offre = $result['id_offre'];  // Récupérer l'ID de la dernière offre insérée
+            $id_offre = $result['id_offre'];
     
-            // Insérer les compétences associées à cette offre dans la table 'associer'
             if (!empty($competence)) {
                 foreach ($competence as $competence_id) {
-                    // Préparer l'insertion dans la table 'associer'
                     $sql_associer = "INSERT INTO associer (id_offre, id_competence) VALUES (:id_offre, :competence)";
                     $stmt_associer = $this->pdo->prepare($sql_associer);
                     $stmt_associer->bindParam(':id_offre', $id_offre, PDO::PARAM_INT);
                     $stmt_associer->bindParam(':competence', $competence_id, PDO::PARAM_INT);
         
-                    // Exécuter l'insertion de chaque compétence
                     $stmt_associer->execute();
                 }
             }
