@@ -709,3 +709,22 @@ tbody td {
     padding: 10px;
     color: #333;
 }
+
+.btn_pagination {
+    background-color: #380F49;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: 15px;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    justify-content: center;
+}
+
+.container_page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

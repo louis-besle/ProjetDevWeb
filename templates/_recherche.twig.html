@@ -13,6 +13,36 @@
             {% include 'composants/entreprise.twig.html' %}
 
         </article>
+        <div class="container_page">
+            <a class="btn_pagination"
+            {% if page_actuelle == 1 %}
+                style="background-color: grey"
+            {% endif %}
+    
+            {% if page_actuelle > 1 %}
+                href=?uri=recherche&p={{page_actuelle - 1}}
+            {% endif %}
+            >Précédent</a>
+    
+            <a href="?uri=recherche&p=1" class="btn_pagination">1</a>
+            <a href="?uri=recherche&p=2" class="btn_pagination">2</a>
+            <a href="?uri=recherche&p=3" class="btn_pagination">3</a>
+            <a class="btn_pagination">...</a>
+            <a href="?uri=recherche&p={{ (nb_pages // 5) + 1 }}" class="btn_pagination">{{ (nb_pages // 5) + 1 }}</a>
+    
+    
+            <a class="btn_pagination"
+            {% if page_actuelle > nb_pages /5%}
+                style="background-color: grey"
+            {% endif %}
+            
+            
+            {% if page_actuelle < nb_pages /5 %}
+                href=?uri=recherche&p={{page_actuelle + 1}}
+            {% endif %}
+            >Suivant</a>
+            </div>
+        </div>
     </main>
 </body>
 {% include 'composants/footer.twig.html' %}
