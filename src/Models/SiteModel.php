@@ -7,7 +7,7 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('localhost', 'stageup', 'root', '');
+            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
         } else {
             $this->connection = $connection;
         }
@@ -105,7 +105,33 @@ class SiteModel extends Model
         return max(count($this->connection->getAllRecords('entreprise')), count($this->connection->getAllRecords('offre')));
     }
 
-    public function getUtilisateurs($role){
-       return $this->connection->getRecordUtilisateur($role);
+    public function getUtilisateurs($role)
+    {
+        return $this->connection->getRecordUtilisateur($role);
+    }
+
+    public function getUtilisateursById($table, $id)
+    {
+        return $this->connection->getRecordById($table, $id);
+    }
+
+    public function UpdateUser($id, $nom, $prenom, $email, $motDePasse, $hidden)
+    {
+        return $this->connection->updateUtilisateur($id, $nom, $prenom, $email, $motDePasse, $hidden);
+    }
+
+    public function UpdateOffre($id, $titre, $description, $remuneration, $date_debut, $date_fin, $id_entreprise, $competences)
+    {
+        return $this->connection->updateOffre($id, $titre, $description, $remuneration, $date_debut, $date_fin, $id_entreprise, $competences);
+    }
+
+    public function getOffreById($id)
+    {
+        return $this->connection->recupinfoOffre($id);
+    }
+
+    public function deleteOffre($id)
+    {
+        return $this->connection->delOffre($id);
     }
 }

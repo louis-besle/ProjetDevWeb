@@ -4,6 +4,7 @@
     {% include 'composants/header.twig.html' %}
     <main>
         {% include 'composants/menu_recherche.twig.html' %}
+
         <h1>Stagiaire Informatique H/F<button class="fav_bouton" onclick="toggleFavoris(this)">💜</button></h1>
         <h3>Résumé de l'offre</h3>
 
@@ -60,8 +61,8 @@
 
                 <div class="entrees_utilisateur">
                     <label for="fichier">Lettre de motivation</label>
-                    <input type="file" id="fichier" name="fichier" class="file-input"
-                        accept=".pdf,.doc,.docx,.txt,.odt" required>
+                    <input type="file" id="fichier" name="fichier" class="file-input" accept=".pdf,.doc,.docx,.txt,.odt"
+                        required>
                 </div>
 
                 <h2>Informations supplémentaires</h2>
@@ -73,6 +74,12 @@
                 </div>
             </form>
         </div>
+        <form action="/?uri=page_modifier_offre" method="POST">
+            <div class="grp_bouton">
+                <button type="submit" class="bouton_" name="modif" value="1">Modifier</button>
+                <button type="submit" class="bouton_" name="supp" value=1>Supprimer</button>
+            </div>
+        </form> 
     </main>
 </body>
 <script src="/static/js/formulaire_postuler_offre.js"></script>

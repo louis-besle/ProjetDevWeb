@@ -7,7 +7,7 @@ class AuthModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('localhost','stageup','root','');
+            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
         } else {
             $this->connection = $connection;
         }
@@ -24,6 +24,7 @@ class AuthModel extends Model
                     'id' => $user['id_utilisateur'],
                     'nom' => $user['nom_utilisateur'],
                     'prenom' => $user['prenom_utilisateur'],
+                    'email' => $user['email'],
                     'role' => $this->connection->getRecordById('role',$user['id_role'])['nom_role'],
                     'dateConnexion' => date('Y-m-d H:i:s')
                 ];

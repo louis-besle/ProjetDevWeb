@@ -136,6 +136,26 @@ switch ($uri) {
             exit();
         }
         break;
+    case 'page_modifier_offre':
+        if ($isConnect) {
+            $controller->_Page_Modifier_Offre();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    case 'modifier_offre':
+        if ($isConnect) {
+            $controller->modifier_offre();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+
+
 
     case 'ajouter_compte':
         if ($isConnect) {
@@ -146,15 +166,38 @@ switch ($uri) {
             exit();
         }
         break;
-        case 'formulaire_compte':
-            if ($isConnect) {
-                $controller->formulaire_compte();
-            } else {
-                header("HTTP/1.1 404 Not Found");
-                echo '404 Not Found';
-                exit();
-            }
-            break;
+    case 'formulaire_compte':
+        if ($isConnect) {
+            $controller->formulaire_compte();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    case 'compte':
+        if ($isConnect) {
+            $controller->_Page_Modifier_Compte();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    case 'modifier_compte':
+        if ($isConnect) {
+            $controller->modifier_compte();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+
+
+
+
+
 
     case 'ajouter_entreprise':
         if ($isConnect) {
