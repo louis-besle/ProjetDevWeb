@@ -26,11 +26,20 @@ class SiteController extends Controller
     }
     public function _Page_Recherche()
     {
+        if(isset($_GET['entreprise']) && isset($_GET['ville'])){
+            $ville = $_GET['ville'];
+            $entreprise = $_GET['entreprise'];
+        } else {
+            $ville = 'Toutes';
+            $entreprise = 'Toutes';
+        }
+        $bouton_filtre = ['entreprise' => $this->model->getEntreprise(),'ville' => $this->model->getVille()];
         $page_actuelle = $this->model->getPageActuelle();
-        $nbpages = $this->model->getNbPages();
-        $offres = $this->model->getOffreRecherche($page_actuelle);
-        $entreprises = $this->model->getVillesEntreprises($page_actuelle);
-        echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres, 'entreprises' => $entreprises, 'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages]);
+        $offres = $this->model->getOffreRecherche($page_actuelle,$ville,$entreprise);
+        $entreprises = $this->model->getVillesEntreprises($page_actuelle,$ville,$entreprise);
+        $nbpages = $this->model->getNbPages($offres[1],$entreprises[1]);
+        echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres[0], 'entreprises' => $entreprises[0], 'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages, 'filtres' => $bouton_filtre, 'filtre_ville' => $ville, 'filtre_entreprise' => $entreprise]);   
+        
     }
     public function _Page_OffreOnClick()
     {

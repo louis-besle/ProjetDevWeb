@@ -137,11 +137,16 @@ class FileDatabase implements Database
         return $sql->fetchAll();
     }
 
-    public function getRecordBetweenTableOffreEntreprise($table1, $table2)
+    public function getRecordBetweenTableOffreEntreprise($table1, $table2, $options = null)
     {
-        $sql = "SELECT offre.id_offre, offre.titre, offre.description, offre.mise_en_ligne, entreprise.nom
+        $sql = "SELECT offre.id_offre, offre.titre, offre.description, offre.mise_en_ligne, e.nom
                 FROM `$table1`
-                INNER JOIN `$table2` ON `$table1`.id_{$table2} = `$table2`.id_{$table2}";
+                INNER JOIN `$table2`e ON `$table1`.id_{$table2} = e.id_{$table2}
+                INNER JOIN situer s ON e.id_entreprise = s.id_entreprise
+                INNER JOIN ville v ON s.id_ville = v.id_ville";
+        if ($options) {
+            $sql .= " WHERE $options";
+        }
 
         $requete = $this->pdo->prepare($sql);
         $requete->execute();
