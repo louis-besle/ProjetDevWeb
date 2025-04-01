@@ -108,4 +108,18 @@ class SiteModel extends Model
     public function getUtilisateurs($role){
        return $this->connection->getRecordUtilisateur($role);
     }
+
+    public function getEntrepriseClick(){
+        if (isset($_GET['id'])) {
+            $id_page = $_GET['id'];
+        } else {
+            $id_page = 1;
+        }
+        if (isset($_GET['id_ville'])) {
+            $id_ville = $_GET['id_ville'];
+        } else {
+            $id_ville = 1;
+        }
+        return $this->connection->getRecordEntrepriseOnClick('entreprise', $id_page, $id_ville);
+    }
 }
