@@ -39,7 +39,7 @@ class SiteController extends Controller
     }
     public function _Page_EntrepriseOnClick()
     {
-        echo $this->templateEngine->render('_entreprise_onclick.twig.html');
+        echo $this->templateEngine->render('_entreprise_onclick.twig.html', ["entreprise" => $this->model->getEntrepriseClick()]);
     }
 
     public function _Page_Dashboard()
