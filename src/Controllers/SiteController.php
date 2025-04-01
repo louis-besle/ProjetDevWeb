@@ -28,7 +28,6 @@ class SiteController extends Controller
     {
         $page_actuelle = $this->model->getPageActuelle();
         $nbpages = $this->model->getNbPages();
-        $entreprises = $this->model->getEntreprisesRecherche($page_actuelle);
         $offres = $this->model->getOffreRecherche($page_actuelle);
         $entreprises = $this->model->getVillesEntreprises($page_actuelle);
         echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres, 'entreprises' => $entreprises, 'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages]);

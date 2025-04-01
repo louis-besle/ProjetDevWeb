@@ -85,13 +85,6 @@ class SiteModel extends Model
         return $output;
     }
 
-    public function getEntreprisesRecherche($page_actuelle)
-    {
-        $entreprises = $this->connection->getAllRecords('entreprise');
-        $output = array_slice($entreprises, ($page_actuelle - 1) * 5, 5);
-        return $output;
-    }
-
     public function getVillesEntreprises($page_actuelle)
     {
         $start = (($page_actuelle - 1) * 5) + 1;
