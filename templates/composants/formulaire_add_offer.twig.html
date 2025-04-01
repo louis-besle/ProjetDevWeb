@@ -20,21 +20,21 @@
         {% endfor %}
     </select>
 
-    <select id="borne-select_competence" name="competence[]" required>
+    <select id="borne-select_competence" name="competence[]" >
         <option value="">-- Choisissez une compétence --</option>
         {% for comp in competence %}
         <option value="{{ comp.id_competence }}">{{ comp.competence }}</option>
         {% endfor %}
     </select>
 
-    <select id="borne-select_competence" name="competence[]" required>
+    <select id="borne-select_competence" name="competence[]" >
         <option value="">-- Choisissez une compétence --</option>
         {% for comp in competence %}
         <option value="{{ comp.id_competence }}">{{ comp.competence }}</option>
         {% endfor %}
     </select>
 
-    <select id="borne-select_competence" name="competence[]" required>
+    <select id="borne-select_competence" name="competence[]" >
         <option value="">-- Choisissez une compétence --</option>
         {% for comp in competence %}
         <option value="{{ comp.id_competence }}">{{ comp.competence }}</option>
@@ -64,7 +64,7 @@
 
 
     <div class="grp_bouton">
-        <button type="submit" class="bouton_">Postuler</button>
+        <button type="submit" class="bouton_">Ajouter</button>
         <button type="reset" class="bouton_">Réinitialiser</button>
     </div>
 </form>

@@ -1,16 +1,16 @@
-<form id="company_form" method="POST" action="/?uri=formulaire_entreprise">
+<form id="company_form" method="POST" action="/?uri=formulaire_entreprise" enctype="multipart/form-data">
     <!-- Nom de l'entreprise -->
     <h2>Nom de l'entreprise</h2>
-    <input type="text" name="company_name" id="company_name" required pattern="[A-Za-z0-9\s\-]+" aria-required="true" autocomplete="organization" />
+    <input type="text" name="company_name" id="company_name" required pattern="[A-Za-z0-9\s\-]+" />
 
     <!-- Villes -->
     <h2>Villes</h2>
     <label for="select_ville">Sélectionnez une ville</label>
-    <select id="borne-select_ville" name="city" required aria-required="true">
+    <select id="borne-select_ville" name="city" required>
         <option value="">-- Choisissez une ville --</option>
-        <option value="ville1">Orléans</option>
-        <option value="ville2">Olivet</option>
-        <option value="ville3">Jargeau</option>
+        {% for v in ville %}
+        <option value={{v.id_ville}}>{{v.nom_ville}}</option>
+        {% endfor %}
     </select>
 
     <!-- Présentation de l'entreprise -->
@@ -19,22 +19,22 @@
 
     <!-- Image illustration -->
     <h2>Image illustration</h2>
-    <input type="file" name="company_image" accept="image/*" aria-label="Choisir une image" />
+    <input type="file" name="company_image" accept="image/*" label="Choisir une image" />
 
     <!-- Contacts -->
     <h2>Contacts</h2>
     <div class="contact">
         <label for="phone">Téléphone
-            <input type="tel" name="phone" id="phone" pattern="^\+?[0-9\s\-()]{7,15}$" required aria-required="true" placeholder="Ex: +33 1 23 45 67 89" />
+            <input type="tel" name="phone" id="phone" pattern="^\+?[0-9\s\-()]{7,15}$" required  placeholder="Ex: +33 1 23 45 67 89" />
         </label>
         <label for="email">Email
-            <input type="email" name="email" id="email" required aria-required="true" placeholder="Entrez votre email" />
+            <input type="email" name="email" id="email" requiredplaceholder="Entrez votre email" />
         </label>
     </div>
 
     <!-- Boutons de soumission -->
     <div class="grp_bouton">
-        <button type="submit" class="bouton_">Postuler</button>
+        <button type="submit" class="bouton_">Ajouter</button>
         <button type="reset" class="bouton_">Réinitialiser</button>
     </div>
 </form>
