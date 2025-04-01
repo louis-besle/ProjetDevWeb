@@ -6,7 +6,7 @@
         {% include 'composants/menu_recherche.twig.html' %}
         
         <h1>{{ entreprise.nom }}</h1>
-        <img src="#" alt="image de l'entreprise">
+        <img src="/static/uploads/entreprises/{{entreprise.nom}}.svg" alt="image de l'entreprise">
 
         <h2>Présentation de l'entreprise</h2>
         <p>{{ entreprise.description }}</p>
