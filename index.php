@@ -146,6 +146,16 @@ switch ($uri) {
             exit();
         }
         break;
+        case 'formulaire_compte':
+            if ($isConnect) {
+                $controller->formulaire_compte();
+            } else {
+                header("HTTP/1.1 404 Not Found");
+                echo '404 Not Found';
+                exit();
+            }
+            break;
+
     case 'ajouter_entreprise':
         if ($isConnect) {
             $controller->_Page_Ajouter_Entreprise();
@@ -155,6 +165,18 @@ switch ($uri) {
             exit();
         }
         break;
+    case 'formulaire_entreprise':
+        if ($isConnect) {
+            $controller->formulaire_entreprise();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+
+
+
 
     default:
         echo '404 Not Found';

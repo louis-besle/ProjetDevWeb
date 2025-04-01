@@ -18,18 +18,20 @@ class SiteController extends Controller
         echo $this->templateEngine->render('_connexion.twig.html');
     }
 
-    public function _Page_Accueil(){
+    public function _Page_Accueil()
+    {
         $offres = $this->model->getOffresAccueil();
         $entreprises = $this->model->getEntreprisesAccueil($offres);
-        echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres,'entreprises' => $entreprises]);
+        echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres, 'entreprises' => $entreprises]);
     }
-    public function _Page_Recherche(){
+    public function _Page_Recherche()
+    {
         $page_actuelle = $this->model->getPageActuelle();
         $nbpages = $this->model->getNbPages();
         $entreprises = $this->model->getEntreprisesRecherche($page_actuelle);
         $offres = $this->model->getOffreRecherche($page_actuelle);
         $entreprises = $this->model->getVillesEntreprises($page_actuelle);
-        echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres,'entreprises' => $entreprises,'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages]);
+        echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres, 'entreprises' => $entreprises, 'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages]);
     }
     public function _Page_OffreOnClick()
     {
@@ -76,15 +78,20 @@ class SiteController extends Controller
 
     public function _Page_Ajouter_Compte()
     {
+        
         if ($_SESSION['user']['role'] === 'administrateur') {
-            echo $this->templateEngine->render('a_add_account.twig.html');
+            $utilisateur = $this->model->getUtilisateurs($_SESSION['user']['role']);
+            echo $this->templateEngine->render('a_add_account.twig.html', ['utilisateur' => $utilisateur]);
         } else if ($_SESSION['user']['role'] === 'pilote') {
-            echo $this->templateEngine->render('p_add_account.twig.html');
+            $utilisateur = $this->model->getUtilisateurs($_SESSION['user']['role']);
+            echo $this->templateEngine->render('p_add_account.twig.html', ['utilisateur' => $utilisateur]);
         }
     }
+
     public function _Page_Ajouter_Entreprise()
     {
-        echo $this->templateEngine->render('_add_enterprise.twig.html');
+        $ville = $this->model->getVille();
+        echo $this->templateEngine->render('_add_enterprise.twig.html', ['ville' => $ville]);
     }
 
 
@@ -102,10 +109,67 @@ class SiteController extends Controller
             $job_description = isset($_POST['job_description']) ? htmlspecialchars($_POST['job_description'], ENT_QUOTES, 'UTF-8') : '';
 
 
-            $data = array_merge($competence, $niveau);
+            $data = array_merge((array)$competence, (array)$niveau);
 
             $this->model->insertoffer($offer_title, $entreprise, $data, $start, $end, $remuneration, $job_description);
             header('Location: /?uri=recherche');
         }
     }
+
+    public function formulaire_entreprise()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $titre_entreprise = htmlspecialchars(trim($_POST['company_name'] ?? ''));
+            $ville = filter_var($_POST['city'] ?? null, FILTER_VALIDATE_INT);
+            $presentation = htmlspecialchars(trim($_POST['company_description'] ?? ''));
+            $tel = htmlspecialchars(trim($_POST['phone'] ?? ''));
+            $mail = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL) ? $_POST['email'] : null;
+
+            if (!$titre_entreprise || !$ville || !$presentation || !$tel || !$mail) {
+                echo "Veuillez remplir tous les champs obligatoires.";
+                return;
+            }
+            $image = 'default.jpg';
+
+            if (!empty($_FILES['company_image']['name'])) {
+                $upload_dir = 'uploads/';
+                $image_name = time() . '_' . basename($_FILES['company_image']['name']);
+                $image_path = $upload_dir . $image_name;
+
+                $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+                if (in_array($_FILES['company_image']['type'], $allowed_types) && move_uploaded_file($_FILES['company_image']['tmp_name'], $image_path)) {
+                    $image = $image_name;
+                }
+            }
+
+            $this->model->insertentreprise($titre_entreprise, $ville, $image, $presentation, $tel, $mail);
+            header('Location: /?uri=recherche');
+        }
+    }
+
+
+    public function formulaire_compte()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nom_utilisateur = htmlspecialchars(trim($_POST['nom'] ?? ''));
+            $prenom_utilisateur = htmlspecialchars(trim($_POST['prenom'] ?? ''));
+            $email = filter_var($_POST['courriel'] ?? '', FILTER_VALIDATE_EMAIL) ? $_POST['courriel'] : null;
+            $password = $_POST['password'] ?? '';
+
+            $password_hash = password_hash($password,PASSWORD_DEFAULT);
+            if ($_POST['account_type'] === null) {
+                $role = 3;
+            } else {
+                $role = $_POST['account_type'];
+            }
+            if (!$nom_utilisateur || !$prenom_utilisateur || !$email || !$password || !$role) {
+                echo "Veuillez remplir tous les champs obligatoires.";
+                return;
+            }
+
+            $this->model->insertutilisateur($nom_utilisateur, $prenom_utilisateur, $email, $password_hash, $role);
+            header('Location: /?uri=ajouter_compte');
+        }
+    }
+
 }

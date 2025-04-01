@@ -9,17 +9,25 @@
         </tr>
     </thead>
     <tbody>
+        {% for util in utilisateur %}
         <tr>
-            <td>Nom1</td>
-            <td>Prénom1</td>
-            <td>Courriel1</td>
-            <td><div class="grp_bouton"><button type="submit" class="bouton_">Voir</button></div></td>  
+            <td>{{util.nom_utilisateur}}</td>
+            <td>{{util.prenom_utilisateur}}</td>
+            <td>{{util.email}}</td>
             <td>
-                <div class="grp_bouton">
-                    <button type="submit" class="bouton_">Ajouter</button>
-                    <button type="submit" class="bouton_">Supprimer</button>
-                </div>
+                <form>
+                    <div class="grp_bouton"><button type="submit" class="bouton_">Voir</button></div>
+                </form>
+            </td>
+            <td>
+                <form>
+                    <div class="grp_bouton">
+                        <button type="submit" class="bouton_">Ajouter</button>
+                        <button type="submit" class="bouton_">Supprimer</button>
+                    </div>
+                </form>
             </td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
