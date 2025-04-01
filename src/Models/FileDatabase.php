@@ -176,5 +176,48 @@ class FileDatabase implements Database
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getRecordCompetences($id)
+{
+    $sql = "SELECT c.competence
+            FROM associer a
+            INNER JOIN competence c ON a.id_competence = c.id_competence WHERE a.id_offre = :id"; 
+    
+    $stmt = $this->pdo->prepare($sql);
+    
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    
+    $stmt->execute();
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+public function getRecordDuree($id){
+    $sql = "SELECT date_debut, date_fin
+            FROM offre
+            WHERE id_offre = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+public function getRecordDescription($id){
+    $sql = "SELECT description
+            FROM entreprise
+            WHERE id_entreprise = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+public function getRecordDescriptionEntreprise($id){
+    $sql = "SELECT description
+            FROM offre
+            WHERE id_offre = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
     
 }

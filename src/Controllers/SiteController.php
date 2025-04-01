@@ -33,10 +33,6 @@ class SiteController extends Controller
         $entreprises = $this->model->getVillesEntreprises($page_actuelle);
         echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres, 'entreprises' => $entreprises, 'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages]);
     }
-    public function _Page_OffreOnClick()
-    {
-        echo $this->templateEngine->render('_offre_onclick.twig.html');
-    }
     public function _Page_EntrepriseOnClick()
     {
         echo $this->templateEngine->render('_entreprise_onclick.twig.html');
@@ -171,5 +167,40 @@ class SiteController extends Controller
             header('Location: /?uri=ajouter_compte');
         }
     }
+    public function _Page_Detail_Offre($id)
+    {
+    $offre = $this->model->getDetailedOffer($id);
 
+    if (!$offre) {
+        http_response_code(404);
+        echo "Offre non trouvée.";
+        return;
+    }
+
+    echo $this->templateEngine->render('_offre_onclick.twig.html', ['offre' => $offre]);
+    }
+    public function _Page_OffreOnClick() {
+    $offerId = isset($_GET['id']) ? intval($_GET['id']) : null; 
+    
+    if ($offerId) {
+        $competence = $this->model->getCompetenceByOffer($offerId);
+        $duree = $this->model->getRecordDuree($offerId); 
+        $description = $this->model->getRecordDescription($offerId);
+        $descriptionEntreprise = $this->model->getRecordDescriptionEntreprise($offerId);
+
+        $descriptionEntrepriseText = isset($descriptionEntreprise['description']) ? $descriptionEntreprise['description'] : 'Description non disponible';
+
+        echo $this->templateEngine->render('_offre_onclick.twig.html', [
+            "offre" => $this->model->getOffreclick(),
+            "competence" => $competence,
+            "duree" => $duree,
+            "description" => $description['description'],
+            "description_entreprise" => $descriptionEntrepriseText
+        ]);
+    } else {
+        echo "ID de l'offre manquant ou invalide.";
+    }
 }
+}
+
+
