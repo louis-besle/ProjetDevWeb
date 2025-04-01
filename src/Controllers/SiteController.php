@@ -52,11 +52,11 @@ class SiteController extends Controller
 
     public function _Page_Dashboard()
     {
-        if ($_SESSION['user']['role'] === 'administrateur') {
+        if ($_SESSION['user']['role'] === 'Administrateur') {
             echo $this->templateEngine->render('a_dashboard.twig.html');
-        } else if ($_SESSION['user']['role'] === 'pilote') {
+        } else if ($_SESSION['user']['role'] === 'Pilote') {
             echo $this->templateEngine->render('p_dashboard.twig.html');
-        } else if ($_SESSION['user']['role'] === 'etudiant') {
+        } else if ($_SESSION['user']['role'] === 'Etudiant') {
             echo $this->templateEngine->render('e_dashboard.twig.html');
         }
     }
@@ -87,10 +87,10 @@ class SiteController extends Controller
     public function _Page_Ajouter_Compte()
     {
         
-        if ($_SESSION['user']['role'] === 'administrateur') {
+        if ($_SESSION['user']['role'] === 'Administrateur') {
             $utilisateur = $this->model->getUtilisateurs($_SESSION['user']['role']);
             echo $this->templateEngine->render('a_add_account.twig.html', ['utilisateur' => $utilisateur]);
-        } else if ($_SESSION['user']['role'] === 'pilote') {
+        } else if ($_SESSION['user']['role'] === 'Pilote') {
             $utilisateur = $this->model->getUtilisateurs($_SESSION['user']['role']);
             echo $this->templateEngine->render('p_add_account.twig.html', ['utilisateur' => $utilisateur]);
         }
