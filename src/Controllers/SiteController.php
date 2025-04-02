@@ -3,43 +3,94 @@
 namespace App\Controllers;
 
 use App\Models\SiteModel;
+use Exception;
 
 class SiteController extends Controller
 {
+    protected $model;
+    protected $templateEngine;
 
+    /**
+     * Constructeur du contrôleur
+     * @param mixed $templateEngine Moteur de template
+     */
     public function __construct($templateEngine)
     {
-        $this->model = new SiteModel();
-        $this->templateEngine = $templateEngine;
+        try {
+            $this->model = new SiteModel();
+            $this->templateEngine = $templateEngine;
+        } catch (Exception $e) {
+            error_log("Erreur d'initialisation du contrôleur: " . $e->getMessage());
+            die("Erreur pendant l'initialisation");
+        }
     }
 
+    /**
+     * Affiche la page de connexion
+     */
     public function _Page_Connexion()
     {
-        echo $this->templateEngine->render('_connexion.twig.html');
+        try {
+            echo $this->templateEngine->render('_connexion.twig.html');
+        } catch (Exception $e) {
+            error_log("Erreur page connexion: " . $e->getMessage());
+            echo "Erreur pendant l'affichage de la page";
+        }
     }
 
+    /**
+     * Affiche la page d'accueil avec les offres et entreprises
+     */
     public function _Page_Accueil()
     {
-        $offres = $this->model->getOffresAccueil();
-        $entreprises = $this->model->getEntreprisesAccueil($offres);
-        echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres, 'entreprises' => $entreprises]);
+        try {
+            $offres = $this->model->getOffresAccueil();
+            $entreprises = $this->model->getEntreprisesAccueil($offres);
+            
+            echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres, 'entreprises' => $entreprises]);
+        } catch (Exception $e) {
+            error_log("Erreur page accueil: " . $e->getMessage());
+            echo "Erreur pendant le chargement de la page d'accueil";
+        }
     }
+    /**
+     * Affiche la page de recherche avec les filtres
+     */
     public function _Page_Recherche()
     {
-        $page_actuelle = $this->model->getPageActuelle();
-        $nbpages = $this->model->getNbPages();
-        $entreprises = $this->model->getEntreprisesRecherche($page_actuelle);
-        $offres = $this->model->getOffreRecherche($page_actuelle);
-        $entreprises = $this->model->getVillesEntreprises($page_actuelle);
-        echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres, 'entreprises' => $entreprises, 'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages]);
+        try {
+            // Récupération des paramètres de filtrage
+            if(isset($_GET['entreprise']) && isset($_GET['ville'])){
+                $ville = htmlspecialchars($_GET['ville']);
+                $entreprise = htmlspecialchars($_GET['entreprise']);
+            } else {
+                $ville = 'Toutes';
+                $entreprise = 'Toutes';
+            }
+
+            // Récupération des données pour la page
+            $bouton_filtre = [
+                'entreprise' => $this->model->getEntreprise(),
+                'ville' => $this->model->getVille()
+            ];
+            $page_actuelle = $this->model->getPageActuelle();
+            $offres = $this->model->getOffreRecherche($page_actuelle, $ville, $entreprise);
+            $entreprises = $this->model->getVillesEntreprises($page_actuelle, $ville, $entreprise);
+            $nbpages = $this->model->getNbPages($offres[1], $entreprises[1]);
+
+            echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres[0], 'entreprises' => $entreprises[0], 'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages, 'filtres' => $bouton_filtre, 'filtre_ville' => $ville, 'filtre_entreprise' => $entreprise]);
+        } catch (Exception $e) {
+            error_log("Erreur page recherche: " . $e->getMessage());
+            echo "Une erreur est survenue lors de la recherche";
+        }
     }
-    public function _Page_OffreOnClick()
-    {
-        echo $this->templateEngine->render('_offre_onclick.twig.html');
-    }
+
+    /**
+     * Affiche la page de détails d'une entreprise
+     */
     public function _Page_EntrepriseOnClick()
     {
-        echo $this->templateEngine->render('_entreprise_onclick.twig.html');
+        echo $this->templateEngine->render('_entreprise_onclick.twig.html', ["entreprise" => $this->model->getEntrepriseClick()]);
     }
 
     public function _Page_Dashboard()
@@ -272,4 +323,30 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * Affiche la page de détails d'une offre
+     */
+    public function _Page_OffreOnClick() {
+        if (isset($_GET['id'])) {
+            $offerId = intval($_GET['id']);
+        } else {
+            $offerId = null;
+        }
+    
+        if ($offerId) {
+            $competence = $this->model->getCompetenceByOffer($offerId);
+            $offres = $this->model->getInfosOffres($offerId); 
+
+            echo $this->templateEngine->render('_offre_onclick.twig.html', [
+                "offre" => $this->model->getOffreclick(),
+                "competence" => $competence,
+                "duree" => $offres['duree'],
+                "entreprise" => $offres['entreprise'],
+            ]);
+        } else {
+            echo "ID de l'offre manquant ou invalide.";
+        }
+    }
 }
+
+

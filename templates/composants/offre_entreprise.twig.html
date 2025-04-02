@@ -14,3 +14,19 @@
         </a>
     {% endfor %}
 </div>
+
+<div class="offre_stage">   
+    {% for entreprise in entreprises %}
+        <a href="/?uri=entreprise&id={{entreprise.id_entreprise}}&id_ville={{entreprise.id_ville}}" class="offer_link">
+            <div class="offre_indiv">
+                <div class="details_offre">
+                    <p class="titre_offre">{{ entreprise.nom }}</p>
+                    <p class="entreprise_offre">{{ entreprise.nom_ville }}</p> <br>
+                </div> 
+                <div class="offre_image">
+                    <img src="/static/uploads/entreprises/{{entreprise.nom}}.svg" alt="Logo entreprise">
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>

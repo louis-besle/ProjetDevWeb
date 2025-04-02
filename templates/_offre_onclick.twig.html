@@ -4,51 +4,22 @@
     {% include 'composants/header.twig.html' %}
     <main>
         {% include 'composants/menu_recherche.twig.html' %}
-
-        <h1>Stagiaire Informatique H/F<button class="fav_bouton" onclick="toggleFavoris(this)">💜</button></h1>
+        
+        <h1>{{offre.titre}}<button class="fav_bouton" onclick="toggleFavoris(this)">💜</button></h1>
         <h3>Résumé de l'offre</h3>
 
         <ul class="competences">
-            <li>3 mois</li>
-            <li>Bac +2, Bac +3</li>
-            <li>Systèmes, Réseaux, Cloud</li>
-            <li>Exp. - 1 ans</li>
+            <li>{{ duree }} mois</li>
+            {% for c in competence %}
+                <li>{{ c.competence }}</li>
+            {% endfor %}
         </ul>
         <p>Nombre de personne ayant postulées à cette offre : 42</p>
-        <img src="#" alt="image de l'entreprise">
+        <img src="/static/uploads/entreprises/{{entreprise.nom}}.svg" alt="image de l'entreprise">
         <h2>Présentation de l'entreprise</h2>
-        <p>Le développement informatique est un domaine en constante évolution, où les technologies, les langages et
-            les
-            outils progressent à un rythme effréné. Chaque jour, de nouvelles innovations voient le jour, offrant
-            aux
-            développeurs des solutions toujours plus performantes pour répondre aux besoins du marché. Que ce soit
-            dans
-            le domaine du web, de l'intelligence artificielle ou encore de la cybersécurité, les opportunités sont
-            nombreuses et variées. Il est essentiel pour tout professionnel de rester à jour sur les tendances,
-            d'expérimenter de nouvelles approches et d'adopter les bonnes pratiques pour garantir des résultats
-            optimaux.</p>
+        <p>{{ entreprise.description }}</p>
         <h2>Présentation du poste</h2>
-        <p>Le développement informatique est un domaine en constante évolution, où les technologies, les langages et
-            les
-            outils progressent à un rythme effréné. Chaque jour, de nouvelles innovations voient le jour, offrant
-            aux
-            développeurs des solutions toujours plus performantes pour répondre aux besoins du marché. Que ce soit
-            dans
-            le domaine du web, de l'intelligence artificielle ou encore de la cybersécurité, les opportunités sont
-            nombreuses et variées. Il est essentiel pour tout professionnel de rester à jour sur les tendances,
-            d'expérimenter de nouvelles approches et d'adopter les bonnes pratiques pour garantir des résultats
-            optimaux.</p>
-        <h2>Profil requis</h2>
-        <p>Le développement informatique est un domaine en constante évolution, où les technologies, les langages et
-            les
-            outils progressent à un rythme effréné. Chaque jour, de nouvelles innovations voient le jour, offrant
-            aux
-            développeurs des solutions toujours plus performantes pour répondre aux besoins du marché. Que ce soit
-            dans
-            le domaine du web, de l'intelligence artificielle ou encore de la cybersécurité, les opportunités sont
-            nombreuses et variées. Il est essentiel pour tout professionnel de rester à jour sur les tendances,
-            d'expérimenter de nouvelles approches et d'adopter les bonnes pratiques pour garantir des résultats
-            optimaux.</p>
+        <p>{{ offre.description }}</p>
 
         <div class="conteneur_formulaire">
             <h2>Votre message au recruteur</h2>
