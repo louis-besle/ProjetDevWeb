@@ -53,22 +53,16 @@ class SiteController extends Controller
             echo "Erreur pendant le chargement de la page d'accueil";
         }
     }
+    
     /**
      * Affiche la page de recherche avec les filtres
      */
     public function _Page_Recherche()
     {
         try {
-            // Récupération des paramètres de filtrage
-            if (isset($_GET['entreprise']) && isset($_GET['ville'])) {
-                $ville = htmlspecialchars($_GET['ville']);
-                $entreprise = htmlspecialchars($_GET['entreprise']);
-            } else {
-                $ville = 'Toutes';
-                $entreprise = 'Toutes';
-            }
-
-            // Récupération des données pour la page
+            $ville = isset($_GET['ville']) ? htmlspecialchars($_GET['ville']) : 'Toutes';
+            $entreprise = isset($_GET['entreprise']) ? htmlspecialchars($_GET['entreprise']) : 'Toutes';
+    
             $bouton_filtre = [
                 'entreprise' => $this->model->getEntreprise(),
                 'ville' => $this->model->getVille()
@@ -76,14 +70,31 @@ class SiteController extends Controller
             $page_actuelle = $this->model->getPageActuelle();
             $offres = $this->model->getOffreRecherche($page_actuelle, $ville, $entreprise);
             $entreprises = $this->model->getVillesEntreprises($page_actuelle, $ville, $entreprise);
-            $nbpages = $this->model->getNbPages($offres[1], $entreprises[1]);
-
-            echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres[0], 'entreprises' => $entreprises[0], 'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages, 'filtres' => $bouton_filtre, 'filtre_ville' => $ville, 'filtre_entreprise' => $entreprise]);
+    
+            $offres_count = isset($offres[1]) ? $offres[1] : 0;
+            $entreprises_count = isset($entreprises[1]) ? $entreprises[1] : 0;
+    
+            $nbpages = $this->model->getNbPages($offres_count, $entreprises_count);
+            if (empty($nbpages)) {
+                $nbpages = 1;
+            }
+    
+            echo $this->templateEngine->render('_recherche.twig.html', [
+                'offres' => isset($offres[0]) ? $offres[0] : [],
+                'entreprises' => isset($entreprises[0]) ? $entreprises[0] : [],
+                'page_actuelle' => $page_actuelle,
+                'nb_pages' => $nbpages,
+                'filtres' => $bouton_filtre,
+                'filtre_ville' => $ville,
+                'filtre_entreprise' => $entreprise
+            ]);
         } catch (Exception $e) {
             error_log("Erreur page recherche: " . $e->getMessage());
             echo "Une erreur est survenue lors de la recherche";
         }
     }
+    
+    
 
     /**
      * Affiche la page de détails d'une entreprise
