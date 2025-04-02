@@ -292,10 +292,12 @@ class SiteController extends Controller
             if (isset($_POST['modif'])) {
                 $id = intval($_POST['modif']);
                 $offre = $this->model->getOffreById($id);
+                var_dump($offre);
                 echo $this->templateEngine->render('ap_modifier_offre.twig.html', ['offre' => $offre, 'selection' => $selection, 'competence' => $competence]);
             } elseif (isset($_POST['supp'])) {
                 $id = intval($_POST['supp']);
                 $this->model->deleteOffre($id);
+                header('Location: /?uri=recherche');
             }
         }
     }
@@ -311,42 +313,15 @@ class SiteController extends Controller
             $date_fin = $_POST["duration_end"] ?? '';
             $id_entreprise = filter_input(INPUT_POST, "entreprise", FILTER_VALIDATE_INT);
             $competences = $_POST["competence"] ?? [];
-            echo $id;
-            echo $titre;
+            
             if (!$id || !$id_entreprise || empty($titre) || empty($description) || empty($remuneration) || empty($date_debut) || empty($date_fin)) {
                 echo "Erreur : Tous les champs doivent être remplis correctement.";
                 return;
             }
-
-
             $this->model->UpdateOffre($id, $titre, $description, $remuneration, $date_debut, $date_fin, $id_entreprise, $competences);
+            header('Location: /?uri=recherche');
+            exit;
         }
     }
 
-    /**
-     * Affiche la page de détails d'une offre
-     */
-    public function _Page_OffreOnClick() {
-        if (isset($_GET['id'])) {
-            $offerId = intval($_GET['id']);
-        } else {
-            $offerId = null;
-        }
-    
-        if ($offerId) {
-            $competence = $this->model->getCompetenceByOffer($offerId);
-            $offres = $this->model->getInfosOffres($offerId); 
-
-            echo $this->templateEngine->render('_offre_onclick.twig.html', [
-                "offre" => $this->model->getOffreclick(),
-                "competence" => $competence,
-                "duree" => $offres['duree'],
-                "entreprise" => $offres['entreprise'],
-            ]);
-        } else {
-            echo "ID de l'offre manquant ou invalide.";
-        }
-    }
 }
-
-

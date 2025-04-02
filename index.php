@@ -218,6 +218,24 @@ switch ($uri) {
         }
         break;
 
+    case 'page_modifier_entreprise':
+        if ($isConnect) {
+            $controller->_Page_Modifier_Entreprise();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    case 'modifier_entreprise':
+        if ($isConnect) {
+            $controller->modifier_entreprise();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
 
 
 
