@@ -113,6 +113,20 @@ class SiteModel extends Model
         }
     }
 
+    public function getEntrepriseClick(){
+        if (isset($_GET['id'])) {
+            $id_page = $_GET['id'];
+        } else {
+            $id_page = 1;
+        }
+        if (isset($_GET['id_ville'])) {
+            $id_ville = $_GET['id_ville'];
+        } else {
+            $id_ville = 1;
+        }
+        return $this->connection->getRecordEntrepriseOnClick('entreprise', $id_page, $id_ville);
+    }
+
     public function getNbPages($val1,$val2)
     {
         return max($val1,$val2);
@@ -120,5 +134,40 @@ class SiteModel extends Model
 
     public function getUtilisateurs($role){
        return $this->connection->getRecordUtilisateur($role);
+    }
+
+    public function getCompetenceByOffer($id) {
+        $competences = $this->connection->getAllCompetencesAssociees($id);
+            if ($competences) {
+                return $competences;
+            } else {
+                return [];
+            }
+    }
+
+    public function getInfosOffres($id){
+        $offres = $this->connection->getRecordInfoOffres($id);
+
+        if ($offres && isset($offres['date_debut'], $offres['date_fin'])) {
+            $dateDebut = new \DateTime($offres['date_debut']);
+            $dateFin = new \DateTime($offres['date_fin']);
+            $interval = $dateDebut->diff($dateFin);
+
+
+            $mois = ceil($interval->y * 12 + $interval->m + ($interval->d / 30));
+
+            return ['description_offre' => $offres['description_offre'], 'description_entreprise' => $offres['description_entreprise'], 'duree' => $mois];
+        }
+
+    }
+
+    public function getOffreClick(){
+        if (isset($_GET['id'])) {
+            $id_page = $_GET['id'];
+        } else {
+            $id_page = 1;
+
+        }
+        return $this->connection->getRecordById('offre',$id_page);
     }
 }

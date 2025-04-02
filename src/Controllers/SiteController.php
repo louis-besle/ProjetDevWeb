@@ -86,14 +86,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Affiche la page de détails d'une offre
-     */
-    public function _Page_OffreOnClick()
-    {
-        echo $this->templateEngine->render('_offre_onclick.twig.html');
-    }
-
-    /**
      * Affiche la page de détails d'une entreprise
      */
     public function _Page_EntrepriseOnClick()
@@ -230,19 +222,10 @@ class SiteController extends Controller
             header('Location: /?uri=ajouter_compte');
         }
     }
-    public function _Page_Detail_Offre($id)
-    {
-    $offre = $this->model->getDetailedOffer($id);
 
-    if (!$offre) {
-        http_response_code(404);
-        echo "Offre non trouvée.";
-        return;
-    }
-
-    echo $this->templateEngine->render('_offre_onclick.twig.html', ['offre' => $offre]);
-    }
-
+    /**
+     * Affiche la page de détails d'une offre
+     */
     public function _Page_OffreOnClick() {
         if (isset($_GET['id'])) {
             $offerId = intval($_GET['id']);
@@ -253,8 +236,6 @@ class SiteController extends Controller
         if ($offerId) {
             $competence = $this->model->getCompetenceByOffer($offerId);
             $offres = $this->model->getInfosOffres($offerId); 
-
-            $descriptionEntrepriseText = isset($descriptionEntreprise['description']) ? $descriptionEntreprise['description'] : 'Description non disponible';
 
             echo $this->templateEngine->render('_offre_onclick.twig.html', [
                 "offre" => $this->model->getOffreclick(),
