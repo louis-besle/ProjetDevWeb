@@ -341,6 +341,7 @@ class SiteController extends Controller
                 "competence" => $competence,
                 "duree" => $offres['duree'],
                 "entreprise" => $offres['entreprise'],
+                "id_offre" => $offerId
             ]);
         } else {
             echo "ID de l'offre manquant ou invalide.";
