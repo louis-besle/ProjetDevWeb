@@ -430,4 +430,18 @@ class FileDatabase implements Database
             return false; // En cas d'erreur, on retourne false (ou on peut gérer l'erreur différemment selon les besoins)
         }
     }
+
+    public function insertLog($id_utilisateur, $date_connexion){
+        try {
+            $sql = 'INSERT INTO log (id_utilisateur, date_connexion)
+                VALUES (:id_utilisateur, :date_connexion)';
+                
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
+                $stmt->bindParam('date_connexion', $date_connexion, PDO::PARAM_STR);
+                return $stmt->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 }
