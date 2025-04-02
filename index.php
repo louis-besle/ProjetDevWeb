@@ -236,7 +236,15 @@ switch ($uri) {
             exit();
         }
         break;
-
+    case 'ajout_wishlist':
+        if ($isConnect) {
+            $controller->_Ajout_Wishlist();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
 
 
     default:

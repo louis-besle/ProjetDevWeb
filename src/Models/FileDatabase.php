@@ -354,4 +354,48 @@ class FileDatabase implements Database
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
+    public function getRecordOffresDashboard($id_utilisateur, $relation) {
+        $sql = "SELECT offre.titre, entreprise.nom, offre.mise_en_ligne, offre.id_offre
+            FROM utilisateur
+            INNER JOIN `$relation` ON `$relation`.id_utilisateur = utilisateur.id_utilisateur
+            INNER JOIN offre ON `$relation`.id_offre = offre.id_offre
+            INNER JOIN entreprise ON offre.id_entreprise = entreprise.id_entreprise
+            WHERE utilisateur.id_utilisateur = $id_utilisateur";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getCV($id_utilisateur) {
+        $sql = "SELECT cv.cv, utilisateur.id_utilisateur
+                FROM utilisateur
+                INNER JOIN cv ON cv.id_utilisateur = utilisateur.id_utilisateur
+                WHERE utilisateur.id_utilisateur = :id_utilisateur";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id_utilisateur', $id_utilisateur, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateSouhaiter($id_utilisateur,$id_offre) {
+        try {
+            $sql = 'INSERT INTO souhaiter (id_utilisateur, id_offre)
+                VALUES (:id_utilisateur, :id_offre)';
+
+            $stmt = $this->pdo->prepare($sql);  
+            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
+            $stmt->bindParam('id_offre', $id_offre, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            $sql = 'DELETE FROM souhaiter WHERE id_utilisateur = :id_utilisateur AND id_offre = :id_offre';
+
+            $stmt = $this->pdo->prepare($sql);  
+            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
+            $stmt->bindParam('id_offre', $id_offre, PDO::PARAM_INT);
+            return $stmt->execute();
+        }
+        
+    }
 }

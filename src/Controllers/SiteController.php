@@ -105,16 +105,17 @@ class SiteController extends Controller
     }
     public function _Page_Wishlist()
     {
-        //$wishlist = $this->model->getWishlistById($_SESSION['user']['id_utilisateur']);
-        echo $this->templateEngine->render('e_wishlist.twig.html');
+        $wishlist = $this->model->getWishlistById($_SESSION['user']['id']);
+        echo $this->templateEngine->render('e_wishlist.twig.html', ["offres" => $wishlist]);
     }
     public function _Page_CV()
     {
-        echo $this->templateEngine->render('e_cv.twig.html');
+        echo $this->templateEngine->render('e_cv.twig.html', ["cvs" => $this->model->getCVById($_SESSION['user']['id'])]);
     }
     public function _Page_OffrePostulees()
     {
-        echo $this->templateEngine->render('e_offre_postule.twig.html');
+        $wishlist = $this->model->getOffresPostuleesById($_SESSION['user']['id']);
+        echo $this->templateEngine->render('e_offre_postule.twig.html', ["offres" => $wishlist]);
     }
 
 
@@ -394,6 +395,19 @@ class SiteController extends Controller
                 $this->model->deleteEntreprise($id);
                 header('Location: /?uri=recherche');
             }
+        }
+    }
+
+    public function _Ajout_Wishlist(){
+        $this->model->ajout_wishlist($_SESSION['user']['id'], $_POST['id_offre']);
+        if(isset($_GET['page'])) {
+            if(isset($_GET['id'])) {
+                header('Location: /?uri=' . $_GET['page'].'&id=' . $_GET['id']);
+            } else {
+                header('Location: /?uri='. $_GET['page']);
+            }
+        } else {
+            header('Location: /?uri=accueil');
         }
     }
 }

@@ -203,6 +203,18 @@ class SiteModel extends Model
     }
 
     public function getWishlistById($id){
-        
+        return $this->connection->getRecordOffresDashboard($id,'souhaiter');
+    }
+
+    public function getOffresPostuleesById($id){
+        return $this->connection->getRecordOffresDashboard($id,'candidater');
+    }
+
+    public function getCVById($id){
+        return $this->connection->getCV($id);
+    }
+
+    public function ajout_wishlist($id_utilisateur,$id_offre) {
+        return $this->connection->updateSouhaiter($id_utilisateur,$id_offre);
     }
 }
