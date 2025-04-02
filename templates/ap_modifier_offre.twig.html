@@ -1,0 +1,52 @@
+{% include 'composants/base_haut.twig.html' %}
+
+<body>
+    {% include 'composants/header.twig.html' %}
+    <main>
+        {% include 'composants/menu_recherche.twig.html' %}
+
+        <form class="add_offer" action="/?uri=modifier_offre" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id_offre" required value="1">
+
+            <h2>Titre de l'offre</h2>
+            <input type="text" id="offer_title" name="offer_title" required value="{{ offre.titre_offre }}">
+
+            <h2>Entreprises</h2>
+            <label for="borne-select_entreprise">Sélectionnez une entreprise</label>
+            <select id="borne-select_entreprise" name="entreprise" required>
+                <option value="{{ offre.entreprise.id_entreprise }}">{{ offre.entreprise.nom_entreprise }} - {{ offre.entreprise.ville }}</option>
+                {% for sel in selection %}
+                <option value="{{ sel.id_entreprise }}">{{ sel.nom }} - {{ sel.nom_ville }}</option>
+                {% endfor %}
+            </select>
+
+            <h2>Compétences</h2>
+            <label for="borne-select_competence-0">Sélectionnez une compétence</label>
+            {% for i in range(0, 3) %}
+                <select id="borne-select_competence-{{ i }}" name="competence[]">
+                    <option value="{{ offre.competences[i].id_competence }}">{{ offre.competences[i].nom_competence }}</option>
+                    {% for comp in competence %}
+                        <option value="{{ comp.id_competence }}">{{ comp.competence }}</option>
+                    {% endfor %}
+                </select>
+            {% endfor %}
+
+
+            <h2>Durée du stage</h2>
+            <input type="date" id="duration_start" name="duration_start" required value="{{ offre.date_debut }}">
+            <input type="date" id="duration_end" name="duration_end" required value="{{ offre.date_fin }}">
+
+            <h2>Rémunération</h2>
+            <input type="text" id="remuneration" name="remuneration" required value="{{ offre.remuneration }}">
+
+            <h2>Description</h2>
+            <textarea id="job_description" name="job_description" required>{{ offre.description_offre }}</textarea>
+
+            <div class="grp_bouton">
+                <button type="submit" class="bouton_">Modifier</button>
+            </div>
+        </form>
+    </main>
+</body>
+<script src="/static/js/formulaire_add_offre.js"></script>
+{% include 'composants/footer.twig.html' %}

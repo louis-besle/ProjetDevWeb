@@ -12,7 +12,7 @@
     </select>
 
     <h2>Compétences</h2>
-    <label for="borne-select_competence">Sélectionnez une compétences</label>
+    <label for="borne-select_competence">Sélectionnez des compétences</label>
     <select id="borne-select_competence" name="competence[]" required>
         <option value="">-- Choisissez une compétence --</option>
         {% for comp in competence %}
@@ -49,14 +49,6 @@
     <h2>Rémunération</h2>
     <input type="text" id="remuneration" name="remuneration" required>
 
-    <h2>Niveau d'étude requis</h2>
-    <label for="borne-select_niveau">Sélectionnez un niveau d'étude</label>
-    <select id="borne-select_niveau" name="niveau[]" required>
-        <option value="">-- Choisissez un niveau d'étude --</option>
-        {% for niv in niveau %}
-        <option value="{{ niv.id_competence }}">{{ niv.competence }}</option>
-        {% endfor %}
-    </select>
 
     <h2>Description</h2>
     <textarea id="job_description" name="job_description" required
