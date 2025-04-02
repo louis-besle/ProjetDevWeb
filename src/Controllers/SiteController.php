@@ -241,7 +241,7 @@ class SiteController extends Controller
                 "offre" => $this->model->getOffreclick(),
                 "competence" => $competence,
                 "duree" => $offres['duree'],
-                "description_entreprise" => $offres['description_entreprise'],
+                "entreprise" => $offres['entreprise'],
             ]);
         } else {
             echo "ID de l'offre manquant ou invalide.";

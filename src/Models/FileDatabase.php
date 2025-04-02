@@ -197,7 +197,7 @@ class FileDatabase implements Database
     }
     
     public function getRecordInfoOffres($id){
-        $sql = "SELECT date_debut, date_fin, offre.description as description_offre, entreprise.description as description_entreprise
+        $sql = "SELECT date_debut, date_fin, offre.description as description_offre, entreprise.description as description_entreprise, entreprise.nom
                 FROM offre
                 INNER JOIN entreprise ON offre.id_entreprise = entreprise.id_entreprise
                 WHERE id_offre = :id";

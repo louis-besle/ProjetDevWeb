@@ -156,7 +156,7 @@ class SiteModel extends Model
 
             $mois = ceil($interval->y * 12 + $interval->m + ($interval->d / 30));
 
-            return ['description_offre' => $offres['description_offre'], 'description_entreprise' => $offres['description_entreprise'], 'duree' => $mois];
+            return ['description_offre' => $offres['description_offre'], 'entreprise' => ['nom' => $offres['nom'],'description' => $offres['description_entreprise']], 'duree' => $mois];
         }
 
     }
