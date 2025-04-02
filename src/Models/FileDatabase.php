@@ -156,7 +156,7 @@ class FileDatabase implements Database
 
     public function getRecordBetweenTableEntrepriseVille($table1, $relation, $table2, $options = null)
     {
-        $sql = "SELECT e.id_entreprise, e.nom, v.nom_ville, e.image_illustration 
+        $sql = "SELECT e.id_entreprise, e.nom, v.id_ville, v.nom_ville, e.image_illustration 
                 FROM `$table1` e
                 INNER JOIN `$relation` s ON e.id_{$table1} = s.id_{$table1}
                 INNER JOIN `$table2` v ON s.id_{$table2} = v.id_{$table2}";

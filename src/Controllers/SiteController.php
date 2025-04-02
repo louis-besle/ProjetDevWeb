@@ -94,17 +94,18 @@ class SiteController extends Controller
     }
 
     public function _Page_Dashboard()
-    {
+    {   
         if ($_SESSION['user']['role'] === 'Administrateur') {
             echo $this->templateEngine->render('a_dashboard.twig.html');
         } else if ($_SESSION['user']['role'] === 'Pilote') {
             echo $this->templateEngine->render('p_dashboard.twig.html');
-        } else if ($_SESSION['user']['role'] === 'Etudiant') {
+        } else if ($_SESSION['user']['role'] === 'Étudiant') {
             echo $this->templateEngine->render('e_dashboard.twig.html');
         }
     }
     public function _Page_Wishlist()
     {
+        //$wishlist = $this->model->getWishlistById($_SESSION['user']['id_utilisateur']);
         echo $this->templateEngine->render('e_wishlist.twig.html');
     }
     public function _Page_CV()

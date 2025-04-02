@@ -201,4 +201,8 @@ class SiteModel extends Model
     {
         return $this->connection->delEntreprise($id);
     }
+
+    public function getWishlistById($id){
+        
+    }
 }
