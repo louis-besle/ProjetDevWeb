@@ -17,9 +17,11 @@
             <td>{{util.email}}</td>
             <td>{{util.nom_role}}</td>
             <td>
-                <form>
-                    <div class="grp_bouton"><button type="submit" class="bouton_">Voir</button></div>
+                {% if util.nom_role == 'Etudiant' %}
+                <form action="/?uri=statistique" method="POST">
+                    <div class="grp_bouton"><button type="submit" name="voir" class="bouton_" value={{util.id_utilisateur}}>Voir</button></div>
                 </form>
+                {% endif %}
             </td>
             <td>
                 <form  action="/?uri=compte" method="POST">

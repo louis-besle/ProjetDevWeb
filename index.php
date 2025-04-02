@@ -49,6 +49,15 @@ switch ($uri) {
             exit();
         }
         break;
+    case 'resultat_recherche':
+        if ($isConnect) {
+            $controller->_Page_Resultat_Recherche();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
     case 'offre':
         if ($isConnect) {
             $controller->_Page_OffreOnClick();
@@ -67,6 +76,10 @@ switch ($uri) {
             exit();
         }
         break;
+
+
+
+
     case 'login':
         $authController->login();
         break;
@@ -237,7 +250,15 @@ switch ($uri) {
         }
         break;
 
-
+    case 'statistique':
+        if ($isConnect) {
+            $controller->_Page_Statistique();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
 
     default:
         echo '404 Not Found';

@@ -6,14 +6,12 @@
         {% include 'composants/menu_recherche.twig.html' %}
 
         <article class="affichage_offre">
-            <h1>Plus de {{nombre_offres}} offres disponibles !</h1>
+            <h1>Résultat de la recherche</h1>
 
-            {% include 'composants/bouton_filtre.twig.html' %}
-
-            {% include 'composants/offre_entreprise.twig.html' %}
+            {% include 'composants/resultat_offre_entreprise.twig.html' %}
 
         </article>
-        <form method="POST" action="?uri=recherche">
+        <form method="POST" action="?uri=resultat_recherche">
             <div class="container_page">
                 <a class="btn_pagination"
                 {% if page_actuelle == 1 %}
@@ -27,16 +25,16 @@
                 
                 {% set taille = nb_pages // 5 %}
                 {% if taille > 5 %}
-                    <a href="?uri=recherche&p=1&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination">1</a>
-                    <a href="?uri=recherche&p=2&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination">2</a>
-                    <a href="?uri=recherche&p=3&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination">3</a>
+                    <a href="?uri=resultat_recherche&p=1" class="btn_pagination">1</a>
+                    <a href="?uri=resultat_recherche&p=2" class="btn_pagination">2</a>
+                    <a href="?uri=resultat_recherche&p=3" class="btn_pagination">3</a>
                     <a class="btn_pagination">...</a>
-                    <a href="?uri=recherche&p={{ (nb_pages // 5) }}&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination">{{ (nb_pages // 5) }}</a>
+                    <a href="?uri=resultat_recherche&p={{ (nb_pages // 5) }} " class="btn_pagination">{{ (nb_pages // 5) }}</a>
                 {% endif %} 
                 
                 {% if taille <= 5 %}
                     {% for i in range(1, nb_pages // 5 + 1) %}
-                        <a href="?uri=recherche&p={{ i }}&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination">{{ i }}</a>
+                        <a href="?uri=resultat_recherche&p={{ i }}" class="btn_pagination">{{ i }}</a>
                     {% endfor %}
                 {% endif %}
         
@@ -47,7 +45,7 @@
                 
                 
                 {% if page_actuelle < nb_pages // 5 %}
-                    href=?uri=recherche&p={{page_actuelle + 1}}
+                    href=?uri=resultat_recherche&p={{page_actuelle + 1}}
                 {% endif %}
                 >Suivant</a>
                 </div>

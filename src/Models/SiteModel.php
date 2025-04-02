@@ -205,5 +205,23 @@ class SiteModel extends Model
     public function updateentreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image){
         return $this->connection->updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image);
     }
+
+    public function recherche($rechercheGenerale, $ville){
+        return $this->connection->rechercherOffres($rechercheGenerale, $ville);
+    }
+
+    public function nombre_offre(){
+        return $this->connection->nbr_offre();
+    }
+
+    public function nombre_personne($id_offre){
+        return $this->connection->nbr_personne($id_offre);
+    }
+    public function nombre_utilisateur($role){
+        return $this->connection->nbr_utilisateur($role);
+    }
+    public function statistique_utilisateur($id_etudiant){
+        return $this->connection->statistique($id_etudiant);
+    }
 }
 

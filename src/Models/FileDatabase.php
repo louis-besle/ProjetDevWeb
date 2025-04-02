@@ -363,7 +363,6 @@ class FileDatabase implements Database
     public function updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image)
     {
 
-
         $sql = "UPDATE entreprise
                     SET
                         nom = :nom,
@@ -393,4 +392,128 @@ class FileDatabase implements Database
             ':id_entreprise' => $id_entreprise
         ]);
     }
+
+    public function rechercherOffres($rechercheGenerale, $ville)
+    {
+        $motsCles = explode(" ", trim($rechercheGenerale));
+
+        $criteres = [];
+        $params = [];
+
+        foreach ($motsCles as $mot) {
+            $stmt = $this->pdo->prepare("SELECT id_entreprise FROM entreprise WHERE nom LIKE ?");
+            $stmt->execute(["%$mot%"]);
+            if ($stmt->fetch()) {
+                $criteres[] = "entreprise.nom LIKE ?";
+                $params[] = "%$mot%";
+                continue;
+            }
+
+            $stmt = $this->pdo->prepare("SELECT id_competence FROM competence WHERE competence LIKE ?");
+            $stmt->execute(["%$mot%"]);
+            if ($stmt->fetch()) {
+                $criteres[] = "competence.competence LIKE ?";
+                $params[] = "%$mot%";
+                continue;
+            }
+
+            $criteres[] = "(offre.titre LIKE ? OR offre.description LIKE ?)";
+            $params[] = "%$mot%";
+            $params[] = "%$mot%";
+        }
+
+        $criteres[] = "(offre.titre LIKE ? OR offre.description LIKE ?)";
+        $params[] = "%$rechercheGenerale%";
+        $params[] = "%$rechercheGenerale%";
+
+        $criteres[] = "competence.competence LIKE ?";
+        $params[] = "%$rechercheGenerale%";
+
+        $criteres[] = "offre.remuneration LIKE ?";
+        $params[] = "%$rechercheGenerale%";
+
+        $criteres[] = "offre.mise_en_ligne LIKE ?";
+        $params[] = "%$rechercheGenerale%";
+
+        $sql = "SELECT 
+                    offre.id_offre, offre.titre, offre.description, offre.remuneration, offre.mise_en_ligne, 
+                    entreprise.nom AS nom_entreprise, 
+                    ville.nom_ville, GROUP_CONCAT(competence.competence SEPARATOR ', ') AS competences
+                FROM offre
+                JOIN entreprise ON offre.id_entreprise = entreprise.id_entreprise
+                JOIN situer ON entreprise.id_entreprise = situer.id_entreprise
+                JOIN ville ON situer.id_ville = ville.id_ville
+                LEFT JOIN associer ON offre.id_offre = associer.id_offre
+                LEFT JOIN competence ON associer.id_competence = competence.id_competence";
+
+        if (!empty($criteres)) {
+            $sql .= " WHERE " . implode(" OR ", $criteres);
+        }
+
+        if ($ville) {
+            $sql .= !empty($criteres) ? " AND " : " WHERE ";
+            $sql .= "ville.nom_ville LIKE ?";
+            $params[] = "%$ville%";
+        }
+
+        $sql .= " GROUP BY offre.id_offre";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function nbr_offre()
+    {
+        $sql = "SELECT count(offre.id_offre) FROM offre";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result[0];
+    }
+
+    public function nbr_personne($id_offre)
+    {
+        $sql = "SELECT count(*) FROM candidater WHERE id_offre = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id_offre]);
+        $result = $stmt->fetch();
+        return $result[0];
+    }
+
+    public function nbr_utilisateur($role)
+    {
+        $sql = "SELECT count(utilisateur.id_utilisateur) FROM utilisateur INNER JOIN role ON utilisateur.id_role = role.id_role WHERE nom_role = :nom_role";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':nom_role' => $role]);
+        $result = $stmt->fetch();
+        return $result[0];
+    }
+
+    public function statistique($id_etudiant)
+    {
+        $sql = "
+            SELECT 
+                (SELECT COUNT(id_log) FROM log WHERE id_utilisateur = :id) AS total_logs,
+                (SELECT COUNT(DISTINCT o.id_offre) FROM candidater c 
+                    LEFT JOIN offre o ON c.id_offre = o.id_offre
+                    WHERE c.id_utilisateur = :id) AS total_offres,
+                (SELECT COUNT(DISTINCT o.id_offre) FROM souhaiter s
+                    LEFT JOIN offre o ON s.id_offre = o.id_offre
+                    WHERE s.id_utilisateur = :id) AS total_wishlist,
+                u.id_utilisateur,
+                u.nom_utilisateur,
+                u.prenom_utilisateur,
+                u.email
+            FROM utilisateur u
+            WHERE u.id_utilisateur = :id;
+        ";
+    
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $id_etudiant]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    
+
 }
