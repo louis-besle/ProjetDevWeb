@@ -193,12 +193,6 @@ switch ($uri) {
             exit();
         }
         break;
-
-
-
-
-
-
     case 'ajouter_entreprise':
         if ($isConnect) {
             $controller->_Page_Ajouter_Entreprise();
@@ -236,9 +230,22 @@ switch ($uri) {
             exit();
         }
         break;
-
-
-
+    case 'mentions':
+        $controller->mentions();
+        break;
+    case 'cgu':
+        $controller->cgu();
+        break;
+    case 'politique':
+        $controller->politiqueConfidentialite();
+        break;
+    case 'cookies':
+        $controller->cookies();
+        break;
+    case 'contact':
+        $controller->contact();
+        break;
+        
     default:
         echo '404 Not Found';
         break;

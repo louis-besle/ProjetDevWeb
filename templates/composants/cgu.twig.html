@@ -1,0 +1,218 @@
+{% extends "composants/base_haut.twig.html" %}
+
+{% block title %}Conditions Générales d’Utilisation - StageUp{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  header img {
+    height: 40px;
+  }
+
+  nav a {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #E6DAF8;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #3D0071;
+    font-weight: bold;
+  }
+
+  .container {
+    display: flex;
+    padding: 2rem;
+  }
+
+  .sidebar {
+    width: 220px;
+    border-right: 1px solid #ccc;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar li {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+  }
+
+  .sidebar a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .sidebar li:hover,
+  .sidebar li.active {
+    background-color: #f3f3f3;
+    border-left: 3px solid #3D0071;
+  }
+
+  .content {
+    flex: 1;
+    padding: 0 2rem;
+  }
+
+  .content h1 {
+    text-align: center;
+  }
+
+  .content section {
+    margin-bottom: 2rem;
+  }
+
+  .content section h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .content ul {
+    padding-left: 1.5rem;
+    list-style: disc;
+  }
+
+  .footer {
+    background-color: #3D0071;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 3rem;
+  }
+
+  .footer a {
+    color: #ccc;
+    margin: 0 0.5rem;
+    text-decoration: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+</style>
+
+<header>
+    <a href="/index.php?uri=accueil">
+      <img src="/static/images/Sta_eUp.png" alt="Logo StageUp">
+  </a>
+    <nav>
+      <a href="/index.php?uri=recherche">Offres</a>
+      <a href="/index.php?uri=entreprise">Entreprises</a>
+      <a href="/index.php?uri=login">Connexion</a>
+    </nav>
+  </header>
+  
+
+<div class="container">
+    <aside class="sidebar">
+        <ul>
+            <li><a href="/index.php?uri=mentions">Mentions Légales</a></li>
+            <li class="active"><a href="/index.php?uri=cgu">CGU</a></li>
+            <li><a href="/index.php?uri=politique">Politique de Confidentialité</a></li>
+            <li><a href="/index.php?uri=cookies">Cookies</a></li>
+            <li><a href="/index.php?uri=contact">Contact</a></li>
+          </ul>
+    </aside>
+      
+
+  <main class="content">
+    <h1 id="cgu">Conditions Générales d'Utilisation (CGU)</h1>
+
+    <section>
+      <h2>1. Objet</h2>
+      <p>Les présentes Conditions Générales d’Utilisation (CGU) ont pour objet de définir les modalités et conditions d’utilisation du site de recherche de stages ainsi que les droits et obligations des utilisateurs et de l’éditeur du site.</p>
+    </section>
+
+    <section>
+      <h2>2. Acceptation des CGU</h2>
+      <p>L’utilisation du site implique l’acceptation pleine et entière des présentes CGU. En accédant au site, l’utilisateur reconnaît avoir pris connaissance des CGU et s’engage à les respecter.</p>
+    </section>
+
+    <section>
+      <h2>3. Accès au site et services</h2>
+      <p>L’accès au site est gratuit et ouvert à tout utilisateur disposant d’une connexion internet. Certaines fonctionnalités peuvent nécessiter la création d’un compte personnel.</p>
+    </section>
+
+    <section>
+      <h2>4. Comptes Utilisateurs</h2>
+      <p>Les utilisateurs ne peuvent pas créer eux-mêmes un compte. La création de compte est effectuée par un pilote responsable, qui fournit des identifiants uniques à chaque utilisateur. L’utilisateur s’engage à conserver ses identifiants confidentiels et à ne pas les partager avec des tiers.</p>
+    </section>
+
+    <section>
+      <h2>5. Obligations des Utilisateurs</h2>
+      <p>L’utilisateur s’engage à :</p>
+      <ul>
+        <li>Ne pas utiliser le site à des fins illicites ou contraires à la réglementation en vigueur ;</li>
+        <li>Respecter les droits de propriété intellectuelle relatifs aux contenus du site ;</li>
+        <li>Ne pas diffuser de contenus diffamatoires, injurieux ou offensants ;</li>
+        <li>Ne pas tenter d’accéder à des comptes ou des données non destinés à lui.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>6. Responsabilité de l’Éditeur</h2>
+      <p>L’éditeur met en œuvre tous les moyens raisonnables pour assurer la disponibilité et la sécurité du site, sans toutefois garantir une disponibilité ininterrompue. Il ne saurait être tenu responsable des dommages directs ou indirects liés à l’utilisation du site.</p>
+    </section>
+
+    <section>
+      <h2>7. Propriété Intellectuelle</h2>
+      <p>Tous les contenus présents sur le site (textes, images, logos, etc.) sont protégés par le droit d’auteur et restent la propriété exclusive de leurs titulaires respectifs.</p>
+    </section>
+
+    <section id="confidentialite">
+      <h2>8. Protection des Données Personnelles</h2>
+      <p>Les données personnelles des utilisateurs sont collectées et traitées dans le respect de la réglementation en vigueur. Pour plus d’informations, consulte notre <a href="/templates/composants/politique_confidentialites.twig.html">Politique de Confidentialité</a>.</p>
+    </section>
+
+    <section>
+      <h2>9. Liens Hypertextes</h2>
+      <p>Le site peut contenir des liens vers des sites tiers. L’éditeur n’exerce aucun contrôle sur ces sites et ne peut être tenu responsable de leur contenu.</p>
+    </section>
+
+    <section>
+      <h2>10. Modification des CGU</h2>
+      <p>L’éditeur se réserve le droit de modifier les présentes CGU à tout moment. L’utilisateur sera informé des modifications via une notification sur le site.</p>
+    </section>
+
+    <section>
+      <h2>11. Droit Applicable et Juridiction Compétente</h2>
+      <p>Les présentes CGU sont soumises au droit applicable. En cas de litige, les tribunaux compétents seront ceux du ressort de l’éditeur.</p>
+    </section>
+
+    <section id="contact">
+      <h2>12. Contact</h2>
+      <p>Pour toute question relative aux CGU, vous pouvez nous contacter à l’adresse suivante : <a href="mailto:contact@stageup.com">contact@stageup.com</a>.</p>
+    </section>
+  </main>
+</div>
+
+<footer class="footer">
+    ©StageUp -
+    <a href="/index.php?uri=mentions">Mentions légales</a> -
+    <a href="/index.php?uri=cgu">Conditions Générales d’Utilisation</a> -
+    <a href="/index.php?uri=politique">Politique de Confidentialité</a> -
+    <a href="/index.php?uri=cookies">Cookies</a> -
+    <a href="/index.php?uri=contact">Contact</a>
+  </footer>
+{% endblock %}

@@ -396,4 +396,20 @@ class SiteController extends Controller
             }
         }
     }
+    public function mentions() {
+        echo $this->templateEngine->render('composants/mentions.twig.html');
+
+    }
+    public function cgu() {
+        echo $this->templateEngine->render('composants/cgu.twig.html');
+    }
+    public function politiqueConfidentialite() {
+        echo $this->templateEngine->render('composants/politique_confidentialites.twig.html');
+    }
+    public function cookies() {
+    echo $this->templateEngine->render('composants/Cookies.twig.html');
+    }
+    public function contact() {
+        echo $this->templateEngine->render('composants/contact.twig.html');
+    }
 }

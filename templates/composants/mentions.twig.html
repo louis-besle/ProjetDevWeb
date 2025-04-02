@@ -1,0 +1,190 @@
+{% extends "composants/base_haut.twig.html" %}
+
+{% block title %}Mentions Légales - StageUp{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  header img {
+    height: 40px;
+  }
+
+  nav a {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #E6DAF8;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #3D0071;
+    font-weight: bold;
+  }
+
+  .container {
+    display: flex;
+    padding: 2rem;
+  }
+
+  .sidebar {
+    width: 220px;
+    border-right: 1px solid #ccc;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar li {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+  }
+
+  .sidebar a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .sidebar li:hover,
+  .sidebar li.active {
+    background-color: #f3f3f3;
+    border-left: 3px solid #3D0071;
+  }
+
+  .content {
+    flex: 1;
+    padding: 0 2rem;
+  }
+
+  .content h1 {
+    text-align: center;
+  }
+
+  .content section {
+    margin-bottom: 2rem;
+  }
+
+  .content section h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .footer {
+    background-color: #3D0071;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 3rem;
+  }
+
+  .footer a {
+    color: #ccc;
+    margin: 0 0.5rem;
+    text-decoration: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+</style>
+
+<header>
+  <a href="/index.php?uri=accueil">
+    <img src="/static/images/Sta_eUp.png" alt="Logo StageUp">
+</a>
+  <nav>
+    <a href="/index.php?uri=recherche">Offres</a>
+    <a href="/index.php?uri=entreprise">Entreprises</a>
+    <a href="/index.php?uri=login">Connexion</a>
+  </nav>
+</header>
+
+<div class="container">
+  <aside class="sidebar">
+    <ul>
+      <li class="active"><a href="/index.php?uri=mentions">Mentions Légales</a></li>
+      <li><a href="/index.php?uri=cgu">CGU</a></li>
+      <li><a href="/index.php?uri=politique">Politique de Confidentialité</a></li>
+      <li><a href="/index.php?uri=cookies">Cookies</a></li>
+      <li><a href="/index.php?uri=contact">Contact</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <h1 id="mentions">Mentions Légales</h1>
+
+    <section>
+      <h2>1. Éditeur du site</h2>
+      <p><strong>StageUp SAS</strong><br>
+        Siège social : 10 rue des Entrepreneurs, 75015 Paris, France<br>
+        Capital social : 50 000 euros<br>
+        Numéro SIRET : 123 456 789 00012<br>
+        RCS : Paris 123 456 789<br>
+        TVA : FR12 123456789</p>
+      <p><strong>Directeur de la publication</strong> : Jean Dupont<br>
+        Email : <a href="mailto:contact@stageup.com">contact@stageup.com</a><br>
+        Téléphone : +33 1 23 45 67 89</p>
+    </section>
+
+    <section>
+      <h2>2. Hébergement</h2>
+      <p><strong>HébergeurTech SARL</strong><br>
+        50 avenue des Serveurs, 69002 Lyon, France<br>
+        Téléphone : +33 4 56 78 90 12</p>
+    </section>
+
+    <section>
+      <h2>3. Objet du site</h2>
+      <p>StageUp est une plateforme qui met en relation des étudiants en recherche de stage avec des entreprises.</p>
+    </section>
+
+    <section>
+      <h2>4. Responsabilités</h2>
+      <p><strong>Accessibilité :</strong> Le site peut être indisponible temporairement pour maintenance.</p>
+      <p><strong>Contenu :</strong> StageUp veille à l’exactitude des données mais décline toute responsabilité en cas d’erreur.</p>
+      <p><strong>Liens externes :</strong> StageUp n’est pas responsable du contenu des sites tiers.</p>
+    </section>
+
+    <section id="confidentialite">
+      <h2>5. Protection des données personnelles</h2>
+      <p>Pour plus d’infos, consulte notre <a href="#confidentialite">Politique de Confidentialité</a>.</p>
+    </section>
+
+    <section id="contact">
+      <h2>6. Contact</h2>
+      <p><strong>StageUp SAS</strong><br>
+        Email : <a href="mailto:contact@stageup.com">contact@stageup.com</a><br>
+        Téléphone : +33 1 23 45 67 89<br>
+        Adresse : 10 rue des Entrepreneurs, 75015 Paris</p>
+    </section>
+  </main>
+</div>
+
+<footer class="footer">
+  ©StageUp -
+  <a href="/index.php?uri=mentions">Mentions légales</a> -
+  <a href="/index.php?uri=cgu">Conditions Générales d’Utilisation</a> -
+  <a href="/index.php?uri=politique">Politique de Confidentialité</a> -
+  <a href="/index.php?uri=cookies">Cookies</a> -
+  <a href="/index.php?uri=contact">Contact</a>
+</footer>
+{% endblock %}
