@@ -151,7 +151,7 @@ class FileDatabase implements Database
 
     public function getRecordBetweenTableEntrepriseVille($table1, $relation, $table2, $options = null)
     {
-        $sql = "SELECT e.id_entreprise, e.nom, v.nom_ville, e.image_illustration 
+        $sql = "SELECT e.id_entreprise, e.telephone, e.email_contact,v.id_ville, e.nom, v.nom_ville, e.image_illustration , e.description
                 FROM `$table1` e
                 INNER JOIN `$relation` s ON e.id_{$table1} = s.id_{$table1}
                 INNER JOIN `$table2` v ON s.id_{$table2} = v.id_{$table2}";
@@ -170,10 +170,10 @@ class FileDatabase implements Database
         $sql = "SELECT utilisateur.id_utilisateur, utilisateur.nom_utilisateur, utilisateur.prenom_utilisateur, utilisateur.email, role.nom_role 
         FROM utilisateur
         INNER JOIN role ON utilisateur.id_role = role.id_role 
-        WHERE utilisateur.cacher_utilisateur = 0 AND (role.nom_role = 'etudiant'";
+        WHERE utilisateur.cacher_utilisateur = 0 AND (role.nom_role = 'Etudiant'";
 
-        if ($role === 'administrateur') {
-            $sql .= " OR role.nom_role = 'pilote'";
+        if ($role === 'Administrateur') {
+            $sql .= " OR role.nom_role = 'Pilote'";
         }
 
         $sql .= ")";
@@ -206,93 +206,151 @@ class FileDatabase implements Database
 
     public function updateOffre($id, $titre, $description, $remuneration, $date_debut, $date_fin, $id_entreprise, $competences)
     {
+        // Mise à jour de l'offre
         $sql = "UPDATE offre SET titre = ?, description = ?, remuneration = ?, date_debut = ?, date_fin = ?, mise_en_ligne = NOW(), id_entreprise = ? WHERE id_offre = ?";
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute([$titre, $description, $remuneration, $date_debut, $date_fin, $id_entreprise, $id]);
-
+    
         if ($result) {
-            // Suppression des anciennes compétences associées à l'offre
+            // Suppression des anciennes compétences associées
             $deleteSql = "DELETE FROM associer WHERE id_offre = ?";
             $deleteStmt = $this->pdo->prepare($deleteSql);
             $deleteStmt->execute([$id]);
-
-            // Ajout des nouvelles compétences (avec vérification des valeurs)
+    
+            // Insertion des nouvelles compétences sans doublon
             $insertSql = "INSERT INTO associer (id_offre, id_competence) VALUES (?, ?)";
             $insertStmt = $this->pdo->prepare($insertSql);
+    
             foreach ($competences as $competence) {
                 if (!empty($competence) && is_numeric($competence)) {
-                    $insertStmt->execute([$id, $competence]);
+                    // Vérification pour éviter les doublons dans la table 'associer'
+                    $checkSql = "SELECT COUNT(*) FROM associer WHERE id_offre = ? AND id_competence = ?";
+                    $checkStmt = $this->pdo->prepare($checkSql);
+                    $checkStmt->execute([$id, $competence]);
+                    $count = $checkStmt->fetchColumn();
+    
+                    // Si la compétence n'est pas déjà associée à l'offre, on l'insère
+                    if ($count == 0) {
+                        $insertStmt->execute([$id, $competence]);
+                    }
                 }
             }
         }
-
+    
         return $result;
     }
+    
 
     public function recupinfoOffre($id)
     {
-        $sql = "SELECT DISTINCT
-            e.id_entreprise,
-            e.nom AS nom_entreprise,
-            o.id_offre,
-            o.titre AS titre_offre,
-            o.description AS description_offre,
-            o.remuneration,
-            o.date_debut,
-            o.date_fin,
-            o.mise_en_ligne,
-            v.nom_ville,
-            c.competence
-        FROM entreprise e
-        INNER JOIN offre o ON e.id_entreprise = o.id_entreprise
-        LEFT JOIN situer s ON e.id_entreprise = s.id_entreprise
-        LEFT JOIN ville v ON s.id_ville = v.id_ville
-        LEFT JOIN associer a ON o.id_offre = a.id_offre
-        LEFT JOIN competence c ON a.id_competence = c.id_competence
-        WHERE e.cacher_entreprise = 0
-        AND o.cacher_offre = 0
-        AND o.id_offre = :id
-        ORDER BY e.nom, o.titre, 
-        CASE 
-            WHEN c.competence LIKE 'Bac%' THEN 1
-            ELSE 0
-        END, c.competence";
-
+        $sql = "SELECT 
+                    o.*, 
+                    e.id_entreprise, 
+                    e.nom AS nom_entreprise, 
+                    v.nom_ville, 
+                    c.id_competence, 
+                    c.competence AS nom_competence
+                FROM offre o
+                JOIN entreprise e ON o.id_entreprise = e.id_entreprise
+                LEFT JOIN situer s ON e.id_entreprise = s.id_entreprise
+                LEFT JOIN ville v ON s.id_ville = v.id_ville
+                LEFT JOIN associer a ON o.id_offre = a.id_offre
+                LEFT JOIN competence c ON a.id_competence = c.id_competence
+                WHERE o.id_offre = :id";
+    
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-
+    
         $resultats = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
         if (!$resultats) {
             return null;
         }
-
+    
+        // Structuration des résultats pour éviter les doublons d'offres
         $offre = [
-            'id_entreprise' => $resultats[0]['id_entreprise'] ?? null,
-            'nom_entreprise' => $resultats[0]['nom_entreprise'] ?? '',
-            'id_offre' => $resultats[0]['id_offre'] ?? null,
-            'titre_offre' => $resultats[0]['titre_offre'] ?? '',
-            'description_offre' => $resultats[0]['description_offre'] ?? '',
-            'remuneration' => $resultats[0]['remuneration'] ?? null,
-            'date_debut' => $resultats[0]['date_debut'] ?? null,
-            'date_fin' => $resultats[0]['date_fin'] ?? null,
-            'mise_en_ligne' => $resultats[0]['mise_en_ligne'] ?? null,
-            'nom_ville' => $resultats[0]['nom_ville'] ?? '',
+            'id_offre' => $resultats[0]['id_offre'],
+            'titre_offre' => $resultats[0]['titre'],
+            'description_offre' => $resultats[0]['description'],
+            'remuneration' => $resultats[0]['remuneration'],
+            'date_debut' => $resultats[0]['date_debut'],
+            'date_fin' => $resultats[0]['date_fin'],
+            'mise_en_ligne' => $resultats[0]['mise_en_ligne'],
+            'cacher_offre' => $resultats[0]['cacher_offre'],
+            'entreprise' => [
+                'id_entreprise' => $resultats[0]['id_entreprise'],
+                'nom_entreprise' => $resultats[0]['nom_entreprise'],
+                'ville' => $resultats[0]['nom_ville'] ?? ''  // Ajout de la ville
+            ],
             'competences' => []
         ];
-
+    
+        // Ajout des compétences à l'offre
         foreach ($resultats as $row) {
-            if (!empty($row['competence']) && !in_array($row['competence'], $offre['competences'])) {
-                $offre['competences'][] = $row['competence'];
+            if (!empty($row['id_competence'])) {
+                $offre['competences'][] = [
+                    'id_competence' => $row['id_competence'],
+                    'nom_competence' => $row['nom_competence']
+                ];
             }
         }
-
+    
         return $offre;
     }
+    
+    
 
     public function delOffre($id) {
         $sql = "UPDATE offre SET cacher_offre = 1 WHERE id_offre = ?";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([$id]);
+    }
+
+    public function update_entreprise($id_entreprise, $entreprise_titre, $id_ville, $image, $presentation, $tel, $mail)
+    {
+        $sql = "UPDATE entreprise 
+                SET nom = :nom, description = :description, email_contact = :email_contact, 
+                    telephone = :telephone, image_illustration = :image_illustration
+                WHERE id_entreprise = :id_entreprise";
+    
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id_entreprise', $id_entreprise, PDO::PARAM_INT);
+        $stmt->bindParam(':nom', $entreprise_titre, PDO::PARAM_STR);
+        $stmt->bindParam(':description', $presentation, PDO::PARAM_STR);
+        $stmt->bindParam(':email_contact', $mail, PDO::PARAM_STR);
+        $stmt->bindParam(':telephone', $tel, PDO::PARAM_STR);
+        $stmt->bindParam(':image_illustration', $image, PDO::PARAM_STR);
+    
+        if ($stmt->execute()) {
+            // Mise à jour de la ville (id_ville)
+            if ($id_ville) {
+                // Vérifier si une association existe déjà
+                $sql_check = "SELECT COUNT(*) FROM situer WHERE id_entreprise = :id_entreprise";
+                $stmt_check = $this->pdo->prepare($sql_check);
+                $stmt_check->bindParam(':id_entreprise', $id_entreprise, PDO::PARAM_INT);
+                $stmt_check->execute();
+                $count = $stmt_check->fetchColumn();
+    
+                if ($count > 0) {
+                    // Mise à jour de la ville existante
+                    $sql_update_ville = "UPDATE situer SET id_ville = :id_ville WHERE id_entreprise = :id_entreprise";
+                    $stmt_update_ville = $this->pdo->prepare($sql_update_ville);
+                } else {
+                    // Ajout d'une nouvelle association si aucune n'existe
+                    $sql_update_ville = "INSERT INTO situer (id_ville, id_entreprise) VALUES (:id_ville, :id_entreprise)";
+                    $stmt_update_ville = $this->pdo->prepare($sql_update_ville);
+                }
+    
+                $stmt_update_ville->bindParam(':id_ville', $id_ville, PDO::PARAM_INT);
+                $stmt_update_ville->bindParam(':id_entreprise', $id_entreprise, PDO::PARAM_INT);
+                $stmt_update_ville->execute();
+            }
+        }
+    }
+
+    public function delEntreprise($id) {
+        $sql = "UPDATE entreprise SET cacher_entreprise = 1 WHERE id_entreprise = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }

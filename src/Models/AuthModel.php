@@ -7,7 +7,8 @@ class AuthModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            //$this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            $this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
@@ -15,11 +16,9 @@ class AuthModel extends Model
 
     public function connexion($email,$motDePasse) {
         $isvalid = false;
-        // Vérification de l'utilisateur
         $users = $this->connection->getAllRecords('utilisateur');
         foreach ($users as $user){
             if($email === $user['email'] && password_verify($motDePasse, $user['mot_de_passe'])) {
-                // Stocker l'utilisateur en session
                 $_SESSION['user'] = [
                     'id' => $user['id_utilisateur'],
                     'nom' => $user['nom_utilisateur'],

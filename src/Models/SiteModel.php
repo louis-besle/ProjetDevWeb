@@ -7,7 +7,8 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            //$this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            $this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
@@ -27,9 +28,9 @@ class SiteModel extends Model
         return $this->connection->getAllRecords('ville');
     }
 
-    public function getEntrepriseByVille()
+    public function getEntrepriseByVille($options = null)
     {
-        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville');
+        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options);
     }
 
     public function getCompetence()
@@ -133,5 +134,15 @@ class SiteModel extends Model
     public function deleteOffre($id)
     {
         return $this->connection->delOffre($id);
+    }
+
+    public function updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $image, $presentation, $tel, $mail)
+    {
+        return $this->connection->update_entreprise($id_entreprise, $entreprise_titre, $id_ville, $image, $presentation, $tel, $mail);
+    }
+
+    public function deleteEntreprise($id)
+    {
+        return $this->connection->delEntreprise($id);
     }
 }
