@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PDO;
 use PDOException;
+use Exception;
 
 class FileDatabase implements Database
 {
@@ -156,7 +157,7 @@ class FileDatabase implements Database
 
     public function getRecordBetweenTableEntrepriseVille($table1, $relation, $table2, $options = null)
     {
-        $sql = "SELECT e.id_entreprise, e.nom, v.nom_ville, e.image_illustration 
+        $sql = "SELECT e.id_entreprise, e.nom, v.id_ville, v.nom_ville, e.image_illustration , e.description, e.telephone, e.email_contact
                 FROM `$table1` e
                 INNER JOIN `$relation` s ON e.id_{$table1} = s.id_{$table1}
                 INNER JOIN `$table2` v ON s.id_{$table2} = v.id_{$table2}";
@@ -215,17 +216,17 @@ class FileDatabase implements Database
         $sql = "UPDATE offre SET titre = ?, description = ?, remuneration = ?, date_debut = ?, date_fin = ?, mise_en_ligne = NOW(), id_entreprise = ? WHERE id_offre = ?";
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute([$titre, $description, $remuneration, $date_debut, $date_fin, $id_entreprise, $id]);
-    
+
         if ($result) {
             // Suppression des anciennes compétences associées
             $deleteSql = "DELETE FROM associer WHERE id_offre = ?";
             $deleteStmt = $this->pdo->prepare($deleteSql);
             $deleteStmt->execute([$id]);
-    
+
             // Insertion des nouvelles compétences sans doublon
             $insertSql = "INSERT INTO associer (id_offre, id_competence) VALUES (?, ?)";
             $insertStmt = $this->pdo->prepare($insertSql);
-    
+
             foreach ($competences as $competence) {
                 if (!empty($competence) && is_numeric($competence)) {
                     // Vérification pour éviter les doublons dans la table 'associer'
@@ -233,7 +234,7 @@ class FileDatabase implements Database
                     $checkStmt = $this->pdo->prepare($checkSql);
                     $checkStmt->execute([$id, $competence]);
                     $count = $checkStmt->fetchColumn();
-    
+
                     // Si la compétence n'est pas déjà associée à l'offre, on l'insère
                     if ($count == 0) {
                         $insertStmt->execute([$id, $competence]);
@@ -241,10 +242,10 @@ class FileDatabase implements Database
                 }
             }
         }
-    
+
         return $result;
     }
-    
+
 
     public function recupinfoOffre($id)
     {
@@ -262,17 +263,17 @@ class FileDatabase implements Database
                 LEFT JOIN associer a ON o.id_offre = a.id_offre
                 LEFT JOIN competence c ON a.id_competence = c.id_competence
                 WHERE o.id_offre = :id";
-    
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-    
+
         $resultats = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         if (!$resultats) {
             return null;
         }
-    
+
         // Structuration des résultats pour éviter les doublons d'offres
         $offre = [
             'id_offre' => $resultats[0]['id_offre'],
@@ -290,7 +291,7 @@ class FileDatabase implements Database
             ],
             'competences' => []
         ];
-    
+
         // Ajout des compétences à l'offre
         foreach ($resultats as $row) {
             if (!empty($row['id_competence'])) {
@@ -300,19 +301,21 @@ class FileDatabase implements Database
                 ];
             }
         }
-    
+
         return $offre;
     }
-    
-    
 
-    public function delOffre($id) {
+
+
+    public function delOffre($id)
+    {
         $sql = "UPDATE offre SET cacher_offre = 1 WHERE id_offre = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
 
-    public function getRecordInfoOffres($id){
+    public function getRecordInfoOffres($id)
+    {
         $sql = "SELECT date_debut, date_fin, offre.description as description_offre, entreprise.description as description_entreprise, entreprise.nom
                 FROM offre
                 INNER JOIN entreprise ON offre.id_entreprise = entreprise.id_entreprise
@@ -322,25 +325,28 @@ class FileDatabase implements Database
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    
-    public function getAllCompetencesAssociees($idOffre) {
+
+    public function getAllCompetencesAssociees($idOffre)
+    {
         $sql = "SELECT competence.id_competence, competence.competence
                 FROM associer
                 INNER JOIN competence ON associer.id_competence = competence.id_competence
                 WHERE associer.id_offre = :idOffre";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':idOffre', $idOffre, PDO::PARAM_INT); 
+        $stmt->bindParam(':idOffre', $idOffre, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function delEntreprise($id) {
+    public function delEntreprise($id)
+    {
         $sql = "UPDATE entreprise SET cacher_entreprise = 1 WHERE id_entreprise = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
 
-    public function getRecordEntrepriseOnClick($table,$id_ent, $id_ville){
+    public function getRecordEntrepriseOnClick($table, $id_ent, $id_ville)
+    {
         $sql = "SELECT entreprise.id_entreprise, entreprise.nom, entreprise.description, entreprise.email_contact, entreprise.telephone, entreprise.image_illustration, ville.nom_ville, count(DISTINCT offre.titre) AS nombre_offres, count(candidater.id_utilisateur) AS nombre_candidatures
         FROM $table
         INNER JOIN situer ON entreprise.id_entreprise = situer.id_entreprise
@@ -353,5 +359,38 @@ class FileDatabase implements Database
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    
+
+    public function updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image)
+    {
+
+
+        $sql = "UPDATE entreprise
+                    SET
+                        nom = :nom,
+                        description = :description,
+                        email_contact = :email_contact,
+                        telephone = :telephone,
+                        image_illustration = :image_illustration
+                    WHERE entreprise.id_entreprise = :id_entreprise";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':nom' => $entreprise_titre,
+            ':description' => $presentation,
+            ':email_contact' => $mail,
+            ':telephone' => $tel,
+            ':image_illustration' => $image,
+            ':id_entreprise' => $id_entreprise
+        ]);
+
+        $sql_situ = "INSERT INTO situer (id_ville, id_entreprise) 
+                         VALUES (:id_ville, :id_entreprise)
+                         ON DUPLICATE KEY UPDATE id_ville = :id_ville";
+
+        $stmt_situ = $this->pdo->prepare($sql_situ);
+        $stmt_situ->execute([
+            ':id_ville' => $id_ville,
+            ':id_entreprise' => $id_entreprise
+        ]);
+    }
 }

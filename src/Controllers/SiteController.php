@@ -46,7 +46,7 @@ class SiteController extends Controller
         try {
             $offres = $this->model->getOffresAccueil();
             $entreprises = $this->model->getEntreprisesAccueil($offres);
-            
+
             echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres, 'entreprises' => $entreprises]);
         } catch (Exception $e) {
             error_log("Erreur page accueil: " . $e->getMessage());
@@ -60,7 +60,7 @@ class SiteController extends Controller
     {
         try {
             // Récupération des paramètres de filtrage
-            if(isset($_GET['entreprise']) && isset($_GET['ville'])){
+            if (isset($_GET['entreprise']) && isset($_GET['ville'])) {
                 $ville = htmlspecialchars($_GET['ville']);
                 $entreprise = htmlspecialchars($_GET['entreprise']);
             } else {
@@ -179,11 +179,11 @@ class SiteController extends Controller
             $image = 'default.jpg';
 
             if (!empty($_FILES['company_image']['name'])) {
-                $upload_dir = 'uploads/';
+                $upload_dir = 'static/uploads/entreprises';
                 $image_name = time() . '_' . basename($_FILES['company_image']['name']);
                 $image_path = $upload_dir . $image_name;
 
-                $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+                $allowed_types = ['image/jpeg', 'image/png', 'image/gif','image/svg+xml'];
                 if (in_array($_FILES['company_image']['type'], $allowed_types) && move_uploaded_file($_FILES['company_image']['tmp_name'], $image_path)) {
                     $image = $image_name;
                 }
@@ -292,7 +292,6 @@ class SiteController extends Controller
             if (isset($_POST['modif'])) {
                 $id = intval($_POST['modif']);
                 $offre = $this->model->getOffreById($id);
-                var_dump($offre);
                 echo $this->templateEngine->render('ap_modifier_offre.twig.html', ['offre' => $offre, 'selection' => $selection, 'competence' => $competence]);
             } elseif (isset($_POST['supp'])) {
                 $id = intval($_POST['supp']);
@@ -313,7 +312,7 @@ class SiteController extends Controller
             $date_fin = $_POST["duration_end"] ?? '';
             $id_entreprise = filter_input(INPUT_POST, "entreprise", FILTER_VALIDATE_INT);
             $competences = $_POST["competence"] ?? [];
-            
+
             if (!$id || !$id_entreprise || empty($titre) || empty($description) || empty($remuneration) || empty($date_debut) || empty($date_fin)) {
                 echo "Erreur : Tous les champs doivent être remplis correctement.";
                 return;
@@ -324,23 +323,25 @@ class SiteController extends Controller
         }
     }
 
-    public function _Page_OffreOnClick() {
+    public function _Page_OffreOnClick()
+    {
         if (isset($_GET['id'])) {
             $offerId = intval($_GET['id']);
         } else {
             $offerId = null;
         }
-    
+
         if ($offerId) {
             $competence = $this->model->getCompetenceByOffer($offerId);
-            $offres = $this->model->getInfosOffres($offerId); 
+            $offres = $this->model->getInfosOffres($offerId);
 
-            
+
             echo $this->templateEngine->render('_offre_onclick.twig.html', [
                 "offre" => $this->model->getOffreclick(),
                 "competence" => $competence,
                 "duree" => $offres['duree'],
                 "entreprise" => $offres['entreprise'],
+                "id_offre" => $offerId
             ]);
         } else {
             echo "ID de l'offre manquant ou invalide.";
@@ -349,36 +350,39 @@ class SiteController extends Controller
 
     public function modifier_entreprise()
     {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $id_entreprise = $_POST['id_entreprise'];
+            $entreprise_titre = htmlspecialchars(trim($_POST['company_name'] ?? ''));
+            $id_ville = filter_var($_POST['city'] ?? null, FILTER_VALIDATE_INT);
+            $presentation = htmlspecialchars(trim($_POST['company_description'] ?? ''));
+            $tel = htmlspecialchars(trim($_POST['phone'] ?? ''));
+            $mail = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL) ? $_POST['email'] : null;
+    
+            if (!$entreprise_titre || !$id_ville || !$presentation || !$tel || !$mail) {
+                echo "Veuillez remplir tous les champs obligatoires.";
+                return;
+            }
 
-        echo "Pas encore faite";
-        // if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        //     $id_entreprise = $_POST['id_entreprise'];
-        //     $entreprise_titre = $_POST['company_name'];
-        //     $id_ville = $_POST['city'];
-        //     $presentation = $_POST['company_description'];
-        //     $tel = $_POST['phone'];
-        //     $mail = $_POST['email'];
-        
-        //     $image = null;
-        //     if (isset($_FILES['company_image']) && $_FILES['company_image']['error'] === UPLOAD_ERR_OK) {
-        //         $image = $_FILES['company_image']['name'];
-        //         move_uploaded_file($_FILES['company_image']['tmp_name'], 'uploads/images/entreprise' . $image);
-        //     }
-        //     if (!empty($_FILES['company_image']['name'])) {
-        //         $upload_dir = 'uploads/';
-        //         $image_name = time() . '_' . basename($_FILES['company_image']['name']);
-        //         $image_path = $upload_dir . $image_name;
+            $image = $_POST['current_image'] ?? 'default.jpg';
+    
+            if (!empty($_FILES['company_image']['name'])) {
+                $upload_dir = 'static/uploads/entreprises/';
+                $image_name = time() . '_' . basename($_FILES['company_image']['name']);
+                $image_path = $upload_dir . $image_name;
+    
+                $allowed_types = ['image/jpeg', 'image/png', 'image/gif','image/svg+xml'];
+                if (in_array($_FILES['company_image']['type'], $allowed_types) && move_uploaded_file($_FILES['company_image']['tmp_name'], $image_path)) {
+                    $image = $image_name;
+                }
+            }
 
-        //         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-        //         if (in_array($_FILES['company_image']['type'], $allowed_types) && move_uploaded_file($_FILES['company_image']['tmp_name'], $image_path)) {
-        //             $image = $image_name;
-        //         }
-        //     }
-        
-        //     $this->model->updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $image, $presentation, $tel, $mail);
-        // }
-        
+            $this->model->updateentreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image);
+    
+            header('Location: /?uri=recherche');
+            exit;
+        }
     }
+    
 
     public function _Page_Modifier_Entreprise()
     {

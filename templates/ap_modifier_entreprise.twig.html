@@ -6,7 +6,7 @@
         {% include 'composants/menu_recherche.twig.html' %}
 
 <form id="company_form" method="POST" action="/?uri=modifier_entreprise" enctype="multipart/form-data">
-    <input type="hidden" name="id_entreprise" required value="1">
+    <input type="hidden" name="id_entreprise" required value="{{selection[0].id_entreprise}}">
     <h2>Nom de l'entreprise</h2>
     <input type="text" name="company_name" value="{{selection[0].nom}}" id="company_name" required pattern="[A-Za-z0-9\s\-]+">
 

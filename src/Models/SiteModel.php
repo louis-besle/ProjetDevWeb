@@ -7,8 +7,8 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
-            //$this->connection = new FileDatabase('localhost','stageup','root','');
+            //$this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            $this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
@@ -201,4 +201,9 @@ class SiteModel extends Model
     {
         return $this->connection->delEntreprise($id);
     }
+
+    public function updateentreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image){
+        return $this->connection->updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image);
+    }
 }
+
