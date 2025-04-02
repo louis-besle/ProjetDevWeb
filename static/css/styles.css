@@ -1,5 +1,8 @@
 /*CSS qui sera le même pour toutes les pages*/
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-family: Arial, sans-serif;
 }
 
@@ -19,14 +22,21 @@ footer {
     text-align: center;
     background-color: #380F49;
     font-family: Arial, sans-serif;
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
+    margin-top: auto;
 }
 
 footer p {
     margin: 0;
     font-size: 16px;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
 footer p a {
     text-decoration: none;
@@ -51,6 +61,9 @@ footer p a:focus {
     justify-content: center;
     align-items: center;
     background-color: #f8f8f8;
+}
+main {
+    flex: 1; /* Ceci pousse le footer vers le bas */
 }
 
 .mainconnexion {
@@ -237,10 +250,11 @@ nav {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+    gap: 15px; /* Ajoute un espace constant entre les boutons */
 }
 
-/*Style généraux des boutons*/
 .bouton_ {
+    /* Je garde toutes vos propriétés d'origine */
     width: 25%;
     padding: 5px;
     background-color: #C6AEEB;
@@ -266,6 +280,22 @@ nav {
     padding-right: 5px;
 }
 
+/* Ajoutez uniquement cette media query pour les petits écrans */
+@media (max-width: 576px) {
+    .recherche {
+        width: 90%;
+    }
+    
+    .bouton_recherche {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .bouton_ {
+        width: 100%; /* Boutons pleine largeur sur mobile */
+    }
+}
+
 /*Styles du bloc de bienvenue*/
 .article_bienvenue {
     text-align: justify;
@@ -282,7 +312,7 @@ nav {
 }
 
 .conteneurs_dernieres_offres {
-    display: grid;
+    display: column;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin: 0 auto;
@@ -295,6 +325,7 @@ nav {
     padding: 20px;
     text-align: left;
     display: flex;
+    margin : 5px auto;
     flex-direction: column;
     justify-content: space-between;
     height: 180px;
@@ -613,13 +644,53 @@ textarea {
     box-sizing: border-box;
     height: 150px;
 }
+@media screen and (min-width: 300px) and (max-width: 900px) {
+    .grp_bouton {
+        display: flex;
+        justify-content: center;
+        gap: 6px; /* Espacement réduit entre boutons */
+        margin: 5px 0 0 0; /* 5px SEULEMENT EN HAUT, 0 sur les autres côtés */
+        padding: 0 0 8px 0; /* 8px en bas pour l'espace */
+    }
+    
+    .grp_bouton .bouton_ {
+        padding: 6px 12px; /* Légèrement plus compact */
+        margin: 0;
+        font-size: 0.9em; /* Texte un peu plus petit */
+    }
+}
+@media screen and (min-width: 900px) and (max-width: 1000px) {
+    .grp_bouton {
+        display: flex !important;
+        flex-direction: row !important; /* Explicitement côte à côte */
+        justify-content: center !important;
+        gap: 10px !important; /* Espacement légèrement augmenté */
+        margin: 5px 0 0 0 !important;
+        padding: 0 !important;
+    }
+    .grp_bouton .bouton_ {
+        padding: 8px 16px !important; /* Taille intermédiaire */
+        margin: 0 !important;
+        font-size: 0.95em !important; /* Taille texte légèrement augmentée */
+        white-space: nowrap !important; /* Garantit le côte à côte */
+    }
+}
 
-.grp_bouton {
-    justify-content: center;
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 20px;
+@media screen and (min-width: 1024px) {
+    .grp_bouton {
+        display: flex;
+        justify-content: center;
+        gap: 8px; /* Réduction légère */
+        margin: 12px 0; /* Compactage vertical */
+        padding: 6px 0; /* Espace interne réduit */
+    }
+
+    .grp_bouton .bouton_ {
+        padding: 8px 14px; /* Taille plus compacte */
+        margin: 0; /* Reset des marges */
+        line-height: 1.2; /* Meilleur rendu texte */
+        white-space: nowrap; /* Empêche le retour à la ligne */
+    }
 }
 
 /*Style de l'élément pour noter l'entreprise*/
@@ -683,17 +754,14 @@ table {
     overflow: hidden;
     margin-top: 10px;
     margin-bottom: 10px;
+    display : center;
 }
 
-thead {
-    background-color: #C6AEEB;
-    color: white;
-    font-weight: bold;
-}
+
 
 thead th {
-    padding: 15px;
-    text-align: center;
+    white-space: nowrap;
+    padding: 8px;
 }
 
 tbody tr {
@@ -706,8 +774,20 @@ tbody tr:hover {
 }
 
 tbody td {
-    padding: 10px;
-    color: #333;
+    white-space: nowrap;
+    padding: 8px;
+}
+
+thead th {
+    background-color: #C6AEEB;
+    text-align: left;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    max-width: 100%;
+    display: block;
+    overflow-x: auto;
 }
 
 .btn_pagination {
@@ -728,3 +808,170 @@ tbody td {
     flex-wrap: wrap;
     justify-content: center;
 }
+/* Style du bouton burger */
+.burger-menu {
+    display: none; /* Caché par défaut sur desktop */
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    position: relative;
+    z-index: 1000;
+    padding: 10px;
+}
+
+/* Les trois barres du menu burger */
+.burger-menu span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin-bottom: 5px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Animation quand le menu est actif (les trois barres deviennent une croix) */
+.burger-menu.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Par défaut, le menu est visible en format desktop */
+.menu_interact {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Styles pour les écrans de taille tablette et moins */
+@media (max-width: 768px) {
+    /* Affiche le bouton burger */
+    .burger-menu {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+    
+    /* Cache le menu par défaut sur mobile */
+    .menu_interact {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: white;
+        width: 200px; /* Réduit la largeur de la box à 200px */
+        height: auto; /* Ajuste la hauteur en fonction du contenu */
+        max-width: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px; /* Un petit arrondi pour les coins */
+        padding: 5px; /* Un padding plus petit */
+        margin: 5px;
+        z-index: 999;
+    }
+    
+    /* Affiche le menu quand la classe show est ajoutée */
+    .menu_interact.show {
+        display: flex;
+    }
+    
+    /* Styles des éléments du menu en version mobile */
+    .menu_interact li {
+        margin: 5px 10px;
+        width: calc(100% - 20px);
+    }
+    
+    .menu_interact a {
+        width: 100%;
+        padding: 10px;
+        justify-content: flex-start;
+    }
+
+    /* Ajustement pour les offres */
+    .offre {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .offre h2 {
+        font-size: 18px;
+    }
+
+    .offre p {
+        font-size: 14px;
+    }
+
+    /* Footer correction */
+    footer {
+        width: 100%;
+        position: relative;
+        bottom: 0;
+    }
+}
+
+/* Ajustements pour les très petits écrans */
+@media (max-width: 480px) {
+    .menu_interact {
+        width: 100%;
+        max-width: none;
+        border-radius: 0;
+        top: 50px;
+    }
+
+    .offre {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+}
+@media screen and (min-width: 1024px) {
+    #registration_form{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    #registration_form table {
+        width: 60%;
+        max-width: 800px;
+        display: table;
+    }
+@media screen and (min-width: 1024px) {
+    /* Solution ultra-ciblée pour VOTRE deuxième tableau */
+    body > table:not(#registration_form) {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        max-width: 1200px;
+    }
+
+    /* Conserve votre style existant pour le formulaire */
+    #registration_form table {
+        width: 60%;
+        max-width: 800px;
+    }
+}
+@media screen and (min-width: 1024px) {
+    /* Cible le tableau après #registration_form */
+    #registration_form + table {
+        margin: 0 auto;
+        width: 60%;
+    }
+}
+}
+
