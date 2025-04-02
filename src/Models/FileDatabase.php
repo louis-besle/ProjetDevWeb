@@ -398,4 +398,36 @@ class FileDatabase implements Database
         }
         
     }
+
+    public function addCandidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur) {
+        try {
+            $sql = 'INSERT INTO candidater (id_utilisateur, id_offre, date_candidature, lettre_motivation, message_recruteur)
+                VALUES (:id_utilisateur, :id_offre, :date_candidature, :lettre_motivation, :message_recruteur)';
+            
+            $date_candidature = date('Y-m-d H:i:s'); // Date actuelle
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
+            $stmt->bindParam('id_offre', $id_offre, PDO::PARAM_INT);
+            $stmt->bindParam('date_candidature', $date_candidature, PDO::PARAM_STR);
+            $stmt->bindParam('lettre_motivation', $lettre_motivation, PDO::PARAM_STR);
+            $stmt->bindParam('message_recruteur', $message_recruteur, PDO::PARAM_STR);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function checkCandidature($id_utilisateur,$id_offre){
+        try {
+            $sql = 'SELECT COUNT(*) FROM candidater WHERE id_utilisateur = :id_utilisateur AND id_offre = :id_offre';
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
+            $stmt->bindParam('id_offre', $id_offre, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchColumn() > 0; // Retourne true si le candidat a déjà postulé, sinon false
+        } catch (PDOException $e) {
+            return false; // En cas d'erreur, on retourne false (ou on peut gérer l'erreur différemment selon les besoins)
+        }
+    }
 }

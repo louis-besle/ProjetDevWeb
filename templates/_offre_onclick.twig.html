@@ -30,32 +30,38 @@
             <h2>Votre message au recruteur</h2>
 
             <form id="formulaire_offre" action="/?uri=postuler" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id_offre" value="{{offre.id_offre}}">
                 <div class="entrees_utilisateur">
-                    <textarea id="description" name="description" placeholder="Écrivez quelque chose..."
+                    <textarea id="description" name="message_recruteur" placeholder="Écrivez quelque chose..."
                         required></textarea>
                 </div>
 
                 <div class="entrees_utilisateur">
                     <label for="fichier">Lettre de motivation</label>
-                    <input type="file" id="fichier" name="fichier" class="file-input" accept=".pdf,.doc,.docx,.txt,.odt"
+                    <input type="file" id="fichier" name="lettre_motivation" class="file-input" accept=".pdf,.doc,.docx,.txt,.odt"
                         required>
                 </div>
 
                 <h2>Informations supplémentaires</h2>
                 <p>Le développement informatique est un domaine en constante évolution...</p>
-
-                <div class="grp_bouton">
-                    <button type="submit" class="bouton_">Postuler</button>
-                    <button type="reset" class="bouton_">Réinitialiser</button>
-                </div>
+                {% if postuler == false %}
+                {% if role == 'Etudiant' or role == 'Administrateur' %}
+                    <div class="grp_bouton">
+                        <button type="submit" class="bouton_">Postuler</button>
+                        <button type="reset" class="bouton_">Réinitialiser</button>
+                    </div>
+                {% endif %}
+                {% endif %}
             </form>
         </div>
-        <form action="/?uri=page_modifier_offre" method="POST">
-            <div class="grp_bouton">
-                <button type="submit" class="bouton_" name="modif" value="1">Modifier</button>
-                <button type="submit" class="bouton_" name="supp" value="1">Supprimer</button>
-            </div>
-        </form> 
+        {% if role == 'Administrateur' or role == 'Pilote' %}
+            <form action="/?uri=page_modifier_offre" method="POST">
+                <div class="grp_bouton">
+                    <button type="submit" class="bouton_" name="modif" value="{{offre.id_offre}}">Modifier</button>
+                    <button type="submit" class="bouton_" name="supp" value="{{offre.id_offre}}">Supprimer</button>
+                </div>
+            </form> 
+        {% endif %}
     </main>
 </body>
 <script src="/static/js/formulaire_postuler_offre.js"></script>

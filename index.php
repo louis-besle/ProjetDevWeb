@@ -194,7 +194,15 @@ switch ($uri) {
         }
         break;
 
-
+    case 'postuler':
+        if ($isConnect) {
+            $controller->_Page_Postuler();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
 
 
 

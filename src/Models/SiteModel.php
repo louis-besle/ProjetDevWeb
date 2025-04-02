@@ -217,4 +217,12 @@ class SiteModel extends Model
     public function ajout_wishlist($id_utilisateur,$id_offre) {
         return $this->connection->updateSouhaiter($id_utilisateur,$id_offre);
     }
+
+    public function ajout_candidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur) {
+        return $this->connection->addCandidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur);
+    }
+
+    public function a_candidater($id_utilisateur,$id_offre) {
+        return $this->connection->checkCandidature($id_utilisateur,$id_offre);
+    }
 }
