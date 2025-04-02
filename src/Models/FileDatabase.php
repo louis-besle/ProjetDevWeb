@@ -176,47 +176,28 @@ class FileDatabase implements Database
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getRecordCompetences($id)
-{
-    $sql = "SELECT c.competence
-            FROM associer a
-            INNER JOIN competence c ON a.id_competence = c.id_competence WHERE a.id_offre = :id"; 
     
-    $stmt = $this->pdo->prepare($sql);
+    public function getRecordInfoOffres($id){
+        $sql = "SELECT date_debut, date_fin, offre.description as description_offre, entreprise.description as description_entreprise
+                FROM offre
+                INNER JOIN entreprise ON offre.id_entreprise = entreprise.id_entreprise
+                WHERE id_offre = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    
-    $stmt->execute();
-    
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-public function getRecordDuree($id){
-    $sql = "SELECT date_debut, date_fin
-            FROM offre
-            WHERE id_offre = :id";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-public function getRecordDescription($id){
-    $sql = "SELECT description
-            FROM entreprise
-            WHERE id_entreprise = :id";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-public function getRecordDescriptionEntreprise($id){
-    $sql = "SELECT description
-            FROM offre
-            WHERE id_offre = :id";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+    public function getAllCompetencesAssociees($idOffre) {
+        $sql = "SELECT competence.id_competence, competence.competence
+                FROM associer
+                INNER JOIN competence ON associer.id_competence = competence.id_competence
+                WHERE associer.id_offre = :idOffre";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':idOffre', $idOffre, PDO::PARAM_INT); 
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    }
 
 
     

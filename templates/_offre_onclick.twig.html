@@ -8,18 +8,17 @@
         <h3>Résumé de l'offre</h3>
 
         <ul class="competences">
-            <li>{{ duree }}</li>
-            <li>Bac +2, Bac +3</li>
+            <li>{{ duree }} mois</li>
             {% for c in competence %}
                 <li>{{ c.competence }}</li>
             {% endfor %}
         </ul>
         <p>Nombre de personne ayant postulées à cette offre : 42</p>
-        <img src="#" alt="image de l'entreprise">
+        <img src="/static/uploads/entreprises/{{offre.nom}}.svg" alt="image de l'entreprise">
         <h2>Présentation de l'entreprise</h2>
-        <p>{{ description }}</p>
-        <h2>Présentation du poste</h2>
         <p>{{ description_entreprise }}</p>
+        <h2>Présentation du poste</h2>
+        <p>{{ offre.description }}</p>
 
         <div class="conteneur_formulaire">
             <h2>Votre message au recruteur</h2>

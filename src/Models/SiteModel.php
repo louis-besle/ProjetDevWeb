@@ -124,44 +124,30 @@ class SiteModel extends Model
         }
         return $this->connection->getRecordById('offre',$id_page);
     }
+
     public function getCompetenceByOffer($id) {
-        $competences = $this->connection->getRecordCompetences($id);
+        $competences = $this->connection->getAllCompetencesAssociees($id);
             if ($competences) {
-            return $competences;
-        } else {
-            return [];
-        }
+                return $competences;
+            } else {
+                return [];
+            }
     }
-    public function getRecordDuree($id){
-        $duree = $this->connection->getRecordDuree($id);
+
+    public function getInfosOffres($id){
+        $offres = $this->connection->getRecordInfoOffres($id);
         
-        if ($duree && isset($duree['date_debut'], $duree['date_fin'])) {
-            $dateDebut = new \DateTime($duree['date_debut']);
-            $dateFin = new \DateTime($duree['date_fin']);
+        if ($offres && isset($offres['date_debut'], $offres['date_fin'])) {
+            $dateDebut = new \DateTime($offres['date_debut']);
+            $dateFin = new \DateTime($offres['date_fin']);
             $interval = $dateDebut->diff($dateFin);
     
             
             $mois = ceil($interval->y * 12 + $interval->m + ($interval->d / 30));
     
-            return "$mois mois";
+            return ['description_offre' => $offres['description_offre'], 'description_entreprise' => $offres['description_entreprise'], 'duree' => $mois];
         }
         
-    }
-    public function getRecordDescription($id) {
-        $description = $this->connection->getRecordDescription($id);
-            if ($description) {
-            return $description;
-        } else {
-            return [];
-        }
-    }
-    public function getRecordDescriptionEntreprise($id){
-        $description1 = $this->connection->getRecordDescriptionEntreprise($id);
-            if ($description1) {
-            return $description1;
-        } else {
-            return [];
-        }
     }
         
 }

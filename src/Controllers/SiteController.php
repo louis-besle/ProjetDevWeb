@@ -179,28 +179,30 @@ class SiteController extends Controller
 
     echo $this->templateEngine->render('_offre_onclick.twig.html', ['offre' => $offre]);
     }
+
     public function _Page_OffreOnClick() {
-    $offerId = isset($_GET['id']) ? intval($_GET['id']) : null; 
+        if (isset($_GET['id'])) {
+            $offerId = intval($_GET['id']);
+        } else {
+            $offerId = null;
+        }
     
-    if ($offerId) {
-        $competence = $this->model->getCompetenceByOffer($offerId);
-        $duree = $this->model->getRecordDuree($offerId); 
-        $description = $this->model->getRecordDescription($offerId);
-        $descriptionEntreprise = $this->model->getRecordDescriptionEntreprise($offerId);
+        if ($offerId) {
+            $competence = $this->model->getCompetenceByOffer($offerId);
+            $offres = $this->model->getInfosOffres($offerId); 
 
-        $descriptionEntrepriseText = isset($descriptionEntreprise['description']) ? $descriptionEntreprise['description'] : 'Description non disponible';
+            $descriptionEntrepriseText = isset($descriptionEntreprise['description']) ? $descriptionEntreprise['description'] : 'Description non disponible';
 
-        echo $this->templateEngine->render('_offre_onclick.twig.html', [
-            "offre" => $this->model->getOffreclick(),
-            "competence" => $competence,
-            "duree" => $duree,
-            "description" => $description['description'],
-            "description_entreprise" => $descriptionEntrepriseText
-        ]);
-    } else {
-        echo "ID de l'offre manquant ou invalide.";
+            echo $this->templateEngine->render('_offre_onclick.twig.html', [
+                "offre" => $this->model->getOffreclick(),
+                "competence" => $competence,
+                "duree" => $offres['duree'],
+                "description_entreprise" => $offres['description_entreprise'],
+            ]);
+        } else {
+            echo "ID de l'offre manquant ou invalide.";
+        }
     }
-}
 }
 
 
