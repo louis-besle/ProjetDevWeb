@@ -311,5 +311,47 @@ class FileDatabase implements Database
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
+
+    public function getRecordInfoOffres($id){
+        $sql = "SELECT date_debut, date_fin, offre.description as description_offre, entreprise.description as description_entreprise, entreprise.nom
+                FROM offre
+                INNER JOIN entreprise ON offre.id_entreprise = entreprise.id_entreprise
+                WHERE id_offre = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function getAllCompetencesAssociees($idOffre) {
+        $sql = "SELECT competence.id_competence, competence.competence
+                FROM associer
+                INNER JOIN competence ON associer.id_competence = competence.id_competence
+                WHERE associer.id_offre = :idOffre";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':idOffre', $idOffre, PDO::PARAM_INT); 
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    }
+
+    public function delEntreprise($id) {
+        $sql = "UPDATE entreprise SET cacher_entreprise = 1 WHERE id_entreprise = ?";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([$id]);
+    }
+
+    public function getRecordEntrepriseOnClick($table,$id_ent, $id_ville){
+        $sql = "SELECT entreprise.id_entreprise, entreprise.nom, entreprise.description, entreprise.email_contact, entreprise.telephone, entreprise.image_illustration, ville.nom_ville, count(DISTINCT offre.titre) AS nombre_offres, count(candidater.id_utilisateur) AS nombre_candidatures
+        FROM $table
+        INNER JOIN situer ON entreprise.id_entreprise = situer.id_entreprise
+        INNER JOIN ville ON situer.id_ville = ville.id_ville
+        INNER JOIN offre ON entreprise.id_entreprise = offre.id_entreprise
+        INNER JOIN candidater ON offre.id_offre = candidater.id_offre
+        WHERE entreprise.id_entreprise = $id_ent AND ville.id_ville = $id_ville";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
 }

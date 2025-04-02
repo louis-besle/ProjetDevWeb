@@ -324,4 +324,75 @@ class SiteController extends Controller
         }
     }
 
+    public function _Page_OffreOnClick() {
+        if (isset($_GET['id'])) {
+            $offerId = intval($_GET['id']);
+        } else {
+            $offerId = null;
+        }
+    
+        if ($offerId) {
+            $competence = $this->model->getCompetenceByOffer($offerId);
+            $offres = $this->model->getInfosOffres($offerId); 
+
+            
+            echo $this->templateEngine->render('_offre_onclick.twig.html', [
+                "offre" => $this->model->getOffreclick(),
+                "competence" => $competence,
+                "duree" => $offres['duree'],
+                "entreprise" => $offres['entreprise'],,
+            ]);
+        } else {
+            echo "ID de l'offre manquant ou invalide.";
+        }
+    }
+
+    public function modifier_entreprise()
+    {
+
+        echo "Pas encore faite";
+        // if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        //     $id_entreprise = $_POST['id_entreprise'];
+        //     $entreprise_titre = $_POST['company_name'];
+        //     $id_ville = $_POST['city'];
+        //     $presentation = $_POST['company_description'];
+        //     $tel = $_POST['phone'];
+        //     $mail = $_POST['email'];
+        
+        //     $image = null;
+        //     if (isset($_FILES['company_image']) && $_FILES['company_image']['error'] === UPLOAD_ERR_OK) {
+        //         $image = $_FILES['company_image']['name'];
+        //         move_uploaded_file($_FILES['company_image']['tmp_name'], 'uploads/images/entreprise' . $image);
+        //     }
+        //     if (!empty($_FILES['company_image']['name'])) {
+        //         $upload_dir = 'uploads/';
+        //         $image_name = time() . '_' . basename($_FILES['company_image']['name']);
+        //         $image_path = $upload_dir . $image_name;
+
+        //         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+        //         if (in_array($_FILES['company_image']['type'], $allowed_types) && move_uploaded_file($_FILES['company_image']['tmp_name'], $image_path)) {
+        //             $image = $image_name;
+        //         }
+        //     }
+        
+        //     $this->model->updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $image, $presentation, $tel, $mail);
+        // }
+        
+    }
+
+    public function _Page_Modifier_Entreprise()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['modif'])) {
+                $id = intval($_POST['modif']);
+                $ville = $this->model->getVille();
+                $selection = $this->model->getEntrepriseByVille("e.id_entreprise = $id");
+                echo $this->templateEngine->render('ap_modifier_entreprise.twig.html', ['selection' => $selection, 'ville' => $ville]);
+            } elseif (isset($_POST['supp'])) {
+                $id = intval($_POST['supp']);
+                $this->model->deleteEntreprise($id);
+                header('Location: /?uri=recherche');
+            }
+        }
+    }
 }

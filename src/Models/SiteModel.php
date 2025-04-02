@@ -143,7 +143,7 @@ class SiteModel extends Model
         return $this->connection->getRecordById($table, $id);
     }
 
-    public function UpdateUser($id, $nom, $prenom, $email, $motDePasse, $hidden)
+    public function UpdateUser($id, $nom, $prenom, $email, $motDePasse, $hidden = 0)
     {
         return $this->connection->updateUtilisateur($id, $nom, $prenom, $email, $motDePasse, $hidden);
     }
@@ -161,5 +161,44 @@ class SiteModel extends Model
     public function deleteOffre($id)
     {
         return $this->connection->delOffre($id);
+    }
+
+    public function getCompetenceByOffer($id) {
+        $competences = $this->connection->getAllCompetencesAssociees($id);
+            if ($competences) {
+                return $competences;
+            } else {
+                return [];
+            }
+    }
+
+    public function getInfosOffres($id){
+        $offres = $this->connection->getRecordInfoOffres($id);
+
+        if ($offres && isset($offres['date_debut'], $offres['date_fin'])) {
+            $dateDebut = new \DateTime($offres['date_debut']);
+            $dateFin = new \DateTime($offres['date_fin']);
+            $interval = $dateDebut->diff($dateFin);
+
+
+            $mois = ceil($interval->y * 12 + $interval->m + ($interval->d / 30));
+
+            return ['description_offre' => $offres['description_offre'], 'description_entreprise' => $offres['description_entreprise'], 'duree' => $mois];
+        }
+
+    }
+    public function getOffreClick(){
+        if (isset($_GET['id'])) {
+            $id_page = $_GET['id'];
+        } else {
+            $id_page = 1;
+
+        }
+        return $this->connection->getRecordById('offre',$id_page);
+    }
+
+    public function deleteEntreprise($id)
+    {
+        return $this->connection->delEntreprise($id);
     }
 }
