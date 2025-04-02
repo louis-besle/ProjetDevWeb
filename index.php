@@ -250,9 +250,28 @@ switch ($uri) {
         }
         break;
 
-    case 'statistique':
+    case 'statistique_etudiant':
         if ($isConnect) {
-            $controller->_Page_Statistique();
+            $controller->_Page_Statistique_Etudiant();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    case 'statistique_offre':
+        if ($isConnect) {
+            $controller->_Page_Statistique_Offre();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+
+    case 'statistique_entreprise':
+        if ($isConnect) {
+            $controller->_Page_Statistique_Entreprise();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';

@@ -114,7 +114,7 @@ class SiteController extends Controller
         if ($_SESSION['user']['role'] === 'Administrateur') {
             echo $this->templateEngine->render('a_dashboard.twig.html', ['nombre_pilote' => $nombre_pilote, 'nombre_etudiant' => $nombre_etudiant]);
         } else if ($_SESSION['user']['role'] === 'Pilote') {
-            echo $this->templateEngine->render('p_dashboard.twig.html',['nombre_etudiant' => $nombre_etudiant]);
+            echo $this->templateEngine->render('p_dashboard.twig.html', ['nombre_etudiant' => $nombre_etudiant]);
         } else if ($_SESSION['user']['role'] === 'Étudiant') {
             echo $this->templateEngine->render('e_dashboard.twig.html');
         }
@@ -139,7 +139,9 @@ class SiteController extends Controller
         $competence = $this->model->getCompetence();
         $niveau = $this->model->getNiveau();
 
-        echo $this->templateEngine->render('_add_offer.twig.html', ['selection' => $selection, 'competence' => $competence, 'niveau' => $niveau]);
+        $offre_postes =  $this->model->all_offre();
+
+        echo $this->templateEngine->render('_add_offer.twig.html', ['selection' => $selection, 'competence' => $competence, 'niveau' => $niveau, 'offre' => $offre_postes]);
     }
 
 
@@ -157,7 +159,8 @@ class SiteController extends Controller
     public function _Page_Ajouter_Entreprise()
     {
         $ville = $this->model->getVille();
-        echo $this->templateEngine->render('_add_enterprise.twig.html', ['ville' => $ville]);
+        $entreprise = $this->model->getEntrepriseByVille();
+        echo $this->templateEngine->render('_add_enterprise.twig.html', ['ville' => $ville, 'entreprise' => $entreprise]);
     }
 
 
@@ -429,12 +432,32 @@ class SiteController extends Controller
         }
     }
 
-    public function _Page_Statistique()
+    public function _Page_Statistique_Etudiant()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_etudiant = intval($_POST['voir']);
             $resultats = $this->model->statistique_utilisateur($id_etudiant);
-            echo $this->templateEngine->render('ap_statistique.twig.html',['resultat' =>$resultats]);
+            echo $this->templateEngine->render('ap_statistique.twig.html', ['resultat' => $resultats]);
+        }
+    }
+
+    public function _Page_Statistique_Offre()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $competence = $this->model->rep_competence();
+            $duree = $this->model->rep_duree();
+            $wishlist = $this->model->rep_wishlist();
+            $offre_postes =  $this->model->nombre_offre();
+            echo $this->templateEngine->render('_statistique_offre.twig.html', ['competence' => $competence, 'duree' => $duree, 'wishlist' => $wishlist, 'offre' => $offre_postes]);
+        }
+    }
+
+    public function _Page_Statistique_Entreprise()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $selection = $this->model->entrepriseVille();
+            $total = $this->model->entreprisetotal();
+            echo $this->templateEngine->render('_statistique_entreprise.twig.html', ['selection' => $selection, 'total' => $total]);
         }
     }
 }

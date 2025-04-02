@@ -18,7 +18,7 @@
             <td>{{util.nom_role}}</td>
             <td>
                 {% if util.nom_role == 'Etudiant' %}
-                <form action="/?uri=statistique" method="POST">
+                <form action="/?uri=statistique_etudiant" method="POST">
                     <div class="grp_bouton"><button type="submit" name="voir" class="bouton_" value={{util.id_utilisateur}}>Voir</button></div>
                 </form>
                 {% endif %}

@@ -508,12 +508,104 @@ class FileDatabase implements Database
             FROM utilisateur u
             WHERE u.id_utilisateur = :id;
         ";
-    
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id' => $id_etudiant]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    
 
+    public function repartitionParCompetence()
+    {
+        $sql = "
+            SELECT c.competence, COUNT(a.id_offre) AS nombre_offres
+            FROM associer a
+            INNER JOIN competence c ON a.id_competence = c.id_competence
+            GROUP BY c.competence
+            ORDER BY nombre_offres DESC;
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function repartitionParDuree()
+    {
+        $sql = "
+        SELECT 
+            CASE 
+                WHEN DATEDIFF(o.date_fin, o.date_debut) <= 30 THEN 'Moins d\'1 mois'
+                WHEN DATEDIFF(o.date_fin, o.date_debut) BETWEEN 31 AND 90 THEN '1 à 3 mois'
+                WHEN DATEDIFF(o.date_fin, o.date_debut) BETWEEN 91 AND 180 THEN '3 à 6 mois'
+                ELSE 'Plus de 6 mois'
+            END AS duree_stage,
+            COUNT(o.id_offre) AS nombre_offres
+        FROM offre o
+        GROUP BY duree_stage
+        ORDER BY nombre_offres DESC;
+    ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function topOffresWishlist($limit = 5)
+    {
+        $sql = "
+        SELECT o.titre, e.nom AS entreprise, COUNT(s.id_utilisateur) AS nombre_wishlist
+        FROM souhaiter s
+        INNER JOIN offre o ON s.id_offre = o.id_offre
+        INNER JOIN entreprise e ON o.id_entreprise = e.id_entreprise
+        GROUP BY o.id_offre, o.titre, e.nom
+        ORDER BY nombre_wishlist DESC
+        LIMIT :limit;
+    ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function nombreEntreprisesParVille()
+    {
+        // Requête SQL pour compter le nombre d'entreprises par ville
+        $sql = "
+        SELECT v.nom_ville, COUNT(e.id_entreprise) AS nombre_entreprises
+        FROM ville v
+        JOIN situer s ON v.id_ville = s.id_ville
+        JOIN entreprise e ON s.id_entreprise = e.id_entreprise
+        GROUP BY v.id_ville;
+    ";
+
+        // Préparation et exécution de la requête
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+
+        // Récupération des résultats
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Retourner les résultats
+        return $result;
+    }
+
+    public function nombreEntreprises()
+    {
+        // Requête SQL pour compter le nombre d'entreprises par ville
+        $sql = "
+        SELECT COUNT(entreprise.id_entreprise) AS nombre_entreprises
+        FROM entreprise";
+
+        // Préparation et exécution de la requête
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+
+        // Récupération des résultats
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Retourner les résultats
+        return $result[0];
+    }
 }

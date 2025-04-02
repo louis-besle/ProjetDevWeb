@@ -223,5 +223,30 @@ class SiteModel extends Model
     public function statistique_utilisateur($id_etudiant){
         return $this->connection->statistique($id_etudiant);
     }
+
+    public function rep_competence(){
+        return $this->connection->repartitionParCompetence();
+    }
+    public function rep_duree(){
+        return $this->connection->repartitionParDuree();
+    }
+    public function rep_wishlist(){
+        return $this->connection->topOffresWishlist();
+    }
+
+    public function all_offre(){
+        return $this->connection->getAllRecords('offre');
+    }
+
+    public function offre_pag($limit, $offset){
+        return $this->connection->getOffresPaginees($limit, $offset);
+    }
+
+    public function entrepriseVille(){
+        return $this->connection->nombreEntreprisesParVille();
+    }
+    public function entreprisetotal(){
+        return $this->connection->nombreEntreprises();
+    }
 }
 

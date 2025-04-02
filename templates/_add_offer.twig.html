@@ -9,6 +9,41 @@
 
         {% include 'composants/formulaire_add_offer.twig.html' %}
 
+        <form action="/?uri=statistique_offre" method="post">
+            <div class="grp_bouton"><button type="submit" name="voir" class="bouton_">Voir les statistiques des
+                    offres</button></div>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Salaire</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for selection in offre %}
+                <tr>
+                    <td>{{selection.titre}}</td>
+                    <td>{{selection.mise_en_ligne}}</td>
+
+                    <td>
+                        <form action="/?uri=page_modifier_offre" method="post">
+                            <div class="grp_bouton">
+                                <button type="submit" class="bouton_" name="modif"
+                                    value={{selection.id_offre}}>Modifier</button>
+                                <button type="submit" class="bouton_" name="supp"
+                                    value={{selection.id_offre}}>Supprimer</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
     </main>
 </body>
 <script src="/static/js/formulaire_add_offre.js"></script>
