@@ -99,22 +99,23 @@ class SiteController extends Controller
             echo $this->templateEngine->render('a_dashboard.twig.html');
         } else if ($_SESSION['user']['role'] === 'Pilote') {
             echo $this->templateEngine->render('p_dashboard.twig.html');
-        } else if ($_SESSION['user']['role'] === 'Étudiant') {
+        } else if ($_SESSION['user']['role'] === 'Etudiant') {
             echo $this->templateEngine->render('e_dashboard.twig.html');
         }
     }
     public function _Page_Wishlist()
     {
-        //$wishlist = $this->model->getWishlistById($_SESSION['user']['id_utilisateur']);
-        echo $this->templateEngine->render('e_wishlist.twig.html');
+        $wishlist = $this->model->getWishlistById($_SESSION['user']['id']);
+        echo $this->templateEngine->render('e_wishlist.twig.html', ["offres" => $wishlist]);
     }
     public function _Page_CV()
     {
-        echo $this->templateEngine->render('e_cv.twig.html');
+        echo $this->templateEngine->render('e_cv.twig.html', ["cvs" => $this->model->getCVById($_SESSION['user']['id'])]);
     }
     public function _Page_OffrePostulees()
     {
-        echo $this->templateEngine->render('e_offre_postule.twig.html');
+        $wishlist = $this->model->getOffresPostuleesById($_SESSION['user']['id']);
+        echo $this->templateEngine->render('e_offre_postule.twig.html', ["offres" => $wishlist]);
     }
 
 
@@ -335,13 +336,15 @@ class SiteController extends Controller
         if ($offerId) {
             $competence = $this->model->getCompetenceByOffer($offerId);
             $offres = $this->model->getInfosOffres($offerId); 
-
+            $postuler = $this->model->a_candidater($_SESSION['user']['id'],$offerId);
             
             echo $this->templateEngine->render('_offre_onclick.twig.html', [
                 "offre" => $this->model->getOffreclick(),
                 "competence" => $competence,
                 "duree" => $offres['duree'],
                 "entreprise" => $offres['entreprise'],
+                "postuler" => $postuler,
+                "role" => $_SESSION['user']['role'],
             ]);
         } else {
             echo "ID de l'offre manquant ou invalide.";
@@ -395,5 +398,36 @@ class SiteController extends Controller
                 header('Location: /?uri=recherche');
             }
         }
+    }
+
+    public function _Ajout_Wishlist(){
+        $this->model->ajout_wishlist($_SESSION['user']['id'], $_POST['id_offre']);
+        if(isset($_GET['page'])) {
+            if(isset($_GET['id'])) {
+                header('Location: /?uri=' . $_GET['page'].'&id=' . $_GET['id']);
+            } else {
+                header('Location: /?uri='. $_GET['page']);
+            }
+        } else {
+            header('Location: /?uri=accueil');
+        }
+    }
+
+    public function _Page_Postuler() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($_FILES['lettre_motivation']['name'])) {
+                $upload_dir = 'static/uploads/lettres_motivation/';
+                $image_name = time() . '_' . basename($_FILES['lettre_motivation']['name']);
+                $image_path = $upload_dir . $image_name;
+
+                $allowed_types = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                if (in_array($_FILES['lettre_motivation']['type'], $allowed_types) && move_uploaded_file($_FILES['lettre_motivation']['tmp_name'], $image_path)) {
+                    $image = $image_name;
+                }
+            }
+            echo $this->model->ajout_candidater($_SESSION['user']['id'], $_POST['id_offre'],$image,$_POST['message_recruteur']);
+            header('Location: /?uri=accueil');
+        }
+        exit;
     }
 }
