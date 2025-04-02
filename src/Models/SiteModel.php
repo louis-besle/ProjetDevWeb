@@ -7,7 +7,8 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97', 'stageup', 'azureuser', '#Cesi2024');
+            //$this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            $this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
@@ -28,9 +29,9 @@ class SiteModel extends Model
         return $this->connection->getAllRecords('ville');
     }
 
-    public function getEntrepriseByVille()
+    public function getEntrepriseByVille($options = null)
     {
-        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville');
+        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options);
     }
 
     public function getCompetence()
@@ -132,42 +133,33 @@ class SiteModel extends Model
         return max($val1,$val2);
     }
 
-    public function getUtilisateurs($role){
-       return $this->connection->getRecordUtilisateur($role);
+    public function getUtilisateurs($role)
+    {
+        return $this->connection->getRecordUtilisateur($role);
     }
 
-    public function getCompetenceByOffer($id) {
-        $competences = $this->connection->getAllCompetencesAssociees($id);
-            if ($competences) {
-                return $competences;
-            } else {
-                return [];
-            }
+    public function getUtilisateursById($table, $id)
+    {
+        return $this->connection->getRecordById($table, $id);
     }
 
-    public function getInfosOffres($id){
-        $offres = $this->connection->getRecordInfoOffres($id);
-
-        if ($offres && isset($offres['date_debut'], $offres['date_fin'])) {
-            $dateDebut = new \DateTime($offres['date_debut']);
-            $dateFin = new \DateTime($offres['date_fin']);
-            $interval = $dateDebut->diff($dateFin);
-
-
-            $mois = ceil($interval->y * 12 + $interval->m + ($interval->d / 30));
-
-            return ['description_offre' => $offres['description_offre'], 'entreprise' => ['nom' => $offres['nom'],'description' => $offres['description_entreprise']], 'duree' => $mois];
-        }
-
+    public function UpdateUser($id, $nom, $prenom, $email, $motDePasse, $hidden)
+    {
+        return $this->connection->updateUtilisateur($id, $nom, $prenom, $email, $motDePasse, $hidden);
     }
 
-    public function getOffreClick(){
-        if (isset($_GET['id'])) {
-            $id_page = $_GET['id'];
-        } else {
-            $id_page = 1;
+    public function UpdateOffre($id, $titre, $description, $remuneration, $date_debut, $date_fin, $id_entreprise, $competences)
+    {
+        return $this->connection->updateOffre($id, $titre, $description, $remuneration, $date_debut, $date_fin, $id_entreprise, $competences);
+    }
 
-        }
-        return $this->connection->getRecordById('offre',$id_page);
+    public function getOffreById($id)
+    {
+        return $this->connection->recupinfoOffre($id);
+    }
+
+    public function deleteOffre($id)
+    {
+        return $this->connection->delOffre($id);
     }
 }
