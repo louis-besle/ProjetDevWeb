@@ -137,11 +137,16 @@ class FileDatabase implements Database
         return $sql->fetchAll();
     }
 
-    public function getRecordBetweenTableOffreEntreprise($table1, $table2)
+    public function getRecordBetweenTableOffreEntreprise($table1, $table2, $options = null)
     {
-        $sql = "SELECT offre.id_offre, offre.titre, offre.description, offre.mise_en_ligne, entreprise.nom
+        $sql = "SELECT offre.id_offre, offre.titre, offre.description, offre.mise_en_ligne, e.nom
                 FROM `$table1`
-                INNER JOIN `$table2` ON `$table1`.id_{$table2} = `$table2`.id_{$table2}";
+                INNER JOIN `$table2`e ON `$table1`.id_{$table2} = e.id_{$table2}
+                INNER JOIN situer s ON e.id_entreprise = s.id_entreprise
+                INNER JOIN ville v ON s.id_ville = v.id_ville";
+        if ($options) {
+            $sql .= " WHERE $options";
+        }
 
         $requete = $this->pdo->prepare($sql);
         $requete->execute();
@@ -151,7 +156,7 @@ class FileDatabase implements Database
 
     public function getRecordBetweenTableEntrepriseVille($table1, $relation, $table2, $options = null)
     {
-        $sql = "SELECT e.id_entreprise, e.nom, v.nom_ville, e.image_illustration 
+        $sql = "SELECT e.id_entreprise, e.nom, v.nom_ville, e.image_illustration, v.id_ville 
                 FROM `$table1` e
                 INNER JOIN `$relation` s ON e.id_{$table1} = s.id_{$table1}
                 INNER JOIN `$table2` v ON s.id_{$table2} = v.id_{$table2}";
@@ -175,6 +180,20 @@ class FileDatabase implements Database
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRecordEntrepriseOnClick($table,$id_ent, $id_ville){
+        $sql = "SELECT entreprise.id_entreprise, entreprise.nom, entreprise.description, entreprise.email_contact, entreprise.telephone, entreprise.image_illustration, ville.nom_ville, count(DISTINCT offre.titre) AS nombre_offres, count(candidater.id_utilisateur) AS nombre_candidatures
+        FROM $table
+        INNER JOIN situer ON entreprise.id_entreprise = situer.id_entreprise
+        INNER JOIN ville ON situer.id_ville = ville.id_ville
+        INNER JOIN offre ON entreprise.id_entreprise = offre.id_entreprise
+        INNER JOIN candidater ON offre.id_offre = candidater.id_offre
+        WHERE entreprise.id_entreprise = $id_ent AND ville.id_ville = $id_ville";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
     public function getRecordInfoOffres($id){

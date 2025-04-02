@@ -7,7 +7,7 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97', 'stageup', 'azureuser', '#Cesi2024');
+            $this->connection = new FileDatabase('localhost', 'stageup', 'root', '');
         } else {
             $this->connection = $connection;
         }
@@ -22,6 +22,7 @@ class SiteModel extends Model
     {
         return $this->connection->getAllRecords('entreprise');
     }
+
     public function getVille()
     {
         return $this->connection->getAllRecords('ville');
@@ -78,76 +79,46 @@ class SiteModel extends Model
         }
     }
 
-    public function getOffreRecherche($page_actuelle)
+    public function getOffreRecherche($page_actuelle,$ville,$entreprise)
     {
-        $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise');
-        $output = array_slice($offres, ($page_actuelle - 1) * 5, 5);
-        return $output;
+        if ($ville === 'Toutes' && $entreprise === 'Toutes') {
+            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise');
+            return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
+        } 
+        else if ($ville === 'Toutes') {
+            $options = "e.nom = '$entreprise'";
+            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise',$options);
+            return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
+        } 
+        else if ($entreprise === 'Toutes') {
+            $options = "v.nom_ville = '$ville'";
+            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise',$options);
+            return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
+        }
     }
 
-    public function getEntreprisesRecherche($page_actuelle)
-    {
-        $entreprises = $this->connection->getAllRecords('entreprise');
-        $output = array_slice($entreprises, ($page_actuelle - 1) * 5, 5);
-        return $output;
-    }
-
-    public function getVillesEntreprises($page_actuelle)
+    public function getVillesEntreprises($page_actuelle,$ville,$entreprise)
     {
         $start = (($page_actuelle - 1) * 5) + 1;
         $end = ($page_actuelle * 5);
         $options = "e.id_entreprise BETWEEN $start AND $end";
-        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options);
+        if ($ville === 'Toutes' && $entreprise === 'Toutes') {
+            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville'))];
+        } else if ($ville === 'Toutes') {
+            $options = "e.nom = '$entreprise'";
+            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options))];
+        } else if ($entreprise === 'Toutes') {
+            $options = "v.nom_ville = '$ville'";
+            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options))];
+        }
     }
 
-    public function getNbPages()
+    public function getNbPages($val1,$val2)
     {
-        return max(count($this->connection->getAllRecords('entreprise')), count($this->connection->getAllRecords('offre')));
+        return max($val1,$val2);
     }
 
     public function getUtilisateurs($role){
        return $this->connection->getRecordUtilisateur($role);
     }
-    public function getDetailedOffer($id) {
-        $offer = $this->connection->getRecordById('offre', $id);
-        if (!$offer) return null;
-        return [
-            'titre' => $infos['titre'] ?? $offer['titre'],
-        ];
-    }
-    public function getOffreClick(){
-        if (isset($_GET['id'])) {
-            $id_page = $_GET['id'];
-        } else {
-            $id_page = 1;
-
-        }
-        return $this->connection->getRecordById('offre',$id_page);
-    }
-
-    public function getCompetenceByOffer($id) {
-        $competences = $this->connection->getAllCompetencesAssociees($id);
-            if ($competences) {
-                return $competences;
-            } else {
-                return [];
-            }
-    }
-
-    public function getInfosOffres($id){
-        $offres = $this->connection->getRecordInfoOffres($id);
-        
-        if ($offres && isset($offres['date_debut'], $offres['date_fin'])) {
-            $dateDebut = new \DateTime($offres['date_debut']);
-            $dateFin = new \DateTime($offres['date_fin']);
-            $interval = $dateDebut->diff($dateFin);
-    
-            
-            $mois = ceil($interval->y * 12 + $interval->m + ($interval->d / 30));
-    
-            return ['description_offre' => $offres['description_offre'], 'description_entreprise' => $offres['description_entreprise'], 'duree' => $mois];
-        }
-        
-    }
-        
 }

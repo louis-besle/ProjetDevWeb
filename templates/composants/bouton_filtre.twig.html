@@ -2,20 +2,27 @@
     <button class="bouton_filtre" id="bouton_filtre">Filtres</button>
 </div>
 
-<div class="filtres" id="filtres">
-    <label for="entreprise">Entreprise :</label>
-    <select id="entreprise" name="entreprise">
-        <option value="exia">Exia</option>
-        <option value="google">Google</option>
-        <option value="microsoft">Microsoft</option>
-    </select>
+<form method="GET" action="?uri=recherche">
+    <input type="hidden" name="uri" value="recherche">
+    <div class="filtres" id="filtres">
+        <label for="entreprise">Entreprise :</label>
+        <select id="entreprise" name="entreprise">
+            <option value="{{ filtre_entreprise }}">{{ filtre_entreprise }}</option>
+            <option value="Toutes">Toutes</option>
+            {% for filtre in filtres.entreprise %}
+                <option value="{{ filtre.nom }}">{{ filtre.nom }}</option>
+            {% endfor %}
+        </select>
 
-    <label for="lieu">Lieu :</label>
-    <select id="lieu" name="lieu">
-        <option value="orleans">Orléans</option>
-        <option value="paris">Paris</option>
-        <option value="lyon">Lyon</option>
-    </select>
+        <label for="ville">Ville :</label>
+        <select id="ville" name="ville">
+            <option value="{{ filtre_ville }}">{{ filtre_ville }}</option>
+            <option value="Toutes">Toutes</option>
+            {% for filtre in filtres.ville %}
+                <option value="{{ filtre.nom_ville }}">{{ filtre.nom_ville }}</option>
+            {% endfor %}
+        </select>
 
-    <button id="valider">Valider les filtres</button>
-</div>
+        <button type="submit" id="valider">Valider les filtres</button>
+    </div>
+</form>
