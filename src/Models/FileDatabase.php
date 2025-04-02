@@ -196,4 +196,28 @@ class FileDatabase implements Database
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
+    public function getRecordInfoOffres($id){
+        $sql = "SELECT date_debut, date_fin, offre.description as description_offre, entreprise.description as description_entreprise
+                FROM offre
+                INNER JOIN entreprise ON offre.id_entreprise = entreprise.id_entreprise
+                WHERE id_offre = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function getAllCompetencesAssociees($idOffre) {
+        $sql = "SELECT competence.id_competence, competence.competence
+                FROM associer
+                INNER JOIN competence ON associer.id_competence = competence.id_competence
+                WHERE associer.id_offre = :idOffre";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':idOffre', $idOffre, PDO::PARAM_INT); 
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    }
+
+
+    
 }

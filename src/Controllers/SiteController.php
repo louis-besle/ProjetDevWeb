@@ -84,6 +84,7 @@ class SiteController extends Controller
             echo "Une erreur est survenue lors de la recherche";
         }
     }
+
     /**
      * Affiche la page de détails d'une offre
      */
@@ -229,5 +230,42 @@ class SiteController extends Controller
             header('Location: /?uri=ajouter_compte');
         }
     }
+    public function _Page_Detail_Offre($id)
+    {
+    $offre = $this->model->getDetailedOffer($id);
 
+    if (!$offre) {
+        http_response_code(404);
+        echo "Offre non trouvée.";
+        return;
+    }
+
+    echo $this->templateEngine->render('_offre_onclick.twig.html', ['offre' => $offre]);
+    }
+
+    public function _Page_OffreOnClick() {
+        if (isset($_GET['id'])) {
+            $offerId = intval($_GET['id']);
+        } else {
+            $offerId = null;
+        }
+    
+        if ($offerId) {
+            $competence = $this->model->getCompetenceByOffer($offerId);
+            $offres = $this->model->getInfosOffres($offerId); 
+
+            $descriptionEntrepriseText = isset($descriptionEntreprise['description']) ? $descriptionEntreprise['description'] : 'Description non disponible';
+
+            echo $this->templateEngine->render('_offre_onclick.twig.html', [
+                "offre" => $this->model->getOffreclick(),
+                "competence" => $competence,
+                "duree" => $offres['duree'],
+                "description_entreprise" => $offres['description_entreprise'],
+            ]);
+        } else {
+            echo "ID de l'offre manquant ou invalide.";
+        }
+    }
 }
+
+

@@ -1,0 +1,16 @@
+<div class="offre_stage">   
+    {% for offre in offres %}
+        <a href="/?uri=offre&id={{offre.id_offre}}" class="offer_link">
+            <div class="offre_indiv">
+                <div class="details_offre">
+                    <p class="titre_offre">{{ offre.titre }}</p>
+                    <p class="entreprise_offre">{{ offre.nom }}</p>
+                    <p class="offre_date">Mise en ligne {{ offre.mise_en_ligne }}</p> <br>
+                </div> 
+                <div class="offre_image">
+                    <img src="/static/uploads/entreprises/{{offre.nom}}.svg" alt="Logo entreprise">
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
