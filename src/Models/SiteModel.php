@@ -7,8 +7,8 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            //$this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
-            $this->connection = new FileDatabase('localhost','stageup','root','');
+            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            //$this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
@@ -183,7 +183,7 @@ class SiteModel extends Model
 
             $mois = ceil($interval->y * 12 + $interval->m + ($interval->d / 30));
 
-            return ['description_offre' => $offres['description_offre'], 'description_entreprise' => $offres['description_entreprise'], 'duree' => $mois];
+            return ['description_offre' => $offres['description_offre'], 'entreprise' => ['nom' => $offres['nom'],'description' => $offres['description_entreprise']], 'duree' => $mois];
         }
 
     }
