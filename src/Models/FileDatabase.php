@@ -4,7 +4,6 @@ namespace App\Models;
 
 use PDO;
 use PDOException;
-use Exception;
 
 class FileDatabase implements Database
 {
@@ -529,8 +528,9 @@ class FileDatabase implements Database
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    public function getRecordOffresDashboard($id_utilisateur, $relation) {
+
+    public function getRecordOffresDashboard($id_utilisateur, $relation)
+    {
         $sql = "SELECT offre.titre, entreprise.nom, offre.mise_en_ligne, offre.id_offre
             FROM utilisateur
             INNER JOIN `$relation` ON `$relation`.id_utilisateur = utilisateur.id_utilisateur
@@ -563,7 +563,8 @@ class FileDatabase implements Database
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getCV($id_utilisateur) {
+    public function getCV($id_utilisateur)
+    {
         $sql = "SELECT cv.cv, utilisateur.id_utilisateur
                 FROM utilisateur
                 INNER JOIN cv ON cv.id_utilisateur = utilisateur.id_utilisateur
@@ -647,35 +648,36 @@ class FileDatabase implements Database
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function updateSouhaiter($id_utilisateur,$id_offre) {
+    public function updateSouhaiter($id_utilisateur, $id_offre)
+    {
         try {
             $sql = 'INSERT INTO souhaiter (id_utilisateur, id_offre)
                 VALUES (:id_utilisateur, :id_offre)';
 
-            $stmt = $this->pdo->prepare($sql);  
-            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT);
             $stmt->bindParam('id_offre', $id_offre, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
             $sql = 'DELETE FROM souhaiter WHERE id_utilisateur = :id_utilisateur AND id_offre = :id_offre';
 
-            $stmt = $this->pdo->prepare($sql);  
-            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT);
             $stmt->bindParam('id_offre', $id_offre, PDO::PARAM_INT);
             return $stmt->execute();
         }
-        
     }
 
-    public function addCandidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur) {
+    public function addCandidater($id_utilisateur, $id_offre, $lettre_motivation, $message_recruteur)
+    {
         try {
             $sql = 'INSERT INTO candidater (id_utilisateur, id_offre, date_candidature, lettre_motivation, message_recruteur)
                 VALUES (:id_utilisateur, :id_offre, :date_candidature, :lettre_motivation, :message_recruteur)';
-            
+
             $date_candidature = date('Y-m-d H:i:s'); // Date actuelle
 
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
+            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT);
             $stmt->bindParam('id_offre', $id_offre, PDO::PARAM_INT);
             $stmt->bindParam('date_candidature', $date_candidature, PDO::PARAM_STR);
             $stmt->bindParam('lettre_motivation', $lettre_motivation, PDO::PARAM_STR);
@@ -686,11 +688,12 @@ class FileDatabase implements Database
         }
     }
 
-    public function checkCandidature($id_utilisateur,$id_offre){
+    public function checkCandidature($id_utilisateur, $id_offre)
+    {
         try {
             $sql = 'SELECT COUNT(*) FROM candidater WHERE id_utilisateur = :id_utilisateur AND id_offre = :id_offre';
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
+            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT);
             $stmt->bindParam('id_offre', $id_offre, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchColumn() > 0; // Retourne true si le candidat a déjà postulé, sinon false
@@ -699,17 +702,69 @@ class FileDatabase implements Database
         }
     }
 
-    public function insertLog($id_utilisateur, $date_connexion){
+    public function insertLog($id_utilisateur, $date_connexion)
+    {
         try {
             $sql = 'INSERT INTO log (id_utilisateur, date_connexion)
                 VALUES (:id_utilisateur, :date_connexion)';
-                
-                $stmt = $this->pdo->prepare($sql);
-                $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT) ;
-                $stmt->bindParam('date_connexion', $date_connexion, PDO::PARAM_STR);
-                return $stmt->execute();
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam('id_utilisateur', $id_utilisateur, PDO::PARAM_INT);
+            $stmt->bindParam('date_connexion', $date_connexion, PDO::PARAM_STR);
+            return $stmt->execute();
         } catch (PDOException $e) {
             return false;
         }
     }
+
+    public function insertNote(int $idUtilisateur, int $idEntreprise, float $note, string $commentaire): bool {
+        $sql = "INSERT INTO evaluer (id_utilisateur, id_entreprise, note, commentaire) 
+                VALUES (:id_utilisateur, :id_entreprise, :note, :commentaire)
+                ON DUPLICATE KEY UPDATE note = :note, commentaire = :commentaire";
+    
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':id_utilisateur' => $idUtilisateur,
+            ':id_entreprise' => $idEntreprise,
+            ':note' => $note,
+            ':commentaire' => htmlspecialchars($commentaire, ENT_QUOTES, 'UTF-8')
+        ]);
+    }
+
+    public function getDerniersCommentaires(int $idEntreprise) {
+        $sql = "SELECT commentaire, note, id_utilisateur 
+                FROM evaluer 
+                WHERE id_entreprise = :id_entreprise 
+                ORDER BY id_utilisateur DESC 
+                LIMIT 5";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id_entreprise' => $idEntreprise]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getmoynote(int $idEntreprise) {
+        $sql = "SELECT count(note) as total, sum(note) as somme_notes, commentaire, note, id_utilisateur 
+                FROM evaluer 
+                WHERE id_entreprise = :id_entreprise 
+                GROUP BY id_entreprise
+                ORDER BY id_utilisateur DESC";
+    
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id_entreprise' => $idEntreprise]);
+    
+        // Récupérer les résultats
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        // Si des résultats sont trouvés, retourner la somme des notes
+        if ($result) {
+            return $result['somme_notes']; // Retourne la somme des notes
+        }
+    
+        return 0; // Si aucun résultat trouvé, retourner 0
+    }
+    
+    
+    
 }

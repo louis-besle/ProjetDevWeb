@@ -104,7 +104,14 @@ class SiteController extends Controller
      */
     public function _Page_EntrepriseOnClick()
     {
-        echo $this->templateEngine->render('_entreprise_onclick.twig.html', ["entreprise" => $this->model->getEntrepriseClick()]);
+        $entreprise = $this->model->getEntrepriseClick();
+        $idEntreprise = $entreprise['id_entreprise'];
+        $com = $this->model->lastcom($idEntreprise);
+        $moynote = $this->model->moynote($idEntreprise) / count($com);
+        $moynote = round($moynote, 1);
+        echo $this->templateEngine->render('_entreprise_onclick.twig.html', [
+            "entreprise" => $entreprise, 'com'=>$com, 'moynote' => $moynote
+        ]);
     }
 
     public function _Page_Dashboard()
@@ -354,9 +361,9 @@ class SiteController extends Controller
 
         if ($offerId) {
             $competence = $this->model->getCompetenceByOffer($offerId);
-            $offres = $this->model->getInfosOffres($offerId); 
+            $offres = $this->model->getInfosOffres($offerId);
             $nombre = $this->model->nombre_personne($offerId);
-            $postuler = $this->model->a_candidater($_SESSION['user']['id'],$offerId);
+            $postuler = $this->model->a_candidater($_SESSION['user']['id'], $offerId);
             echo $this->templateEngine->render('_offre_onclick.twig.html', [
                 "offre" => $this->model->getOffreclick(),
                 "competence" => $competence,
@@ -465,20 +472,22 @@ class SiteController extends Controller
             echo $this->templateEngine->render('_statistique_entreprise.twig.html', ['selection' => $selection, 'total' => $total, 'off' => $of_ent]);
         }
     }
-    public function _Ajout_Wishlist(){
+    public function _Ajout_Wishlist()
+    {
         $this->model->ajout_wishlist($_SESSION['user']['id'], $_POST['id_offre']);
-        if(isset($_GET['page'])) {
-            if(isset($_GET['id'])) {
-                header('Location: /?uri=' . $_GET['page'].'&id=' . $_GET['id']);
+        if (isset($_GET['page'])) {
+            if (isset($_GET['id'])) {
+                header('Location: /?uri=' . $_GET['page'] . '&id=' . $_GET['id']);
             } else {
-                header('Location: /?uri='. $_GET['page']);
+                header('Location: /?uri=' . $_GET['page']);
             }
         } else {
             header('Location: /?uri=accueil');
         }
     }
 
-    public function _Page_Postuler() {
+    public function _Page_Postuler()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_FILES['lettre_motivation']['name'])) {
                 $upload_dir = 'static/uploads/lettres_motivation/';
@@ -490,9 +499,35 @@ class SiteController extends Controller
                     $image = $image_name;
                 }
             }
-            echo $this->model->ajout_candidater($_SESSION['user']['id'], $_POST['id_offre'],$image,$_POST['message_recruteur']);
+            echo $this->model->ajout_candidater($_SESSION['user']['id'], $_POST['id_offre'], $image, $_POST['message_recruteur']);
             header('Location: /?uri=accueil');
         }
         exit;
     }
+
+    public function noter_entreprise() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idUtilisateur = $_SESSION['user']['id'] ?? null;
+            $idEntreprise = $_POST['id_entreprise'] ?? null;
+    
+            $starId = $_POST['rating'] ?? null;
+    
+            $note = null;
+            if ($starId) {
+                $note = (int)str_replace('star', '', $starId);
+            }
+
+    
+            $commentaire = htmlspecialchars($_POST['comments'] ?? '');
+            
+            if ($idUtilisateur && $idEntreprise && $note !== null) {
+                $this->model->noter($idUtilisateur, $idEntreprise, (float)$note, $commentaire);
+                header('Location: /?uri=entreprise');
+            }
+        }
+    }
+    
+    
+
+    
 }

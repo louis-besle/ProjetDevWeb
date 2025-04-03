@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../vendor/autoload.php"; // Chargement des dépendances
+require "vendor/autoload.php"; // Chargement des dépendances
 
 // Importation de la classe SiteController
 use App\Controllers\SiteController;
@@ -10,7 +10,7 @@ use App\Controllers\AuthController;
 use function PHPUnit\Framework\isEmpty;
 
 // Initialisation de Twig
-$loader = new \Twig\Loader\FilesystemLoader('../templates');
+$loader = new \Twig\Loader\FilesystemLoader('templates');
 $twig = new \Twig\Environment($loader, [
     'debug' => true
 ]);
@@ -269,14 +269,13 @@ switch ($uri) {
     case 'statistique_offre':
         if ($isConnect) {
             $controller->_Page_Statistique_Offre();
-        }
-        else {
+        } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
         }
         break;
-    
+
     case 'ajout_wishlist':
         if ($isConnect) {
             $controller->_Ajout_Wishlist();
@@ -297,6 +296,15 @@ switch ($uri) {
         }
         break;
 
+    case 'note_entreprise':
+        if ($isConnect) {
+            $controller->noter_entreprise();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
     default:
         echo '404 Not Found';
         break;
