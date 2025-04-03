@@ -52,7 +52,10 @@ class SiteController extends Controller
             echo "Erreur pendant le chargement de la page d'accueil";
         }
     }
-
+    /**
+     * Affiche la page pour postuler à une offre
+     * @return never
+     */
     public function _Page_Postuler() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_FILES['lettre_motivation']['name'])) {

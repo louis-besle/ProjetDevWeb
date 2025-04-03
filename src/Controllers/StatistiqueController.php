@@ -24,7 +24,10 @@ class StatistiqueController extends Controller
             die("Erreur pendant l'initialisation");
         }
     }
-    
+    /**
+     * Affiche la page de statistiques des étudiants
+     * @return void
+     */
     public function _Page_Statistique_Etudiant()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,7 +36,10 @@ class StatistiqueController extends Controller
             echo $this->templateEngine->render('ap_statistique.twig.html', ['resultat' => $resultats]);
         }
     }
-
+    /**
+     * Affiche la page de statistiques des offres
+     * @return void
+     */
     public function _Page_Statistique_Offre()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -44,7 +50,10 @@ class StatistiqueController extends Controller
             echo $this->templateEngine->render('_statistique_offre.twig.html', ['competence' => $competence, 'duree' => $duree, 'wishlist' => $wishlist, 'offre' => $offre_postes]);
         }
     }
-
+    /**
+     * Affiche la page de statistiques des entreprises
+     * @return void
+     */
     public function _Page_Statistique_Entreprise()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

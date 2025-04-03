@@ -24,6 +24,10 @@ class DashboardController extends Controller
             die("Erreur pendant l'initialisation");
         }
     }
+    /**
+     * Affiche la page de tableau de bord
+     * @return void
+     */
     public function _Page_Dashboard()
     {
         $nombre_pilote = $this->model->nombre_utilisateur('Pilote');
@@ -36,7 +40,10 @@ class DashboardController extends Controller
             echo $this->templateEngine->render('e_dashboard.twig.html');
         }
     }
-
+    /**
+     * Affiche la page de modification d'une offre
+     * @return void
+     */
     public function _Page_Modifier_Offre()
     {
         $selection = $this->model->getEntrepriseByVille();
@@ -54,7 +61,10 @@ class DashboardController extends Controller
             }
         }
     }
-
+    /**
+     * Affiche la page d'ajout d'une offre
+     * @return void
+     */
     public function _Page_Ajouter_Offre()
     {
         $selection = $this->model->getEntrepriseByVille();
@@ -65,7 +75,10 @@ class DashboardController extends Controller
 
         echo $this->templateEngine->render('_add_offer.twig.html', ['selection' => $selection, 'competence' => $competence, 'niveau' => $niveau, 'offre' => $offre_postes]);
     }
-
+    /**
+     * Affiche la page d'ajout d'un compte
+     * @return void
+     */
     public function _Page_Ajouter_Compte()
     {
         if ($_SESSION['user']['role'] === 'Administrateur') {
@@ -76,15 +89,20 @@ class DashboardController extends Controller
             echo $this->templateEngine->render('p_add_account.twig.html', ['utilisateur' => $utilisateur]);
         }
     }
-
+    /**
+     * Affiche la page d'ajout d'une entreprise
+     * @return void
+     */
     public function _Page_Ajouter_Entreprise()
     {
         $ville = $this->model->getVille();
         $entreprise = $this->model->getEntrepriseByVille();
         echo $this->templateEngine->render('_add_enterprise.twig.html', ['ville' => $ville, 'entreprise' => $entreprise]);
     }
-
-
+    /**
+     * Formulaire d'ajout d'une offre
+     * @return void
+     */
     public function formulaire_offre()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -102,7 +120,10 @@ class DashboardController extends Controller
             exit;
         }
     }
-
+    /**
+     * Formulaire d'ajout d'une entreprise
+     * @return void
+     */
     public function formulaire_entreprise()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -134,7 +155,10 @@ class DashboardController extends Controller
             exit;
         }
     }
-
+    /**
+     * Formulaire d'ajout d'un compte
+     * @return void
+     */
     public function formulaire_compte()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -159,6 +183,10 @@ class DashboardController extends Controller
             exit;
         }
     }
+    /**
+     * Affiche la page de modification d'un compte
+     * @return void
+     */
     public function _Page_Modifier_Compte()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -184,6 +212,10 @@ class DashboardController extends Controller
             }
         }
     }
+    /**
+     * Modifier un compte utilisateur
+     * @return void
+     */
     public function modifier_compte()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -222,7 +254,10 @@ class DashboardController extends Controller
             exit;
         }
     }
-
+    /**
+     * Modifier une offre
+     * @return void
+     */
     public function modifier_offre()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -244,7 +279,10 @@ class DashboardController extends Controller
             exit;
         }
     }
-
+    /**
+     * Modifier une entreprise
+     * @return void
+     */
     public function modifier_entreprise()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -279,7 +317,10 @@ class DashboardController extends Controller
             exit;
         }
     }
-
+    /**
+     * Affiche la page de modification d'une entreprise
+     * @return void
+     */
     public function _Page_Modifier_Entreprise()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -295,19 +336,28 @@ class DashboardController extends Controller
             }
         }
     }
-
+    /**
+     * Affiche la page Wishlist
+     * @return void
+     */
     public function _Page_Wishlist()
     {
         $wishlist = $this->model->getWishlistById($_SESSION['user']['id']);
         echo $this->templateEngine->render('e_wishlist.twig.html', ["offres" => $wishlist]);
     }
-
+    /**
+     * Affiche la page Offres postulées
+     * @return void
+     */
     public function _Page_OffrePostulees()
     {
         $wishlist = $this->model->getOffresPostuleesById($_SESSION['user']['id']);
         echo $this->templateEngine->render('e_offre_postule.twig.html', ["offres" => $wishlist]);
     }
-
+    /**
+     * Affiche la page CV pour les étudiants
+     * @return void
+     */
     public function _Page_CV()
     {
         echo $this->templateEngine->render('e_cv.twig.html', ["cvs" => $this->model->getCVById($_SESSION['user']['id'])]);
