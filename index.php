@@ -4,8 +4,14 @@ require "vendor/autoload.php"; // Chargement des dépendances
 
 // Importation de la classe SiteController
 use App\Controllers\SiteController;
-// Importation de la classe SiteController
+// Importation de la classe AuthController
 use App\Controllers\AuthController;
+// Importation de la classe SearchController
+use App\Controllers\SearchController;
+// Importation de la classe DashboardController
+use App\Controllers\DashboardController;
+// Importation de la classe StatistiqueController
+use App\Controllers\StatistiqueController;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -23,7 +29,10 @@ if (isset($_GET['uri'])) {
 }
 
 $controller = new SiteController($twig);
-$authController = new AuthController();
+$authController = new AuthController($twig);
+$searchController = new SearchController($twig);
+$dashboardController = new DashboardController($twig);
+$statistiqueController = new StatistiqueController($twig);
 
 $isConnect = !empty($_SESSION['user']['role']);
 
@@ -42,7 +51,7 @@ switch ($uri) {
         break;
     case 'recherche':
         if ($isConnect) {
-            $controller->_Page_Recherche();
+            $searchController->_Page_Recherche();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -51,7 +60,7 @@ switch ($uri) {
         break;
     case 'resultat_recherche':
         if ($isConnect) {
-            $controller->_Page_Resultat_Recherche();
+            $searchController->_Page_Resultat_Recherche();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -60,7 +69,7 @@ switch ($uri) {
         break;
     case 'offre':
         if ($isConnect) {
-            $controller->_Page_OffreOnClick();
+            $searchController->_Page_OffreOnClick();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -69,17 +78,13 @@ switch ($uri) {
         break;
     case 'entreprise':
         if ($isConnect) {
-            $controller->_Page_EntrepriseOnClick();
+            $searchController->_Page_EntrepriseOnClick();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
         }
         break;
-
-
-
-
     case 'login':
         $authController->login();
         break;
@@ -94,7 +99,7 @@ switch ($uri) {
         break;
     case 'dashboard':
         if ($isConnect) {
-            $controller->_Page_Dashboard();
+            $dashboardController->_Page_Dashboard();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -103,7 +108,7 @@ switch ($uri) {
         break;
     case 'wishlist':
         if ($isConnect) {
-            $controller->_Page_Wishlist();
+            $dashboardController->_Page_Wishlist();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -112,7 +117,7 @@ switch ($uri) {
         break;
     case 'cv':
         if ($isConnect) {
-            $controller->_Page_CV();
+            $dashboardController->_Page_CV();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -121,28 +126,25 @@ switch ($uri) {
         break;
     case 'offres_postulees':
         if ($isConnect) {
-            $controller->_Page_OffrePostulees();
+            $dashboardController->_Page_OffrePostulees();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
         }
         break;
-
-
     case 'ajouter_offre':
         if ($isConnect) {
-            $controller->_Page_Ajouter_Offre();
+            $dashboardController->_Page_Ajouter_Offre();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
         }
         break;
-
     case 'formulaire_offre':
         if ($isConnect) {
-            $controller->formulaire_offre();
+            $dashboardController->formulaire_offre();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -151,7 +153,7 @@ switch ($uri) {
         break;
     case 'page_modifier_offre':
         if ($isConnect) {
-            $controller->_Page_Modifier_Offre();
+            $dashboardController->_Page_Modifier_Offre();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -160,19 +162,16 @@ switch ($uri) {
         break;
     case 'modifier_offre':
         if ($isConnect) {
-            $controller->modifier_offre();
+            $dashboardController->modifier_offre();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
         }
         break;
-
-
-
     case 'ajouter_compte':
         if ($isConnect) {
-            $controller->_Page_Ajouter_Compte();
+            $dashboardController->_Page_Ajouter_Compte();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -181,7 +180,7 @@ switch ($uri) {
         break;
     case 'formulaire_compte':
         if ($isConnect) {
-            $controller->formulaire_compte();
+            $dashboardController->formulaire_compte();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -190,7 +189,7 @@ switch ($uri) {
         break;
     case 'compte':
         if ($isConnect) {
-            $controller->_Page_Modifier_Compte();
+            $dashboardController->_Page_Modifier_Compte();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -199,14 +198,13 @@ switch ($uri) {
         break;
     case 'modifier_compte':
         if ($isConnect) {
-            $controller->modifier_compte();
+            $dashboardController->modifier_compte();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
         }
         break;
-
     case 'postuler':
         if ($isConnect) {
             $controller->_Page_Postuler();
@@ -216,13 +214,9 @@ switch ($uri) {
             exit();
         }
         break;
-
-
-
-
     case 'ajouter_entreprise':
         if ($isConnect) {
-            $controller->_Page_Ajouter_Entreprise();
+            $dashboardController->_Page_Ajouter_Entreprise();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -231,17 +225,16 @@ switch ($uri) {
         break;
     case 'formulaire_entreprise':
         if ($isConnect) {
-            $controller->formulaire_entreprise();
+            $dashboardController->formulaire_entreprise();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
         }
         break;
-
     case 'page_modifier_entreprise':
         if ($isConnect) {
-            $controller->_Page_Modifier_Entreprise();
+            $dashboardController->_Page_Modifier_Entreprise();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -250,7 +243,7 @@ switch ($uri) {
         break;
     case 'modifier_entreprise':
         if ($isConnect) {
-            $controller->modifier_entreprise();
+            $dashboardController->modifier_entreprise();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -259,7 +252,7 @@ switch ($uri) {
         break;
     case 'statistique_etudiant':
         if ($isConnect) {
-            $controller->_Page_Statistique_Etudiant();
+            $statistiqueController->_Page_Statistique_Etudiant();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -268,7 +261,7 @@ switch ($uri) {
         break;
     case 'statistique_offre':
         if ($isConnect) {
-            $controller->_Page_Statistique_Offre();
+            $statistiqueController->_Page_Statistique_Offre();
         }
         else {
             header("HTTP/1.1 404 Not Found");
@@ -276,27 +269,24 @@ switch ($uri) {
             exit();
         }
         break;
-    
     case 'ajout_wishlist':
         if ($isConnect) {
-            $controller->_Ajout_Wishlist();
+            $searchController->_Ajout_Wishlist();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
         }
         break;
-
     case 'statistique_entreprise':
         if ($isConnect) {
-            $controller->_Page_Statistique_Entreprise();
+            $statistiqueController->_Page_Statistique_Entreprise();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
         }
         break;
-
     default:
         echo '404 Not Found';
         break;
