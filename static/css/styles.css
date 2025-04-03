@@ -1025,3 +1025,75 @@ footer p a:focus {
         grid-template-columns: 1fr;
     }
 }
+
+/* Ajouts spécifiques pour la page 404 */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    flex: 1;
+}
+
+.error-code {
+    font-size: 6rem;
+    font-weight: bold;
+    color: #6A0DAD;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.error-description {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 600px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.error-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #6A0DAD;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid #6A0DAD;
+}
+
+.error-button:hover {
+    background-color: white;
+    color: #6A0DAD;
+}
+
+.error-illustration {
+    max-width: 300px;
+    margin: 30px 0;
+}
+
+@media (max-width: 768px) {
+    .error-code {
+        font-size: 4rem;
+    }
+    
+    .error-message {
+        font-size: 1.5rem;
+    }
+    
+    .error-description {
+        font-size: 1rem;
+    }
+    
+    .error-illustration {
+        max-width: 200px;
+    }
+}

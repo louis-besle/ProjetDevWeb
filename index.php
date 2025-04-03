@@ -44,8 +44,7 @@ switch ($uri) {
         if ($isConnect) {
             $controller->_Page_Accueil();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -53,8 +52,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Page_Recherche();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -62,8 +60,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Page_Resultat_Recherche();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -71,8 +68,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Page_OffreOnClick();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -80,8 +76,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Page_EntrepriseOnClick();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -92,8 +87,7 @@ switch ($uri) {
         if ($isConnect) {
             $authController->logout();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -101,8 +95,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Dashboard();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -110,8 +103,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Wishlist();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -119,8 +111,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_CV();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -128,8 +119,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_OffrePostulees();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -137,8 +127,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Ajouter_Offre();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -146,8 +135,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->formulaire_offre();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -155,8 +143,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Modifier_Offre();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -164,8 +151,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->modifier_offre();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -173,8 +159,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Ajouter_Compte();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -182,8 +167,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->formulaire_compte();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -191,8 +175,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Modifier_Compte();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -200,8 +183,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->modifier_compte();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -209,8 +191,7 @@ switch ($uri) {
         if ($isConnect) {
             $controller->_Page_Postuler();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -218,8 +199,8 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Ajouter_Entreprise();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
+        
             exit();
         }
         break;
@@ -227,8 +208,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->formulaire_entreprise();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -236,8 +216,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Modifier_Entreprise();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -245,8 +224,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->modifier_entreprise();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -254,8 +232,7 @@ switch ($uri) {
         if ($isConnect) {
             $statistiqueController->_Page_Statistique_Etudiant();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -264,8 +241,7 @@ switch ($uri) {
             $statistiqueController->_Page_Statistique_Offre();
         }
         else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -273,8 +249,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Ajout_Wishlist();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -282,8 +257,7 @@ switch ($uri) {
         if ($isConnect) {
             $statistiqueController->_Page_Statistique_Entreprise();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -292,12 +266,11 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->noter_entreprise();
         } else {
-            header("HTTP/1.1 404 Not Found");
-            echo '404 Not Found';
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
     default:
-        echo '404 Not Found';
+        $controller->_Page_error('404','Page introuvable');
         break;
 }

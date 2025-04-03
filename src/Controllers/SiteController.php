@@ -73,5 +73,9 @@ class SiteController extends Controller
         }
         exit;
     }
+
+    public function _Page_error($erreur, $type) {
+        echo $this->templateEngine->render('error.twig.html',['error' => $erreur,'type' => $type]);
+    }
 }
 ?>

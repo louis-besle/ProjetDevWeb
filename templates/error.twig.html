@@ -1,0 +1,20 @@
+{% include 'composants/base_haut.twig.html' %}
+
+<body>
+    {% include 'composants/header.twig.html' %}
+
+<main>
+    <div class="error-container">
+        <div class="error-code">{{error}}</div>
+        <div class="error-message">{{ type }}</div>
+        <div class="error-description">
+            Désolé, la page que vous cherchez n'existe pas ou a été déplacée. 
+            Vous pouvez retourner à la page d'accueil ou utiliser le menu pour 
+            trouver ce que vous cherchez.
+        </div>
+        <a href="/" class="error-button">Retour à l'accueil</a>
+    </div>
+</main>
+</body>
+
+{% include 'composants/footer.twig.html' %}
