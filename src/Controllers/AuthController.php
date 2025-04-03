@@ -23,7 +23,10 @@ class AuthController extends Controller {
             die("Erreur pendant l'initialisation");
         }
     }
-
+    /**
+     * Gère la connexion de l'utilisateur
+     * @return void
+     */
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
@@ -39,7 +42,10 @@ class AuthController extends Controller {
         }
         header("Location: /");
     }
-
+    /**
+     * Gère la déconnexion de l'utilisateur
+     * @return never
+     */
     public function logout()
     {
         session_destroy();

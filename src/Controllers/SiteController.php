@@ -45,15 +45,17 @@ class SiteController extends Controller
     {
         try {
             $offres = $this->model->getOffresAccueil();
-            $entreprises = $this->model->getEntreprisesAccueil($offres);
 
-            echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres, 'entreprises' => $entreprises]);
+            echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres]);
         } catch (Exception $e) {
             error_log("Erreur page accueil: " . $e->getMessage());
             echo "Erreur pendant le chargement de la page d'accueil";
         }
     }
-
+    /**
+     * Affiche la page pour postuler à une offre
+     * @return never
+     */
     public function _Page_Postuler() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_FILES['lettre_motivation']['name'])) {

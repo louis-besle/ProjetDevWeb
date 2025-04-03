@@ -764,5 +764,9 @@ class FileDatabase implements Database
     
         return 0; // Si aucun résultat trouvé, retourner 0
     }
+    public function getPDO(): PDO
+    {
+        return $this->pdo;
+    }
 }
 ?>

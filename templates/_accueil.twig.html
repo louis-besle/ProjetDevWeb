@@ -25,10 +25,8 @@
             
             <div class="conteneurs_dernieres_offres">
             {% for offre in offres %}
-                {% set entreprise = entreprises[offre.id_entreprises] %}
                 <div class="offres">
                     <p class="titre_derniere_offre">{{offre.titre}}</p>
-                    <p class="entreprise_derniere_offre">{{entreprise.nom}}</p>
                     <div class="informations">
                         <p>Mise en ligne {{offre.mise_en_ligne}} </p>
                         <a href="/?uri=offre&id={{offre.id_offre}}">Voir l'offre</a>

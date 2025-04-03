@@ -728,3 +728,10 @@ tbody td {
     flex-wrap: wrap;
     justify-content: center;
 }
+
+#image_entreprise {
+    width: 12%;
+    position: absolute;
+    right: 14.5rem;
+    top: 19.5rem;
+}
