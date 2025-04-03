@@ -524,6 +524,11 @@ class FileDatabase implements Database
             GROUP BY c.competence
             ORDER BY nombre_offres DESC;
         ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
     public function getRecordOffresDashboard($id_utilisateur, $relation) {
         $sql = "SELECT offre.titre, entreprise.nom, offre.mise_en_ligne, offre.id_offre

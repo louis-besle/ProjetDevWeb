@@ -355,6 +355,7 @@ class SiteController extends Controller
         if ($offerId) {
             $competence = $this->model->getCompetenceByOffer($offerId);
             $offres = $this->model->getInfosOffres($offerId); 
+            $nombre = $this->model->nombre_personne($offerId);
             $postuler = $this->model->a_candidater($_SESSION['user']['id'],$offerId);
             echo $this->templateEngine->render('_offre_onclick.twig.html', [
                 "offre" => $this->model->getOffreclick(),
@@ -362,7 +363,7 @@ class SiteController extends Controller
                 "duree" => $offres['duree'],
                 "entreprise" => $offres['entreprise'],
                 "id_offre" => $offerId,
-                'nombre' => $nombre
+                "nombre" => $nombre,
                 "postuler" => $postuler,
                 "role" => $_SESSION['user']['role'],
             ]);
@@ -463,6 +464,7 @@ class SiteController extends Controller
             $of_ent = $this->model->entreprise();
             echo $this->templateEngine->render('_statistique_entreprise.twig.html', ['selection' => $selection, 'total' => $total, 'off' => $of_ent]);
         }
+    }
     public function _Ajout_Wishlist(){
         $this->model->ajout_wishlist($_SESSION['user']['id'], $_POST['id_offre']);
         if(isset($_GET['page'])) {
