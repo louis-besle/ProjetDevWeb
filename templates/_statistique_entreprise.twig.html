@@ -9,6 +9,27 @@
         <h3>Nombre d'entreprises :</h3>
         <p>Il y a {{total.nombre_entreprises}} entreprises sur le site.</p>
 
+        <h3>Nombres d'offres par entreprise</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Entreprise</th>
+                    <th>Nombre par entreprise</th>
+                    <th>Nombre de candidatures</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for of in off %}
+                <tr>
+                    <td>{{of.nom}}</td>
+                    <td>{{of.nombre_offres}}</td>
+                    <td>{{of.nombre_candidatures}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
         <h3>Répartition des entreprises dans les villes</h3>
         <table>
             <thead>

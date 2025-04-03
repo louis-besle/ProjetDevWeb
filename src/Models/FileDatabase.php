@@ -608,4 +608,19 @@ class FileDatabase implements Database
         // Retourner les résultats
         return $result[0];
     }
+
+    public function getRecordEntreprise()
+    {
+        $sql = "SELECT e.nom, COUNT(DISTINCT o.id_offre) AS nombre_offres, COUNT(DISTINCT c.id_utilisateur) AS nombre_candidatures
+                FROM entreprise e
+                INNER JOIN situer s ON e.id_entreprise = s.id_entreprise
+                INNER JOIN ville v ON s.id_ville = v.id_ville
+                INNER JOIN offre o ON e.id_entreprise = o.id_entreprise
+                INNER JOIN candidater c ON o.id_offre = c.id_offre
+                GROUP BY e.id_entreprise;";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

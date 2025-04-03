@@ -457,7 +457,8 @@ class SiteController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $selection = $this->model->entrepriseVille();
             $total = $this->model->entreprisetotal();
-            echo $this->templateEngine->render('_statistique_entreprise.twig.html', ['selection' => $selection, 'total' => $total]);
+            $of_ent = $this->model->entreprise();
+            echo $this->templateEngine->render('_statistique_entreprise.twig.html', ['selection' => $selection, 'total' => $total, 'off' => $of_ent]);
         }
     }
 }

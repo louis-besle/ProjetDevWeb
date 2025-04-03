@@ -248,5 +248,9 @@ class SiteModel extends Model
     public function entreprisetotal(){
         return $this->connection->nombreEntreprises();
     }
+
+    public function entreprise(){
+        return $this->connection->getRecordEntreprise();
+    }
 }
 
