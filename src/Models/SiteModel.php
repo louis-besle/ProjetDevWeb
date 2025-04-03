@@ -238,10 +238,6 @@ class SiteModel extends Model
         return $this->connection->getAllRecords('offre');
     }
 
-    public function offre_pag($limit, $offset){
-        return $this->connection->getOffresPaginees($limit, $offset);
-    }
-
     public function entrepriseVille(){
         return $this->connection->nombreEntreprisesParVille();
     }
