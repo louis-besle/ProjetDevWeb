@@ -7,8 +7,8 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
-            //$this->connection = new FileDatabase('localhost','stageup','root','');
+            //$this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            $this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
@@ -202,6 +202,55 @@ class SiteModel extends Model
         return $this->connection->delEntreprise($id);
     }
 
+    public function updateentreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image){
+        return $this->connection->updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image);
+    }
+
+    public function recherche($rechercheGenerale, $ville){
+        return $this->connection->rechercherOffres($rechercheGenerale, $ville);
+    }
+
+    public function nombre_offre(){
+        return $this->connection->nbr_offre();
+    }
+
+    public function nombre_personne($id_offre){
+        return $this->connection->nbr_personne($id_offre);
+    }
+    public function nombre_utilisateur($role){
+        return $this->connection->nbr_utilisateur($role);
+    }
+    public function statistique_utilisateur($id_etudiant){
+        return $this->connection->statistique($id_etudiant);
+    }
+
+    public function rep_competence(){
+        return $this->connection->repartitionParCompetence();
+    }
+    public function rep_duree(){
+        return $this->connection->repartitionParDuree();
+    }
+    public function rep_wishlist(){
+        return $this->connection->topOffresWishlist();
+    }
+
+    public function all_offre(){
+        return $this->connection->getAllRecords('offre');
+    }
+
+    public function offre_pag($limit, $offset){
+        return $this->connection->getOffresPaginees($limit, $offset);
+    }
+
+    public function entrepriseVille(){
+        return $this->connection->nombreEntreprisesParVille();
+    }
+    public function entreprisetotal(){
+        return $this->connection->nombreEntreprises();
+    }
+
+    public function entreprise(){
+        return $this->connection->getRecordEntreprise();
     public function getWishlistById($id){
         return $this->connection->getRecordOffresDashboard($id,'souhaiter');
     }
@@ -226,3 +275,4 @@ class SiteModel extends Model
         return $this->connection->checkCandidature($id_utilisateur,$id_offre);
     }
 }
+

@@ -46,29 +46,23 @@ class SiteController extends Controller
         try {
             $offres = $this->model->getOffresAccueil();
             $entreprises = $this->model->getEntreprisesAccueil($offres);
-            
+
             echo $this->templateEngine->render('_accueil.twig.html', ['offres' => $offres, 'entreprises' => $entreprises]);
         } catch (Exception $e) {
             error_log("Erreur page accueil: " . $e->getMessage());
             echo "Erreur pendant le chargement de la page d'accueil";
         }
     }
+
     /**
      * Affiche la page de recherche avec les filtres
      */
     public function _Page_Recherche()
     {
         try {
-            // Récupération des paramètres de filtrage
-            if(isset($_GET['entreprise']) && isset($_GET['ville'])){
-                $ville = htmlspecialchars($_GET['ville']);
-                $entreprise = htmlspecialchars($_GET['entreprise']);
-            } else {
-                $ville = 'Toutes';
-                $entreprise = 'Toutes';
-            }
+            $ville = isset($_GET['ville']) ? htmlspecialchars($_GET['ville']) : 'Toutes';
+            $entreprise = isset($_GET['entreprise']) ? htmlspecialchars($_GET['entreprise']) : 'Toutes';
 
-            // Récupération des données pour la page
             $bouton_filtre = [
                 'entreprise' => $this->model->getEntreprise(),
                 'ville' => $this->model->getVille()
@@ -76,14 +70,34 @@ class SiteController extends Controller
             $page_actuelle = $this->model->getPageActuelle();
             $offres = $this->model->getOffreRecherche($page_actuelle, $ville, $entreprise);
             $entreprises = $this->model->getVillesEntreprises($page_actuelle, $ville, $entreprise);
-            $nbpages = $this->model->getNbPages($offres[1], $entreprises[1]);
 
-            echo $this->templateEngine->render('_recherche.twig.html', ['offres' => $offres[0], 'entreprises' => $entreprises[0], 'page_actuelle' => $page_actuelle, 'nb_pages' => $nbpages, 'filtres' => $bouton_filtre, 'filtre_ville' => $ville, 'filtre_entreprise' => $entreprise]);
+            $offres_count = isset($offres[1]) ? $offres[1] : 0;
+            $entreprises_count = isset($entreprises[1]) ? $entreprises[1] : 0;
+
+            $nbpages = $this->model->getNbPages($offres_count, $entreprises_count);
+            if (empty($nbpages)) {
+                $nbpages = 1;
+            }
+
+            $nombre_offres = $this->model->nombre_offre();
+
+            echo $this->templateEngine->render('_recherche.twig.html', [
+                'offres' => isset($offres[0]) ? $offres[0] : [],
+                'entreprises' => isset($entreprises[0]) ? $entreprises[0] : [],
+                'page_actuelle' => $page_actuelle,
+                'nb_pages' => $nbpages,
+                'filtres' => $bouton_filtre,
+                'filtre_ville' => $ville,
+                'filtre_entreprise' => $entreprise,
+                'nombre_offres' => $nombre_offres
+            ]);
         } catch (Exception $e) {
             error_log("Erreur page recherche: " . $e->getMessage());
             echo "Une erreur est survenue lors de la recherche";
         }
     }
+
+
 
     /**
      * Affiche la page de détails d'une entreprise
@@ -94,12 +108,14 @@ class SiteController extends Controller
     }
 
     public function _Page_Dashboard()
-    {   
+    {
+        $nombre_pilote = $this->model->nombre_utilisateur('Pilote');
+        $nombre_etudiant = $this->model->nombre_utilisateur('Étudiant');
         if ($_SESSION['user']['role'] === 'Administrateur') {
-            echo $this->templateEngine->render('a_dashboard.twig.html');
+            echo $this->templateEngine->render('a_dashboard.twig.html', ['nombre_pilote' => $nombre_pilote, 'nombre_etudiant' => $nombre_etudiant]);
         } else if ($_SESSION['user']['role'] === 'Pilote') {
-            echo $this->templateEngine->render('p_dashboard.twig.html');
-        } else if ($_SESSION['user']['role'] === 'Etudiant') {
+            echo $this->templateEngine->render('p_dashboard.twig.html', ['nombre_etudiant' => $nombre_etudiant]);
+        } else if ($_SESSION['user']['role'] === 'Étudiant') {
             echo $this->templateEngine->render('e_dashboard.twig.html');
         }
     }
@@ -125,7 +141,9 @@ class SiteController extends Controller
         $competence = $this->model->getCompetence();
         $niveau = $this->model->getNiveau();
 
-        echo $this->templateEngine->render('_add_offer.twig.html', ['selection' => $selection, 'competence' => $competence, 'niveau' => $niveau]);
+        $offre_postes =  $this->model->all_offre();
+
+        echo $this->templateEngine->render('_add_offer.twig.html', ['selection' => $selection, 'competence' => $competence, 'niveau' => $niveau, 'offre' => $offre_postes]);
     }
 
 
@@ -143,7 +161,8 @@ class SiteController extends Controller
     public function _Page_Ajouter_Entreprise()
     {
         $ville = $this->model->getVille();
-        echo $this->templateEngine->render('_add_enterprise.twig.html', ['ville' => $ville]);
+        $entreprise = $this->model->getEntrepriseByVille();
+        echo $this->templateEngine->render('_add_enterprise.twig.html', ['ville' => $ville, 'entreprise' => $entreprise]);
     }
 
 
@@ -181,11 +200,11 @@ class SiteController extends Controller
             $image = 'default.jpg';
 
             if (!empty($_FILES['company_image']['name'])) {
-                $upload_dir = 'uploads/';
+                $upload_dir = 'static/uploads/entreprises';
                 $image_name = time() . '_' . basename($_FILES['company_image']['name']);
                 $image_path = $upload_dir . $image_name;
 
-                $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+                $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'];
                 if (in_array($_FILES['company_image']['type'], $allowed_types) && move_uploaded_file($_FILES['company_image']['tmp_name'], $image_path)) {
                     $image = $image_name;
                 }
@@ -294,7 +313,6 @@ class SiteController extends Controller
             if (isset($_POST['modif'])) {
                 $id = intval($_POST['modif']);
                 $offre = $this->model->getOffreById($id);
-                var_dump($offre);
                 echo $this->templateEngine->render('ap_modifier_offre.twig.html', ['offre' => $offre, 'selection' => $selection, 'competence' => $competence]);
             } elseif (isset($_POST['supp'])) {
                 $id = intval($_POST['supp']);
@@ -315,7 +333,7 @@ class SiteController extends Controller
             $date_fin = $_POST["duration_end"] ?? '';
             $id_entreprise = filter_input(INPUT_POST, "entreprise", FILTER_VALIDATE_INT);
             $competences = $_POST["competence"] ?? [];
-            
+
             if (!$id || !$id_entreprise || empty($titre) || empty($description) || empty($remuneration) || empty($date_debut) || empty($date_fin)) {
                 echo "Erreur : Tous les champs doivent être remplis correctement.";
                 return;
@@ -326,23 +344,25 @@ class SiteController extends Controller
         }
     }
 
-    public function _Page_OffreOnClick() {
+    public function _Page_OffreOnClick()
+    {
         if (isset($_GET['id'])) {
             $offerId = intval($_GET['id']);
         } else {
             $offerId = null;
         }
-    
+
         if ($offerId) {
             $competence = $this->model->getCompetenceByOffer($offerId);
             $offres = $this->model->getInfosOffres($offerId); 
             $postuler = $this->model->a_candidater($_SESSION['user']['id'],$offerId);
-            
             echo $this->templateEngine->render('_offre_onclick.twig.html', [
                 "offre" => $this->model->getOffreclick(),
                 "competence" => $competence,
                 "duree" => $offres['duree'],
                 "entreprise" => $offres['entreprise'],
+                "id_offre" => $offerId,
+                'nombre' => $nombre
                 "postuler" => $postuler,
                 "role" => $_SESSION['user']['role'],
             ]);
@@ -353,36 +373,39 @@ class SiteController extends Controller
 
     public function modifier_entreprise()
     {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $id_entreprise = $_POST['id_entreprise'];
+            $entreprise_titre = htmlspecialchars(trim($_POST['company_name'] ?? ''));
+            $id_ville = filter_var($_POST['city'] ?? null, FILTER_VALIDATE_INT);
+            $presentation = htmlspecialchars(trim($_POST['company_description'] ?? ''));
+            $tel = htmlspecialchars(trim($_POST['phone'] ?? ''));
+            $mail = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL) ? $_POST['email'] : null;
 
-        echo "Pas encore faite";
-        // if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        //     $id_entreprise = $_POST['id_entreprise'];
-        //     $entreprise_titre = $_POST['company_name'];
-        //     $id_ville = $_POST['city'];
-        //     $presentation = $_POST['company_description'];
-        //     $tel = $_POST['phone'];
-        //     $mail = $_POST['email'];
-        
-        //     $image = null;
-        //     if (isset($_FILES['company_image']) && $_FILES['company_image']['error'] === UPLOAD_ERR_OK) {
-        //         $image = $_FILES['company_image']['name'];
-        //         move_uploaded_file($_FILES['company_image']['tmp_name'], 'uploads/images/entreprise' . $image);
-        //     }
-        //     if (!empty($_FILES['company_image']['name'])) {
-        //         $upload_dir = 'uploads/';
-        //         $image_name = time() . '_' . basename($_FILES['company_image']['name']);
-        //         $image_path = $upload_dir . $image_name;
+            if (!$entreprise_titre || !$id_ville || !$presentation || !$tel || !$mail) {
+                echo "Veuillez remplir tous les champs obligatoires.";
+                return;
+            }
 
-        //         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-        //         if (in_array($_FILES['company_image']['type'], $allowed_types) && move_uploaded_file($_FILES['company_image']['tmp_name'], $image_path)) {
-        //             $image = $image_name;
-        //         }
-        //     }
-        
-        //     $this->model->updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $image, $presentation, $tel, $mail);
-        // }
-        
+            $image = $_POST['current_image'] ?? 'default.jpg';
+
+            if (!empty($_FILES['company_image']['name'])) {
+                $upload_dir = 'static/uploads/entreprises/';
+                $image_name = time() . '_' . basename($_FILES['company_image']['name']);
+                $image_path = $upload_dir . $image_name;
+
+                $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'];
+                if (in_array($_FILES['company_image']['type'], $allowed_types) && move_uploaded_file($_FILES['company_image']['tmp_name'], $image_path)) {
+                    $image = $image_name;
+                }
+            }
+
+            $this->model->updateentreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image);
+
+            header('Location: /?uri=recherche');
+            exit;
+        }
     }
+
 
     public function _Page_Modifier_Entreprise()
     {
@@ -400,6 +423,46 @@ class SiteController extends Controller
         }
     }
 
+    public function _Page_Resultat_Recherche()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $rechercheGenerale = isset($_POST['quoi']) ? trim($_POST['quoi']) : null;
+            $ville = isset($_POST['ou']) ? trim($_POST['ou']) : null;
+
+            $resultats = $this->model->recherche($rechercheGenerale, $ville);
+
+            echo $this->templateEngine->render('_resultat_recherche.twig.html', ['resultats' => $resultats]);
+        }
+    }
+
+    public function _Page_Statistique_Etudiant()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id_etudiant = intval($_POST['voir']);
+            $resultats = $this->model->statistique_utilisateur($id_etudiant);
+            echo $this->templateEngine->render('ap_statistique.twig.html', ['resultat' => $resultats]);
+        }
+    }
+
+    public function _Page_Statistique_Offre()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $competence = $this->model->rep_competence();
+            $duree = $this->model->rep_duree();
+            $wishlist = $this->model->rep_wishlist();
+            $offre_postes =  $this->model->nombre_offre();
+            echo $this->templateEngine->render('_statistique_offre.twig.html', ['competence' => $competence, 'duree' => $duree, 'wishlist' => $wishlist, 'offre' => $offre_postes]);
+        }
+    }
+
+    public function _Page_Statistique_Entreprise()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $selection = $this->model->entrepriseVille();
+            $total = $this->model->entreprisetotal();
+            $of_ent = $this->model->entreprise();
+            echo $this->templateEngine->render('_statistique_entreprise.twig.html', ['selection' => $selection, 'total' => $total, 'off' => $of_ent]);
+        }
     public function _Ajout_Wishlist(){
         $this->model->ajout_wishlist($_SESSION['user']['id'], $_POST['id_offre']);
         if(isset($_GET['page'])) {
