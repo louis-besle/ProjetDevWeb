@@ -217,9 +217,7 @@ class SiteModel extends Model
     public function nombre_personne($id_offre){
         return $this->connection->nbr_personne($id_offre);
     }
-    public function nombre_utilisateur($role){
-        return $this->connection->nbr_utilisateur($role);
-    }
+    
     public function statistique_utilisateur($id_etudiant){
         return $this->connection->statistique($id_etudiant);
     }
