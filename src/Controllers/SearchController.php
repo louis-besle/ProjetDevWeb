@@ -83,6 +83,10 @@ class SearchController extends Controller
         ]);
     }
 
+    /**
+     * Affiche la page de détails d'une offre
+     * @return void
+     */
     public function _Page_OffreOnClick()
     {
         if (isset($_GET['id'])) {
@@ -110,7 +114,10 @@ class SearchController extends Controller
             echo "ID de l'offre manquant ou invalide.";
         }
     }
-
+    /**
+     * Affiche la page de résultats de recherche
+     * @return void
+     */
     public function _Page_Resultat_Recherche()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -122,7 +129,10 @@ class SearchController extends Controller
             echo $this->templateEngine->render('_resultat_recherche.twig.html', ['resultats' => $resultats]);
         }
     }
-
+    /**
+     * Permet d'ajouter une offre à la wishlist
+     * @return void
+     */
     public function _Ajout_Wishlist(){
         $this->model->ajout_wishlist($_SESSION['user']['id'], $_POST['id_offre']);
         if(isset($_GET['page'])) {
@@ -135,7 +145,10 @@ class SearchController extends Controller
             header('Location: /?uri=accueil');
         }
     }
-    
+    /**
+     * Permet de noter une entreprise
+     * @return void
+     */
     public function noter_entreprise() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idUtilisateur = $_SESSION['user']['id'] ?? null;
