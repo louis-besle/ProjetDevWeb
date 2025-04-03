@@ -28,6 +28,7 @@ class AuthModel extends Model
                     'dateConnexion' => date('Y-m-d H:i:s')
                 ];
                 $isvalid = true;
+                $this->connection->insertLog($_SESSION['user']['id'], $_SESSION['user']['dateConnexion']);
             }
         }
         return $isvalid;
