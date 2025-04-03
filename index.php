@@ -207,7 +207,15 @@ switch ($uri) {
         }
         break;
 
-
+    case 'postuler':
+        if ($isConnect) {
+            $controller->_Page_Postuler();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
 
 
 
@@ -249,7 +257,6 @@ switch ($uri) {
             exit();
         }
         break;
-
     case 'statistique_etudiant':
         if ($isConnect) {
             $controller->_Page_Statistique_Etudiant();
@@ -262,6 +269,9 @@ switch ($uri) {
     case 'statistique_offre':
         if ($isConnect) {
             $controller->_Page_Statistique_Offre();
+    case 'ajout_wishlist':
+        if ($isConnect) {
+            $controller->_Ajout_Wishlist();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';

@@ -9,6 +9,14 @@
 
         {% include 'composants/formulaire_cv.twig.html' %}
 
+        {% for cv in cvs %}
+            <div class="cv-card">
+                <h2>{{ cv.cv }}</h2>
+                <a href="/static/uploads/cv/{{ cv.cv }}">Voir le CV</a>
+            </div>
+            <br>
+        {% endfor %}
+
     </main>
 </body>
 <script src="/static/js/formulaire_cv.js"></script>
