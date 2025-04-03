@@ -265,7 +265,14 @@ h2 {
 }
 
 .recherche input {
-    border-radius: 5px;
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 3rem ;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .bouton_recherche {
@@ -282,7 +289,7 @@ h2 {
     border: solid 1px black;
     color: black;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 2rem;
     font-size: 12px;
     cursor: pointer;
     transition: background 0.3s ease;
@@ -409,7 +416,7 @@ h2 {
     gap: 20px;
 }
 
-.entreprises_reconnues_conteneur p {
+.article_bienvenue p,.entreprises_reconnues_conteneur p {
     font-size: 16px;
     color: #555;
     line-height: 1.6;
@@ -666,10 +673,22 @@ textarea {
     margin: 0 15px;
 }
 
+.navbar_dashboard a:hover {
+    background-color: #550A8A;
+}
+
 .navbar_dashboard a {
     text-decoration: none;
-    color: black;
+    color: white;
     font-size: 16px;
+    background-color: #6A0DAD;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 0.6rem;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    text-align: center;
 }
 
 .contact {
