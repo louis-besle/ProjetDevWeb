@@ -32,9 +32,9 @@ Ce dépôt représente notre site web complet d'aide à la recherche de stage. I
    - [Page offres postulées](#page-offres-postulées)  
 
  
-## Conception de la base de données {#conception-de-la-base-de-données}
+## Conception de la base de données
 
-### Dictionnaire de données {#dictionnaire-de-données}
+### Dictionnaire de données
 
 Dans ce dictionnaire de données, vous trouverez tous les attributs de la base de données. Ce tableau permet de bien comprendre les données que nous avons besoins de stocker.
 
@@ -79,7 +79,7 @@ Dans ce dictionnaire de données, vous trouverez tous les attributs de la base d
 | id_cv                              | ID_CV                               | Auto_increment   |            | CV              |
 | cv                                 | CV                                  | Varchar          | 50         | CV              |
 
-### Modèle Conceptuel de Données {#modèle-conceptuel-de-données-mcd}
+### Modèle Conceptuel de Données (MCD)
 
 Ensuite, ce MCD (Modèle Conceptuel de Données) permet de représenter graphiquement les données et leurs relations dans le système d'information. Ainsi, nous avons réaliser ce schéma à l'aide de notre dictionnaire de données. Nous y avons modéliser nos tables qui vont contenir les données principales du site ainsi que le relations entre elles permettant aussi de voir l'interaction des tables entre elle. Ce dernier respecte la norme <a href="https://openclassrooms.com/fr/courses/6938711-modelisez-vos-bases-de-donnees/7561516-ameliorez-votre-modelisation-grace-aux-formes-normales" target="_blank">3NF</a>.
 <br>
@@ -87,15 +87,15 @@ On peut voir que l'élément central est l'utilisateur. En effet, toutes les act
 
 ![alt text](documentation/mcd.png)
 
-### Modèle Logique de Données {#modèle-logique-de-données-mld}
+### Modèle Logique de Données (MLD)
 Ensuite, nous avons choisi de transformer notre MCD en MLD (Modéle Logique de données) pour avoir une meilleure vision des clés étrangères entre les tables.
 
 ![alt text](documentation/mld.png)
 
 
-## Hiérarchie du projet {#hiérarchie-du-projet}
+## Hiérarchie du projet
 
-### 1. Répertoires principaux {#répertoires-principaux}
+### Répertoires principaux
 
 - `src/` : Contient les fichiers source (backend, logique de l'application)
   - `controller/` : Logique des contrôleurs
@@ -125,29 +125,29 @@ Ensuite, nous avons choisi de transformer notre MCD en MLD (Modéle Logique de d
 - `vendor/` : Dépendances gérées par Composer
 - `public/` : Point d'entrée public pour le serveur
 
-### 2. Fichiers principaux {#fichiers-principaux}
+### Fichiers principaux
 
 - `index.php` : Point d'entrée pour le serveur
 - `composer.json` : Fichier de configuration des dépendances (pour Composer)
 - `.gitignore` : Fichier pour ignorer les fichiers/dossiers dans Git
 - `README.md` : Documentation du projet
 
-# Présentation de l'interface du site {#présentation-de-linterface-du-site}
+## Présentation de l'interface du site
 
-## Page de connexion {#page-de-connexion}
+### Page de connexion
 
 Sur cette page, l'utilisateur pourra se connecter. Il devra entrer son adresse mail ainsi que son mot de passe.
 
 ![alt text](/documentation/connexion.png)
 
-## Page d'accueil {#page-daccueil}
+### Page d'accueil
 
 Sur cette page, l'utilisateur verra une présentation du site ainsi que les dernières offres mises en ligne.
 
 ![alt text](/documentation/accueilp1.png)
 ![alt text](/documentation/accueilp2.png)
 
-## Page recherche {#page-de-recherche}
+### Page de recherche
 
 Cette page permet d'afficher toutes les offres et entreprises présentent sur le site. On peut aussi voir un système de pagination. Il y a aussi un bouton filtre qui permet de filtrer les offres et entreprises. Il y a aussi une barre de recherche.
 
@@ -155,19 +155,19 @@ Cette page permet d'afficher toutes les offres et entreprises présentent sur le
 ![alt text](/documentation/recherchep2.png)
 ![alt text](/documentation/recherchep3.png)
 
-## Page dashboard {#page-dashboard}
+### Page dashboard
 
 Sur cette page, il y aura les pages d'administrations et de gestion pour les pilotes et les étudiants ainsi que l'administrateur.
 
 ![alt text](/documentation/dashboard.png)
 
-## Page gestion des offres {#page-gestion-des-offres}
+### Page gestion des offres
 
 Ici, on peut voir le formulaire pour créer une offre, avec les boutons de validation. On peut aussi voir un bouton pour voir les statistiques concernant les offres. En dessous, on peut voir le tableau de gestion des offres avec les boutons pour modifier ou supprimer.
 
 ![alt text](/documentation/gestionoffre.png)
 
-## Page gestion des comptes {#page-gestion-des-comptes}
+### Page gestion des comptes
 
 Sur cette image, on peut voir le formulaire de création de compte, l'administrateur peut créer n'importe quel compte tandis que le pilote peut créer que des comptes étudiants. On peut aussi voir les boutons de suppresion et de modification des comptes. Il y a aussi un bouton pour voir les statistiques des étudiants.   
 
@@ -175,55 +175,55 @@ Sur cette image, on peut voir le formulaire de création de compte, l'administra
 ![alt text](/documentation/comptesp2.png)
 
 
-## Page gestion des entreprises {#page-gestion-des-entreprises}
+### Page gestion des entreprises
 
 Ici, on peut voir le formulaire pour créer une entreprise, avec les boutons de validation. On peut aussi voir un bouton pour voir les statistiques concernant les enrteprises. En dessous, on peut voir le tableau de gestion des entreprises avec les boutons pour modifier ou supprimer.
 
 ![alt text](/documentation//gestionentreprise.png)
 
-## Page statistiques des offres {#page-statistiques-des-offres}
+### Page statistiques des offres
 
 Sur cette page, on peut voir plus d'information sur les offres.
 
 ![alt text](/documentation/statoffre.png)
 
-## Page statistiques des entreprises {#page-statistiques-des-entreprises}
+### Page statistiques des entreprises
 
 Sur cette page, on peut voir plus d'information sur les entreprises.
 
 ![alt text](/documentation/statentreprise.png)
 
-## Page statistiques des étudiants {#page-statistiques-des-étudiants}
+### Page statistiques des étudiants
 
 Sur cette page, on peut voir plus d'information sur les étudiants.
 
 ![alt text](/documentation/statetudiant.png)
 
-## Page d'une offre {#page-dune-offre}
+### Page d'une offre
 
 Sur cette page, on peut postuler à une offre pour les étudiants et les administrateurs, la modifier ou la supprimer pour les pilotes et les administrateurs.
 
 ![alt text](/documentation/offre.png)
 
-## Page d'une entreprise {#page-dune-entreprise}
+### Page d'une entreprise
 
 Sur cette page, on peut noter une entreprsie pour tous les utilisateurs, la modifier ou la supprimer pour les pilotes et les administrateurs.
 
 ![alt text](/documentation/entreprise.png)
 
-## Page wishlist {#page-wishlist}
+### Page wishlist
 
 Sur cette page l'étudiant peut consulter ses offres en wishlist.
 
 ![alt text](/documentation/wishlist.png)
 
-## Page CV {#page-cv}
+### Page CV
 
 Sur cette page l'étudiant peut consulter ses CVs.
 
 ![alt text](/documentation/cv.png)
 
-## Page offres postulées {#page-offres-postulées}
+### Page offres postulées
 
 Sur cette page l'étudiant peut consulter les offres auxquelles il a postulé.
 
