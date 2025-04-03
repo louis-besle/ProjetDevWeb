@@ -125,5 +125,17 @@ class SearchModel extends Model
     public function ajout_wishlist($id_utilisateur,$id_offre) {
         return $this->connection->updateSouhaiter($id_utilisateur,$id_offre);
     }
+    public function lastcom($idEntreprise)
+    {
+        return $this->connection->getDerniersCommentaires($idEntreprise);
+    }
+    public function moynote($idEntreprise)
+    {
+        return $this->connection->getmoynote($idEntreprise);
+    }
+    public function noter($idUtilisateur,  $idEntreprise,  $note,  $commentaire)
+    {
+        return $this->connection->insertNote($idUtilisateur,  $idEntreprise,  $note, $commentaire);
+    }
 }
 ?>

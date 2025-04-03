@@ -764,7 +764,5 @@ class FileDatabase implements Database
     
         return 0; // Si aucun résultat trouvé, retourner 0
     }
-    
-    
-    
 }
+?>

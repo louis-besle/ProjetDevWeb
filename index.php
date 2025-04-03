@@ -280,7 +280,7 @@ switch ($uri) {
         break;
     case 'statistique_entreprise':
         if ($isConnect) {
-            $controller->_Page_Statistique_Entreprise();
+            $statistiqueController->_Page_Statistique_Entreprise();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
@@ -290,7 +290,7 @@ switch ($uri) {
 
     case 'note_entreprise':
         if ($isConnect) {
-            $controller->noter_entreprise();
+            $searchController->noter_entreprise();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';

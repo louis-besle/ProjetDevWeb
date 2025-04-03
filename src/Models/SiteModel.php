@@ -36,17 +36,5 @@ class SiteModel extends Model
     public function ajout_candidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur) {
         return $this->connection->addCandidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur);
     }
-
-    public function noter($idUtilisateur,  $idEntreprise,  $note,  $commentaire)
-    {
-        return $this->connection->insertNote($idUtilisateur,  $idEntreprise,  $note, $commentaire);
-    }
-    public function lastcom($idEntreprise)
-    {
-        return $this->connection->getDerniersCommentaires($idEntreprise);
-    }
-    public function moynote($idEntreprise)
-    {
-        return $this->connection->getmoynote($idEntreprise);
-    }
 }
+?>
