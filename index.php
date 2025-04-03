@@ -44,7 +44,7 @@ switch ($uri) {
         if ($isConnect) {
             $controller->_Page_Accueil();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -52,7 +52,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Page_Recherche();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -60,7 +60,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Page_Resultat_Recherche();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -68,7 +68,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Page_OffreOnClick();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -76,7 +76,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Page_EntrepriseOnClick();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -87,7 +87,7 @@ switch ($uri) {
         if ($isConnect) {
             $authController->logout();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -95,7 +95,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Dashboard();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -103,7 +103,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Wishlist();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -111,7 +111,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_CV();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -119,7 +119,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_OffrePostulees();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -127,7 +127,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Ajouter_Offre();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -135,7 +135,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->formulaire_offre();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -143,7 +143,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Modifier_Offre();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -151,7 +151,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->modifier_offre();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -159,7 +159,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Ajouter_Compte();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -167,7 +167,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->formulaire_compte();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -175,7 +175,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Modifier_Compte();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -183,7 +183,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->modifier_compte();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -191,7 +191,7 @@ switch ($uri) {
         if ($isConnect) {
             $controller->_Page_Postuler();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -199,8 +199,8 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Ajouter_Entreprise();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
-
+            $controller->_Page_error('403','Accès refusé');
+        
             exit();
         }
         break;
@@ -208,7 +208,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->formulaire_entreprise();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -216,7 +216,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->_Page_Modifier_Entreprise();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -224,7 +224,7 @@ switch ($uri) {
         if ($isConnect) {
             $dashboardController->modifier_entreprise();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -232,15 +232,16 @@ switch ($uri) {
         if ($isConnect) {
             $statistiqueController->_Page_Statistique_Etudiant();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
     case 'statistique_offre':
         if ($isConnect) {
             $statistiqueController->_Page_Statistique_Offre();
-        } else {
-            $controller->_Page_error('403', 'Accès refusé');
+        }
+        else {
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -248,7 +249,7 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->_Ajout_Wishlist();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -256,7 +257,7 @@ switch ($uri) {
         if ($isConnect) {
             $statistiqueController->_Page_Statistique_Entreprise();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
@@ -265,52 +266,52 @@ switch ($uri) {
         if ($isConnect) {
             $searchController->noter_entreprise();
         } else {
-            $controller->_Page_error('403', 'Accès refusé');
+            $controller->_Page_error('403','Accès refusé');
             exit();
         }
         break;
 
-    case 'contact':
-        if ($isConnect) {
-            $controller->contact();
-        } else {
-            $controller->_Page_error('403', 'Accès refusé');
-            exit();
-        }
-        break;
-    case 'mention':
-        if ($isConnect) {
-            $controller->mentions();
-        } else {
-            $controller->_Page_error('403', 'Accès refusé');
-            exit();
-        }
-        break;
-    case 'cgu':
-        if ($isConnect) {
-            $controller->cgu();
-        } else {
-            $controller->_Page_error('403', 'Accès refusé');
-            exit();
-        }
-        break;
-    case 'politique':
-        if ($isConnect) {
-            $controller->politiqueConfidentialite();
-        } else {
-            $controller->_Page_error('403', 'Accès refusé');
-            exit();
-        }
-        break;
-    case 'cookies':
-        if ($isConnect) {
-            $controller->cookies();
-        } else {
-            $controller->_Page_error('403', 'Accès refusé');
-            exit();
-        }
-        break;
+        case 'contact':
+            if ($isConnect) {
+                $controller->contact();
+            } else {
+                $controller->_Page_error('403','Accès refusé');
+                exit();
+            }
+            break;
+        case 'mention':
+            if ($isConnect) {
+                $controller->mentions();
+            } else {
+                $controller->_Page_error('403','Accès refusé');
+                exit();
+            }
+            break;
+        case 'cgu':
+            if ($isConnect) {
+                $controller->cgu();
+            } else {
+                $controller->_Page_error('403','Accès refusé');
+                exit();
+            }
+            break;
+        case 'politique':
+            if ($isConnect) {
+                $controller->politiqueConfidentialite();
+            } else {
+                $controller->_Page_error('403','Accès refusé');
+                exit();
+            }
+            break;
+        case 'cookies':
+            if ($isConnect) {
+                $controller->cookies();
+            } else {
+                $controller->_Page_error('403','Accès refusé');
+                exit();
+            }
+            break;
     default:
-        $controller->_Page_error('404', 'Page introuvable');
+        $controller->_Page_error('404','Page introuvable');
         break;
 }
