@@ -486,7 +486,8 @@ class FileDatabase implements Database
         $sql = "SELECT count(utilisateur.id_utilisateur) FROM utilisateur INNER JOIN role ON utilisateur.id_role = role.id_role WHERE nom_role = :nom_role";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':nom_role' => $role]);
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+        return $result[0];
     }
 
     public function statistique($id_etudiant)
