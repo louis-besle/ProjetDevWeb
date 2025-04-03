@@ -88,6 +88,7 @@ class SiteController extends Controller
     }
     public function contact() {
         echo $this->templateEngine->render('contact.twig.html');
+    }
     public function _Page_error($erreur, $type) {
         echo $this->templateEngine->render('error.twig.html',['error' => $erreur,'type' => $type]);
     }
