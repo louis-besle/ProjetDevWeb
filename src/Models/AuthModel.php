@@ -8,12 +8,17 @@ class AuthModel extends Model
     {
         if (is_null($connection)) {
             $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
-            //$this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
     }
 
+    /**
+     * Gère la connexion d'un utilisateur
+     * @param mixed $email
+     * @param mixed $motDePasse
+     * @return bool
+     */
     public function connexion($email,$motDePasse) {
         $isvalid = false;
         $users = $this->connection->getAllRecords('utilisateur');
@@ -28,6 +33,7 @@ class AuthModel extends Model
                     'dateConnexion' => date('Y-m-d H:i:s')
                 ];
                 $isvalid = true;
+                $this->connection->insertLog($_SESSION['user']['id'], $_SESSION['user']['dateConnexion']);
             }
         }
         return $isvalid;

@@ -1,0 +1,34 @@
+{% include 'composants/base_haut.twig.html' %}
+
+<body>
+    {% include 'composants/header.twig.html' %}
+    <main>
+        {% include 'composants/menu_recherche.twig.html' %}
+
+        {% include 'composants/navbar_dashboard.twig.html' %}
+
+        <h2>Statistiques de l'étudiant {{resultat[0].nom_utilisateur}} {{resultat[0].prenom_utilisateur}}</h2>
+        <table>
+          <thead>
+              <tr>
+                <th>Adresse Mail</th>
+                <th>Nombre d'offres postulées</th>
+                <th>Nombre de connexion</th>
+                <th>Nombre d'offres en wishlist</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{resultat[0].email}}</td>
+              <td>{{resultat[0].total_offres}}</td>
+              <td>{{resultat[0].total_logs}}</td>
+              <td>{{resultat[0].total_wishlist}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </main>
+</body>
+{% include 'composants/footer.twig.html' %}
+
+
+
