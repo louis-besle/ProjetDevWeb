@@ -6,7 +6,7 @@
         {% include 'composants/menu_recherche.twig.html' %}
 
         <h1>{{ entreprise.nom }}</h1>
-        <img src="/static/uploads/entreprises/{{entreprise.image_illustration}}" alt="image de l'entreprise">
+        <img src="/static/uploads/entreprises/{{entreprise.nom}}.svg" alt="image de l'entreprise" id="image_entreprise">
 
         <h2>Présentation de l'entreprise</h2>
         <p>{{ entreprise.description }}</p>
@@ -57,7 +57,7 @@
                     <tr>
                         <td>{{com.note}}</td>
                         <td>{{com.commentaire}}</td>
-                        {% endfor %}
+                    {% endfor %}
                 </tbody>
             </table>
 

@@ -25,15 +25,13 @@
             
             <div class="conteneurs_dernieres_offres">
             {% for offre in offres %}
-                {% set entreprise = entreprises[offre.id_entreprises] %}
                 <div class="offres">
                     <p class="titre_derniere_offre">{{offre.titre}}</p>
-                    <p class="entreprise_derniere_offre">{{entreprise.nom}}</p>
                     <div class="informations">
                         <p>Mise en ligne {{offre.mise_en_ligne}} </p>
                         <a href="/?uri=offre&id={{offre.id_offre}}">Voir l'offre</a>
                         <form method="POST" action="?uri=ajout_wishlist&page=accueil" class="formulaire_ajout_wishlist">
-                            <button type="submit" class="fav_bouton" id="fav_button" name="id_offre" value="{{ offre.id_offre }}">💜</button>
+                            <button type="submit" class="fav_bouton" id="fav_button_{{offre.id_offre}}" name="id_offre" value="{{ offre.id_offre }}">💜</button>
                         </form>
                     </div>
                 </div>

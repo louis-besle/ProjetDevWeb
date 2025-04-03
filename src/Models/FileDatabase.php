@@ -399,45 +399,60 @@ class FileDatabase implements Database
         $criteres = [];
         $params = [];
 
+        // Recherche par mots-clés individuels
         foreach ($motsCles as $mot) {
+            if (empty($mot)) continue;
+            
+            $subCriteres = [];
+            
+            // Vérifier si le mot correspond à une entreprise
             $stmt = $this->pdo->prepare("SELECT id_entreprise FROM entreprise WHERE nom LIKE ?");
             $stmt->execute(["%$mot%"]);
             if ($stmt->fetch()) {
-                $criteres[] = "entreprise.nom LIKE ?";
+                $subCriteres[] = "entreprise.nom LIKE ?";
                 $params[] = "%$mot%";
-                continue;
             }
 
+            // Vérifier si le mot correspond à une compétence
             $stmt = $this->pdo->prepare("SELECT id_competence FROM competence WHERE competence LIKE ?");
             $stmt->execute(["%$mot%"]);
             if ($stmt->fetch()) {
-                $criteres[] = "competence.competence LIKE ?";
+                $subCriteres[] = "competence.competence LIKE ?";
                 $params[] = "%$mot%";
-                continue;
             }
 
-            $criteres[] = "(offre.titre LIKE ? OR offre.description LIKE ?)";
+            // Toujours chercher dans titre/description de l'offre
+            $subCriteres[] = "(offre.titre LIKE ? OR offre.description LIKE ?)";
             $params[] = "%$mot%";
             $params[] = "%$mot%";
+
+            // Combiner les sous-critères avec OR
+            if (!empty($subCriteres)) {
+                $criteres[] = "(" . implode(" OR ", $subCriteres) . ")";
+            }
         }
 
-        $criteres[] = "(offre.titre LIKE ? OR offre.description LIKE ?)";
-        $params[] = "%$rechercheGenerale%";
-        $params[] = "%$rechercheGenerale%";
+        // Recherche par terme complet (en plus des mots individuels)
+        if (!empty($rechercheGenerale)) {
+            $criteres[] = "(offre.titre LIKE ? OR offre.description LIKE ?)";
+            $params[] = "%$rechercheGenerale%";
+            $params[] = "%$rechercheGenerale%";
 
-        $criteres[] = "competence.competence LIKE ?";
-        $params[] = "%$rechercheGenerale%";
+            $criteres[] = "competence.competence LIKE ?";
+            $params[] = "%$rechercheGenerale%";
 
-        $criteres[] = "offre.remuneration LIKE ?";
-        $params[] = "%$rechercheGenerale%";
+            $criteres[] = "entreprise.nom LIKE ?";
+            $params[] = "%$rechercheGenerale%";
 
-        $criteres[] = "offre.mise_en_ligne LIKE ?";
-        $params[] = "%$rechercheGenerale%";
+            $criteres[] = "offre.remuneration LIKE ?";
+            $params[] = "%$rechercheGenerale%";
+        }
 
+        // Construction de la requête SQL
         $sql = "SELECT 
                     offre.id_offre, offre.titre, offre.description, offre.remuneration, offre.mise_en_ligne, 
                     entreprise.nom AS nom_entreprise, 
-                    ville.nom_ville, GROUP_CONCAT(competence.competence SEPARATOR ', ') AS competences
+                    ville.nom_ville, GROUP_CONCAT(DISTINCT competence.competence SEPARATOR ', ') AS competences
                 FROM offre
                 JOIN entreprise ON offre.id_entreprise = entreprise.id_entreprise
                 JOIN situer ON entreprise.id_entreprise = situer.id_entreprise
@@ -445,21 +460,29 @@ class FileDatabase implements Database
                 LEFT JOIN associer ON offre.id_offre = associer.id_offre
                 LEFT JOIN competence ON associer.id_competence = competence.id_competence";
 
+        // Ajout des conditions WHERE
         if (!empty($criteres)) {
             $sql .= " WHERE " . implode(" OR ", $criteres);
         }
 
+        // Filtre par ville
         if ($ville) {
-            $sql .= !empty($criteres) ? " AND " : " WHERE ";
+            $sql .= empty($criteres) ? " WHERE " : " AND ";
             $sql .= "ville.nom_ville LIKE ?";
             $params[] = "%$ville%";
         }
 
-        $sql .= " GROUP BY offre.id_offre";
+        $sql .= " GROUP BY offre.id_offre, offre.titre, offre.description, offre.remuneration, offre.mise_en_ligne, entreprise.nom, ville.nom_ville";
 
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Gestion des erreurs
+            error_log("Erreur de recherche: " . $e->getMessage());
+            return [];
+        }
     }
 
     public function nbr_offre()
@@ -745,11 +768,11 @@ class FileDatabase implements Database
     }
 
     public function getmoynote(int $idEntreprise) {
-        $sql = "SELECT count(note) as total, sum(note) as somme_notes, commentaire, note, id_utilisateur 
+        $sql = "SELECT count(note) as total, sum(note) as somme_notes, id_entreprise, commentaire
                 FROM evaluer 
-                WHERE id_entreprise = :id_entreprise 
-                GROUP BY id_entreprise
-                ORDER BY id_utilisateur DESC";
+                WHERE id_entreprise = :id_entreprise
+                GROUP BY id_entreprise, commentaire
+                ORDER BY id_entreprise DESC";
     
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id_entreprise' => $idEntreprise]);
@@ -763,6 +786,10 @@ class FileDatabase implements Database
         }
     
         return 0; // Si aucun résultat trouvé, retourner 0
+    }
+    public function getPDO(): PDO
+    {
+        return $this->pdo;
     }
 }
 ?>
