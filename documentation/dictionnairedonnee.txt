@@ -1,0 +1,230 @@
+Dictionnaire de données 
+
+Nom : id_utilisateur
+Code : ID_UTILISATEUR
+Type : AUTO_INCREMENT
+Taille : ,
+Commentaire : 
+
+Nom : nom_utilisateur
+Code : NOM_UTILISATEUR
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : prenom_utilisateur
+Code : PRENOM_UTILISATEUR
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : email
+Code : EMAIL
+Type : VARCHAR
+Taille : 75,
+Commentaire : 
+
+Nom : mot_de_passe
+Code : MOT_DE_PASSE
+Type : VARCHAR
+Taille : 255,
+Commentaire : 
+
+Nom : cacher_utilisateur
+Code : CACHER_UTILISATEUR
+Type : BOOL
+Taille : ,
+Commentaire : 
+
+Nom : id_entreprise
+Code : ID_ENTREPRISE
+Type : AUTO_INCREMENT
+Taille : ,
+Commentaire : 
+
+Nom : nom
+Code : NOM
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : description_entreprise
+Code : DESCRIPTION_ENTREPRISE
+Type : TEXT
+Taille : ,
+Commentaire : 
+
+Nom : email_contact
+Code : EMAIL_CONTACT
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : telephone
+Code : TELEPHONE
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : image_illustration
+Code : IMAGE_ILLUSTRATION
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : cacher_entreprise
+Code : CACHER_ENTREPRISE
+Type : BOOL
+Taille : ,
+Commentaire : 
+
+Nom : id_offre
+Code : ID_OFFRE
+Type : AUTO_INCREMENT
+Taille : ,
+Commentaire : 
+
+Nom : titre
+Code : TITRE
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : description_offre
+Code : DESCRIPTION
+Type : TEXT
+Taille : ,
+Commentaire : 
+
+Nom : remuneration
+Code : REMUNERATION
+Type : FLOAT
+Taille : ,
+Commentaire : 
+
+Nom : date_debut
+Code : DATE_DEBUT
+Type : DATE
+Taille : ,
+Commentaire : 
+
+Nom : date_fin
+Code : DATE_FIN
+Type : DATE
+Taille : ,
+Commentaire : 
+
+Nom : mise_en_ligne
+Code : MISE_EN_LIGNE
+Type : DATE
+Taille : ,
+Commentaire : 
+
+Nom : cacher_offre
+Code : CACHER_OFFRE
+Type : BOOL
+Taille : ,
+Commentaire : 
+
+Nom : id_competence
+Code : ID_COMPETENCE
+Type : AUTO_INCREMENT
+Taille : 50,
+Commentaire : 
+
+Nom : competence
+Code : COMPETENCE
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : id_role
+Code : ID_ETUDIANT
+Type : AUTO_INCREMENT
+Taille : ,
+Commentaire : 
+
+Nom : nom_role
+Code : ROLE
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : id_log
+Code : ID_LOG
+Type : AUTO_INCREMENT
+Taille : ,
+Commentaire : 
+
+Nom : date_connexion
+Code : DATE_CONNEXION
+Type : DATE
+Taille : ,
+Commentaire : 
+
+Nom : note
+Code : NOTE
+Type : FLOAT
+Taille : ,
+Commentaire : 
+
+Nom : commentaire
+Code : COMMENTAIRE
+Type : TEXT
+Taille : ,
+Commentaire : 
+
+Nom : date_candidature
+Code : DATE_CANDIDATURE
+Type : DATE
+Taille : ,
+Commentaire : 
+
+Nom : lettre_motivation
+Code : LETTRE_MOTIVATION
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : message_recruteur
+Code : MESSAGE_RECRUTEUR
+Type : TEXT
+Taille : ,
+Commentaire : 
+
+Nom : id_ville
+Code : ID_VILLE
+Type : AUTO_INCREMENT
+Taille : ,
+Commentaire : 
+
+Nom : nom_ville
+Code : NOM_VILLE
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : id_pays
+Code : ID_PAYS
+Type : AUTO_INCREMENT
+Taille : ,
+Commentaire : 
+
+Nom : nom_pays
+Code : NOM_PAYS
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
+Nom : id_cv
+Code : ID_CV
+Type : AUTO_INCREMENT
+Taille : ,
+Commentaire : 
+
+Nom : cv
+Code : CV
+Type : VARCHAR
+Taille : 50,
+Commentaire : 
+
