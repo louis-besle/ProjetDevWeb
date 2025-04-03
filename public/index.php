@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "vendor/autoload.php"; // Chargement des dépendances
+require "../vendor/autoload.php"; // Chargement des dépendances
 
 // Importation de la classe SiteController
 use App\Controllers\SiteController;
