@@ -65,3 +65,45 @@ Ensuite, nous avons choisi de transformer notre MCD en MLD (Modéle Logique de d
 
 ![alt text](documentation/mld.png)
 
+
+## Hiérarchie du projet
+
+### 1. Répertoires principaux
+
+- `src/` : Contient les fichiers source (backend, logique de l'application)
+  - `controller/` : Logique des contrôleurs
+    - `Controller.php` : Classe de base pour les autres contrôleurs
+    - `AuthController.php` : Gère les fonctionnalités d'authentification (connexion, déconnexion, inscription)
+    - `DashboardController.php` : Gère la logique du tableau de bord utilisateur
+    - `SearchController.php` : Gère les fonctionnalités de recherche
+    - `SiteController.php` : Gère la logique générale du site (accueil, pages statiques)
+    - `StatistiqueController.php` : Gère les statistiques et les données analytiques
+  - `model/` : Contient les fichiers de gestion des données (modèles)
+    - `Database.php` : Classe de gestion de la connexion à la base de données
+    - `FileDatabase.php` : Classe pour la gestion des bases de données de type fichier
+    - `Model.php` : Classe de base pour tous les modèles
+    - `AuthModel.php` : Modèle pour gérer les données liées à l'authentification
+    - `DashboardModel.php` : Modèle pour gérer les données du tableau de bord
+    - `SearchModel.php` : Modèle pour gérer les données de recherche
+    - `SiteModel.php` : Modèle pour gérer les données générales du site
+    - `StatistiqueModel.php` : Modèle pour gérer les statistiques et les données analytiques
+
+- `static/` : Contient les fichiers statiques (CSS, JS, images)
+  - `css/` : Feuilles de style CSS
+  - `js/` : Scripts JavaScript
+  - `images/` : Images du projet
+
+- `templates/` : Templates Twig ou autres moteurs de rendu
+- `tests/` : Tests unitaires, fonctionnels et d'intégration
+- `vendor/` : Dépendances gérées par Composer
+- `public/` : Point d'entrée public pour le serveur
+
+### 2. Fichiers principaux
+
+- `index.php` : Point d'entrée pour le serveur
+- `composer.json` : Fichier de configuration des dépendances (pour Composer)
+- `.gitignore` : Fichier pour ignorer les fichiers/dossiers dans Git
+- `README.md` : Documentation du projet
+
+
+
