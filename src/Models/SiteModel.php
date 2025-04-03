@@ -7,26 +7,16 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            $this->connection = new FileDatabase($_ENV['DB_HOST'],$_ENV['DB_NAME'],$_ENV['DB_USER'],$_ENV['DB_PASSWORD']);
             //$this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
     }
-
     public function getInfos()
     {
         return $_SESSION['user'];
     }
-
-    
-
-    
-    
-
-    
-    
-
     public function getOffresAccueil()
     {
         return $this->connection->getLastRecord('offre', 8, 'mise_en_ligne');
@@ -40,58 +30,10 @@ class SiteModel extends Model
         }
         return $entreprises;
     }
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
     public function getVille()
     {
         return $this->connection->getAllRecords('ville');
     }
-
-    
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-
     public function ajout_candidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur) {
         return $this->connection->addCandidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur);
     }
