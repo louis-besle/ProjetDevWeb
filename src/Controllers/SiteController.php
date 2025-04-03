@@ -71,5 +71,22 @@ class SiteController extends Controller
         }
         exit;
     }
+
+    public function mentions() {
+        echo $this->templateEngine->render('mentions.twig.html');
+
+    }
+    public function cgu() {
+        echo $this->templateEngine->render('cgu.twig.html');
+    }
+    public function politiqueConfidentialite() {
+        echo $this->templateEngine->render('politique_confidentialites.twig.html');
+    }
+    public function cookies() {
+    echo $this->templateEngine->render('Cookies.twig.html');
+    }
+    public function contact() {
+        echo $this->templateEngine->render('contact.twig.html');
+    }
 }
 ?>

@@ -262,8 +262,7 @@ switch ($uri) {
     case 'statistique_offre':
         if ($isConnect) {
             $statistiqueController->_Page_Statistique_Offre();
-        }
-        else {
+        } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';
             exit();
@@ -291,6 +290,52 @@ switch ($uri) {
     case 'note_entreprise':
         if ($isConnect) {
             $searchController->noter_entreprise();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+
+    case 'contact':
+        if ($isConnect) {
+            $controller->contact();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    case 'mention':
+        if ($isConnect) {
+            $controller->mentions();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    case 'cgu':
+        if ($isConnect) {
+            $controller->cgu();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    case 'politique':
+        if ($isConnect) {
+            $controller->politiqueConfidentialite();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    case 'cookies':
+        if ($isConnect) {
+            $controller->cookies();
         } else {
             header("HTTP/1.1 404 Not Found");
             echo '404 Not Found';

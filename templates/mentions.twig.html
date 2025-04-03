@@ -1,0 +1,67 @@
+{% include 'composants/base_haut.twig.html' %}
+
+{% include 'composants/header.twig.html' %}
+
+<link rel="stylesheet" href="/static/css/mentions.css">
+
+<aside class="sidebar">
+  <ul>
+      <li class="active"><a href="/?uri=mention">Mentions Légales</a></li>
+      <li><a href="/?uri=cgu">CGU</a></li>
+      <li><a href="/?uri=politique">Politique de Confidentialité</a></li>
+      <li><a href="/?uri=cookies">Cookies</a></li>
+      <li><a href="/?uri=contact">Contact</a></li>
+    </ul>
+</aside>
+
+  <main class="content">
+    <h1 id="mentions">Mentions Légales</h1>
+
+    <section>
+      <h2>1. Éditeur du site</h2>
+      <p><strong>StageUp SAS</strong><br>
+        Siège social : 10 rue des Entrepreneurs, 75015 Paris, France<br>
+        Capital social : 50 000 euros<br>
+        Numéro SIRET : 123 456 789 00012<br>
+        RCS : Paris 123 456 789<br>
+        TVA : FR12 123456789</p>
+      <p><strong>Directeur de la publication</strong> : Jean Dupont<br>
+        Email : <a href="mailto:contact@stageup.com">contact@stageup.com</a><br>
+        Téléphone : +33 1 23 45 67 89</p>
+    </section>
+
+    <section>
+      <h2>2. Hébergement</h2>
+      <p><strong>HébergeurTech SARL</strong><br>
+        50 avenue des Serveurs, 69002 Lyon, France<br>
+        Téléphone : +33 4 56 78 90 12</p>
+    </section>
+
+    <section>
+      <h2>3. Objet du site</h2>
+      <p>StageUp est une plateforme qui met en relation des étudiants en recherche de stage avec des entreprises.</p>
+    </section>
+
+    <section>
+      <h2>4. Responsabilités</h2>
+      <p><strong>Accessibilité :</strong> Le site peut être indisponible temporairement pour maintenance.</p>
+      <p><strong>Contenu :</strong> StageUp veille à l’exactitude des données mais décline toute responsabilité en cas d’erreur.</p>
+      <p><strong>Liens externes :</strong> StageUp n’est pas responsable du contenu des sites tiers.</p>
+    </section>
+
+    <section id="confidentialite">
+      <h2>5. Protection des données personnelles</h2>
+      <p>Pour plus d’infos, consulte notre <a href="#confidentialite">Politique de Confidentialité</a>.</p>
+    </section>
+
+    <section id="contact">
+      <h2>6. Contact</h2>
+      <p><strong>StageUp SAS</strong><br>
+        Email : <a href="mailto:contact@stageup.com">contact@stageup.com</a><br>
+        Téléphone : +33 1 23 45 67 89<br>
+        Adresse : 10 rue des Entrepreneurs, 75015 Paris</p>
+    </section>
+  </main>
+</div>
+
+{% include 'composants/footer.twig.html' %}
