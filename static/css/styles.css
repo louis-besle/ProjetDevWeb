@@ -692,6 +692,12 @@ table {
     display: block;
     overflow-x: auto;
 }
+#image_entreprise {
+    width: 12%;
+    position: absolute;
+    right: 14.5rem;
+    top: 19.5rem;
+}
 
 thead th {
     white-space: nowrap;
@@ -763,6 +769,13 @@ footer p a:hover {
 footer p a:focus {
     outline: 2px solid #C6AEEB;
 }
+#image_entreprise {
+    width: 12%;
+    position: absolute;
+    right: 14.5rem;
+    top: 19.5rem;
+}
+
 
 /* Media Queries */
 @media (max-width: 480px) {
@@ -957,6 +970,12 @@ footer p a:focus {
         margin: 12px 0;
         padding: 6px 0;
     }
+    #image_entreprise {
+        width: 12%;
+        position: absolute;
+        right: 14.5rem;
+        top: 19.5rem;
+    }
 
     .grp_bouton .bouton_ {
         padding: 8px 14px;
@@ -987,5 +1006,10 @@ footer p a:focus {
     #registration_form + table {
         margin: 0 auto;
         width: 60%;
+    }
+}
+@media (max-width: 1024px) { 
+    #image_entreprise {
+        display: none;
     }
 }
