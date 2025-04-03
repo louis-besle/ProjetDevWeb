@@ -3,10 +3,25 @@
 namespace App\Controllers;
 
 use App\Models\AuthModel;
+use Exception;
 
 class AuthController extends Controller {
-    public function __construct() {
-        $this->model = new AuthModel();
+    protected $model;
+    protected $templateEngine;
+
+    /**
+     * Constructeur du contrôleur
+     * @param mixed $templateEngine Moteur de template
+     */
+    public function __construct($templateEngine)
+    {
+        try {
+            $this->model = new AuthModel();
+            $this->templateEngine = $templateEngine;
+        } catch (Exception $e) {
+            error_log("Erreur d'initialisation du contrôleur: " . $e->getMessage());
+            die("Erreur pendant l'initialisation");
+        }
     }
 
     public function login() {
