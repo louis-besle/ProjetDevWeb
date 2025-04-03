@@ -5,12 +5,10 @@
     <main>
         {% include 'composants/menu_recherche.twig.html' %}
         
-        <h1>
-            <form method="POST" action="?uri=ajout_wishlist&page=offre&id={{offre.id_offre}}" class="formulaire_ajout_wishlist">
-                {{offre.titre}}
-                <button type="submit" class="fav_bouton" id="fav_button" name="id_offre" value="{{ offre.id_offre }}">💜</button>
-            </form>
-        </h1>
+        <form method="POST" action="?uri=ajout_wishlist&page=offre&id={{offre.id_offre}}" class="formulaire_ajout_wishlist">
+            <h1>{{offre.titre}}
+            <button type="submit" class="fav_bouton" id="fav_button" name="id_offre" value="{{ offre.id_offre }}">💜</button></h1>
+        </form>
         <h3>Résumé de l'offre</h3>
 
         <ul class="competences">
