@@ -27,12 +27,12 @@ class DashboardController extends Controller
     public function _Page_Dashboard()
     {
         $nombre_pilote = $this->model->nombre_utilisateur('Pilote');
-        $nombre_etudiant = $this->model->nombre_utilisateur('Étudiant');
+        $nombre_etudiant = $this->model->nombre_utilisateur('Etudiant');
         if ($_SESSION['user']['role'] === 'Administrateur') {
             echo $this->templateEngine->render('a_dashboard.twig.html', ['nombre_pilote' => $nombre_pilote, 'nombre_etudiant' => $nombre_etudiant]);
         } else if ($_SESSION['user']['role'] === 'Pilote') {
             echo $this->templateEngine->render('p_dashboard.twig.html', ['nombre_etudiant' => $nombre_etudiant]);
-        } else if ($_SESSION['user']['role'] === 'Étudiant') {
+        } else if ($_SESSION['user']['role'] === 'Etudiant') {
             echo $this->templateEngine->render('e_dashboard.twig.html');
         }
     }

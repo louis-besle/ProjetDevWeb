@@ -105,5 +105,98 @@ Ensuite, nous avons choisi de transformer notre MCD en MLD (Modéle Logique de d
 - `.gitignore` : Fichier pour ignorer les fichiers/dossiers dans Git
 - `README.md` : Documentation du projet
 
+# Présentation de l'interface du site
+
+## Page de connexion
+
+Sur cette page, l'utilisateur pourra se connecter. Il devra entrer son adresse mail ainsi que son mot de passe.
+
+![alt text](/documentation/connexion.png)
+
+## Page d'accueil
+
+Sur cette page, l'utilisateur verra une présentation du site ainsi que les dernières offres mises en ligne.
+
+![alt text](/documentation/accueilp1.png)
+![alt text](/documentation/accueilp2.png)
+
+## Page recherche
+
+Cette page permet d'afficher toutes les offres et entreprises présentent sur le site. On peut aussi voir un système de pagination. Il y a aussi un bouton filtre qui permet de filtrer les offres et entreprises. Il y a aussi une barre de recherche.
+
+![alt text](/documentation/recherchep1.png)
+![alt text](/documentation/recherchep2.png)
+![alt text](/documentation/recherchep3.png)
+## Page dashboard
+
+Sur cette page, il y aura les pages d'adinistrations et de gestion pour les pilotes et les étudiants ainsi que l'administrateur.
+
+![alt text](/documentation/dashboard.png)
+
+## Page gestion des offres
+
+Ici, on peut voir le formulaire pour créer une offre, avec les boutons de validation. On peut aussi voir un bouton pour voir les statistiques concernant les offres. En dessous, on peut voir le tableau de gestion des offres avec les boutons pour modifier ou supprimer.
+
+![alt text](/documentation/gestionoffre.png)
+
+## Page gestion des comptes
+
+Sur cette image, on peut voir le formulaire de création de compte, l'administrateur peut créer n'importe quel compte tandis que le pilote peut créer que des comptes étudiants. On peut aussi voir les boutons de suppresion et de modification des comptes. Il y a aussi un bouton pour voir les statistiques des étudiants.   
+
+![alt text](/documentation/comptesp1.png)
+![alt text](/documentation/comptesp2.png)
 
 
+## Page gestion des entreprises
+
+Ici, on peut voir le formulaire pour créer une entreprise, avec les boutons de validation. On peut aussi voir un bouton pour voir les statistiques concernant les enrteprises. En dessous, on peut voir le tableau de gestion des entreprises avec les boutons pour modifier ou supprimer.
+
+![alt text](/documentation//gestionentreprise.png)
+
+## Page statistiques des offres 
+
+Sur cette page, on peut voir plus d'information sur les offres.
+
+![alt text](/documentation/statoffre.png)
+
+## Page statistiques des entreprises 
+
+Sur cette page, on peut voir plus d'information sur les entreprises.
+
+![alt text](/documentation/statentreprise.png)
+
+## Page statistiques des étudiants 
+
+Sur cette page, on peut voir plus d'information sur les étudiants.
+
+![alt text](/documentation/statetudiant.png)
+
+## Page d'une offre
+
+Sur cette page, on peut postuler à une offre pour les étudiants et les administrateurs, la modifier ou la supprimer pour les pilotes et les administrateurs.
+
+![alt text](/documentation/offre.png)
+
+## Page d'une entreprise
+
+Sur cette page, on peut noter une entreprsie pour tous les utilisateurs, la modifier ou la supprimer pour les pilotes et les administrateurs.
+
+![alt text](/documentation/entreprise.png)
+
+## Page wishlist
+
+Sur cette page l'étudiant peut consulter ses offres en wishlist.
+
+![alt text](/documentation/wishlist.png)
+
+## Page CV
+
+Sur cette page l'étudiant peut consulter ses CVs.
+
+![alt text](/documentation/cv.png)
+
+## Page offres postulées
+
+Sur cette page l'étudiant peut consulter les offres auquelles il a postulé.
+
+![alt text](/documentation/postuler.png)
