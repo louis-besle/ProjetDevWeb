@@ -354,15 +354,16 @@ class SiteController extends Controller
 
         if ($offerId) {
             $competence = $this->model->getCompetenceByOffer($offerId);
-            $offres = $this->model->getInfosOffres($offerId); 
-            $postuler = $this->model->a_candidater($_SESSION['user']['id'],$offerId);
+            $offres = $this->model->getInfosOffres($offerId);
+            $postuler = $this->model->a_candidater($_SESSION['user']['id'], $offerId);
+            $nombre = $this->model->nombre_personne($offerId);
             echo $this->templateEngine->render('_offre_onclick.twig.html', [
                 "offre" => $this->model->getOffreclick(),
                 "competence" => $competence,
                 "duree" => $offres['duree'],
                 "entreprise" => $offres['entreprise'],
                 "id_offre" => $offerId,
-                'nombre' => $nombre
+                'nombre' => $nombre,
                 "postuler" => $postuler,
                 "role" => $_SESSION['user']['role'],
             ]);
@@ -463,20 +464,23 @@ class SiteController extends Controller
             $of_ent = $this->model->entreprise();
             echo $this->templateEngine->render('_statistique_entreprise.twig.html', ['selection' => $selection, 'total' => $total, 'off' => $of_ent]);
         }
-    public function _Ajout_Wishlist(){
+    }
+    public function _Ajout_Wishlist()
+    {
         $this->model->ajout_wishlist($_SESSION['user']['id'], $_POST['id_offre']);
-        if(isset($_GET['page'])) {
-            if(isset($_GET['id'])) {
-                header('Location: /?uri=' . $_GET['page'].'&id=' . $_GET['id']);
+        if (isset($_GET['page'])) {
+            if (isset($_GET['id'])) {
+                header('Location: /?uri=' . $_GET['page'] . '&id=' . $_GET['id']);
             } else {
-                header('Location: /?uri='. $_GET['page']);
+                header('Location: /?uri=' . $_GET['page']);
             }
         } else {
             header('Location: /?uri=accueil');
         }
     }
 
-    public function _Page_Postuler() {
+    public function _Page_Postuler()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_FILES['lettre_motivation']['name'])) {
                 $upload_dir = 'static/uploads/lettres_motivation/';
@@ -488,7 +492,7 @@ class SiteController extends Controller
                     $image = $image_name;
                 }
             }
-            echo $this->model->ajout_candidater($_SESSION['user']['id'], $_POST['id_offre'],$image,$_POST['message_recruteur']);
+            echo $this->model->ajout_candidater($_SESSION['user']['id'], $_POST['id_offre'], $image, $_POST['message_recruteur']);
             header('Location: /?uri=accueil');
         }
         exit;

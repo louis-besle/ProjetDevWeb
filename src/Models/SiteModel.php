@@ -8,7 +8,7 @@ class SiteModel extends Model
     {
         if (is_null($connection)) {
             //$this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
-            $this->connection = new FileDatabase('localhost','stageup','root','');
+            $this->connection = new FileDatabase('localhost', 'stageup', 'root', '');
         } else {
             $this->connection = $connection;
         }
@@ -31,7 +31,7 @@ class SiteModel extends Model
 
     public function getEntrepriseByVille($options = null)
     {
-        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options);
+        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options);
     }
 
     public function getCompetence()
@@ -80,25 +80,23 @@ class SiteModel extends Model
         }
     }
 
-    public function getOffreRecherche($page_actuelle,$ville,$entreprise)
+    public function getOffreRecherche($page_actuelle, $ville, $entreprise)
     {
         if ($ville === 'Toutes' && $entreprise === 'Toutes') {
             $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise');
             return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
-        } 
-        else if ($ville === 'Toutes') {
+        } else if ($ville === 'Toutes') {
             $options = "e.nom = '$entreprise'";
-            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise',$options);
+            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise', $options);
             return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
-        } 
-        else if ($entreprise === 'Toutes') {
+        } else if ($entreprise === 'Toutes') {
             $options = "v.nom_ville = '$ville'";
-            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise',$options);
+            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise', $options);
             return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
         }
     }
 
-    public function getVillesEntreprises($page_actuelle,$ville,$entreprise)
+    public function getVillesEntreprises($page_actuelle, $ville, $entreprise)
     {
         $start = (($page_actuelle - 1) * 5) + 1;
         $end = ($page_actuelle * 5);
@@ -107,14 +105,15 @@ class SiteModel extends Model
             return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville'))];
         } else if ($ville === 'Toutes') {
             $options = "e.nom = '$entreprise'";
-            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options))];
+            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options))];
         } else if ($entreprise === 'Toutes') {
             $options = "v.nom_ville = '$ville'";
-            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options))];
+            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options))];
         }
     }
 
-    public function getEntrepriseClick(){
+    public function getEntrepriseClick()
+    {
         if (isset($_GET['id'])) {
             $id_page = $_GET['id'];
         } else {
@@ -128,9 +127,9 @@ class SiteModel extends Model
         return $this->connection->getRecordEntrepriseOnClick('entreprise', $id_page, $id_ville);
     }
 
-    public function getNbPages($val1,$val2)
+    public function getNbPages($val1, $val2)
     {
-        return max($val1,$val2);
+        return max($val1, $val2);
     }
 
     public function getUtilisateurs($role)
@@ -163,16 +162,18 @@ class SiteModel extends Model
         return $this->connection->delOffre($id);
     }
 
-    public function getCompetenceByOffer($id) {
+    public function getCompetenceByOffer($id)
+    {
         $competences = $this->connection->getAllCompetencesAssociees($id);
-            if ($competences) {
-                return $competences;
-            } else {
-                return [];
-            }
+        if ($competences) {
+            return $competences;
+        } else {
+            return [];
+        }
     }
 
-    public function getInfosOffres($id){
+    public function getInfosOffres($id)
+    {
         $offres = $this->connection->getRecordInfoOffres($id);
 
         if ($offres && isset($offres['date_debut'], $offres['date_fin'])) {
@@ -183,18 +184,17 @@ class SiteModel extends Model
 
             $mois = ceil($interval->y * 12 + $interval->m + ($interval->d / 30));
 
-            return ['description_offre' => $offres['description_offre'], 'entreprise' => ['nom' => $offres['nom'],'description' => $offres['description_entreprise']], 'duree' => $mois];
+            return ['description_offre' => $offres['description_offre'], 'entreprise' => ['nom' => $offres['nom'], 'description' => $offres['description_entreprise']], 'duree' => $mois];
         }
-
     }
-    public function getOffreClick(){
+    public function getOffreClick()
+    {
         if (isset($_GET['id'])) {
             $id_page = $_GET['id'];
         } else {
             $id_page = 1;
-
         }
-        return $this->connection->getRecordById('offre',$id_page);
+        return $this->connection->getRecordById('offre', $id_page);
     }
 
     public function deleteEntreprise($id)
@@ -202,73 +202,92 @@ class SiteModel extends Model
         return $this->connection->delEntreprise($id);
     }
 
-    public function updateentreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image){
+    public function updateentreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image)
+    {
         return $this->connection->updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image);
     }
 
-    public function recherche($rechercheGenerale, $ville){
+    public function recherche($rechercheGenerale, $ville)
+    {
         return $this->connection->rechercherOffres($rechercheGenerale, $ville);
     }
 
-    public function nombre_offre(){
+    public function nombre_offre()
+    {
         return $this->connection->nbr_offre();
     }
 
-    public function nombre_personne($id_offre){
+    public function nombre_personne($id_offre)
+    {
         return $this->connection->nbr_personne($id_offre);
     }
-    public function nombre_utilisateur($role){
+    public function nombre_utilisateur($role)
+    {
         return $this->connection->nbr_utilisateur($role);
     }
-    public function statistique_utilisateur($id_etudiant){
+    public function statistique_utilisateur($id_etudiant)
+    {
         return $this->connection->statistique($id_etudiant);
     }
 
-    public function rep_competence(){
+    public function rep_competence()
+    {
         return $this->connection->repartitionParCompetence();
     }
-    public function rep_duree(){
+    public function rep_duree()
+    {
         return $this->connection->repartitionParDuree();
     }
-    public function rep_wishlist(){
+    public function rep_wishlist()
+    {
         return $this->connection->topOffresWishlist();
     }
 
-    public function all_offre(){
+    public function all_offre()
+    {
         return $this->connection->getAllRecords('offre');
     }
 
-    public function entrepriseVille(){
+    public function entrepriseVille()
+    {
         return $this->connection->nombreEntreprisesParVille();
     }
-    public function entreprisetotal(){
+    public function entreprisetotal()
+    {
         return $this->connection->nombreEntreprises();
     }
 
-    public function entreprise(){
+    public function entreprise()
+    {
         return $this->connection->getRecordEntreprise();
-    public function getWishlistById($id){
-        return $this->connection->getRecordOffresDashboard($id,'souhaiter');
+    }
+    public function getWishlistById($id)
+    {
+        return $this->connection->getRecordOffresDashboard($id, 'souhaiter');
     }
 
-    public function getOffresPostuleesById($id){
-        return $this->connection->getRecordOffresDashboard($id,'candidater');
+    public function getOffresPostuleesById($id)
+    {
+        return $this->connection->getRecordOffresDashboard($id, 'candidater');
     }
 
-    public function getCVById($id){
+    public function getCVById($id)
+    {
         return $this->connection->getCV($id);
     }
 
-    public function ajout_wishlist($id_utilisateur,$id_offre) {
-        return $this->connection->updateSouhaiter($id_utilisateur,$id_offre);
+    public function ajout_wishlist($id_utilisateur, $id_offre)
+    {
+        return $this->connection->updateSouhaiter($id_utilisateur, $id_offre);
     }
 
-    public function ajout_candidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur) {
-        return $this->connection->addCandidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur);
+    public function ajout_candidater($id_utilisateur, $id_offre, $lettre_motivation, $message_recruteur)
+    {
+        return $this->connection->addCandidater($id_utilisateur, $id_offre, $lettre_motivation, $message_recruteur);
     }
 
-    public function a_candidater($id_utilisateur,$id_offre) {
-        return $this->connection->checkCandidature($id_utilisateur,$id_offre);
+    public function a_candidater($id_utilisateur, $id_offre)
+    {
+        return $this->connection->checkCandidature($id_utilisateur, $id_offre);
     }
 }
-
