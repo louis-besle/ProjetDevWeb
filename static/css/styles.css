@@ -1,49 +1,16 @@
-/*CSS qui sera le même pour toutes les pages*/
-body {
-    font-family: Arial, sans-serif;
-}
-
-main {
-    width: 70%;
-    margin: 0 auto;
-    text-align: justify;
-}
-
-h2 {
-    margin-bottom: 10px;
-}
-
-footer {
-    color: white;
-    padding: 30px 0;
-    text-align: center;
-    background-color: #380F49;
-    font-family: Arial, sans-serif;
-    width: 70%;
-    margin: 0 auto;
-}
-
-footer p {
+html, body {
+    height: 100%;
     margin: 0;
-    font-size: 16px;
+    padding: 0;
 }
 
-footer p a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: color 0.3s ease;
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
 }
 
-footer p a:hover {
-    color: #C6AEEB;
-}
-
-footer p a:focus {
-    outline: 2px solid #C6AEEB;
-}
-
-/*Style de la balise main de la page de connexion*/
 .bodyconnexion {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -51,6 +18,153 @@ footer p a:focus {
     justify-content: center;
     align-items: center;
     background-color: #f8f8f8;
+}
+
+header {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.logo {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+    max-width: 200px;
+}
+
+.logoconnexion {
+    margin-bottom: 20px;
+}
+
+.logoconnexion img {
+    max-width: 150px;
+    height: auto;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.menu_interact {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+.menu_interact li {
+    margin: 0 1rem;
+}
+
+.menu_interact a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    transition: background-color 0.3s ease;
+    background-color: #C6AEEB;
+}
+
+.menu_interact a img {
+    margin-right: 0.5rem;
+    width: 20px;
+    height: 20px;
+}
+
+.menu_interact.show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #E6CCFF;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 12px rgba(128, 0, 128, 0.4);
+    width: auto;
+    min-width: 180px;
+}
+
+.menu_interact.show div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 150px;
+    padding: 12px 16px;
+    background: #C49CFF;
+    color: #000;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+}
+
+.menu_interact.show div:hover {
+    background: #A370F0;
+    transform: scale(1.05);
+    color: white;
+}
+
+.menu_interact.show div i {
+    font-size: 18px;
+}
+
+.burger-menu {
+    display: none;
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    position: relative;
+    z-index: 1000;
+    padding: 10px;
+}
+
+.burger-menu span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin-bottom: 5px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.burger-menu.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+main {
+    width: 70%;
+    margin: 0 auto;
+    text-align: justify;
+    flex: 1;
 }
 
 .mainconnexion {
@@ -62,18 +176,10 @@ footer p a:focus {
     margin: 0;
 }
 
-/*Style de l'emplacement du logo de la page de connexion*/
-.logoconnexion {
-    margin-bottom: 20px;
+h2 {
+    margin-bottom: 10px;
 }
 
-/*Style du logo de la page de connexion*/
-.logoconnexion img {
-    max-width: 150px;
-    height: auto;
-}
-
-/*Style de la division contenant le formulaire de connexion*/
 .connexion {
     background-color: #fff;
     padding: 40px;
@@ -83,14 +189,12 @@ footer p a:focus {
     text-align: center;
 }
 
-/*Style des titres du formulaire de connexxion*/
 .formulaire_connexion h2 {
     margin-bottom: 20px;
     font-size: 22px;
     color: #333;
 }
 
-/*Style des entrées utilisateurs de la page de connexion*/
 .entrees_utilisateurs {
     margin-bottom: 15px;
     text-align: left;
@@ -124,7 +228,6 @@ footer p a:focus {
     text-decoration: underline;
 }
 
-/*Style des boutons d'interaction avec la connexion*/
 .bouton_interact {
     width: 100%;
     padding: 10px;
@@ -137,77 +240,10 @@ footer p a:focus {
     transition: background 0.3s ease;
 }
 
-
 .bouton_interact:hover {
     background-color: #8A7AE2;
 }
 
-/*Style de la balise header contenu le menu de navigation*/
-header {
-    width: 70%;
-    margin: 0 auto;
-}
-
-/*Style de l'emplacement du logo du site*/
-.logo {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/*Style du logo du site*/
-.logo img {
-    width: 150px;
-    height: auto;
-    max-width: 200px;
-}
-
-/*Style de la balise de navigation contenant le menu de navigation*/
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-}
-
-/*Emplacement des liens de navigations (Recherches et Dashboard)*/
-.menu {
-    display: flex;
-    align-items: center;
-}
-
-/*Style des liens de navigations*/
-.menu_interact {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.menu_interact li {
-    margin: 0 1rem;
-}
-
-.menu_interact a {
-    display: flex;
-    align-items: center;
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    border-radius: 1rem;
-    transition: background-color 0.3s ease;
-    background-color: #C6AEEB;
-}
-
-.menu_interact a img {
-    margin-right: 0.5rem;
-    width: 20px;
-    height: 20px;
-}
-
-/*Style de l'emplacement des barres de recherches pour trouver une offre*/
 .menu_recherche {
     background-color: #380F49;
     display: flex;
@@ -216,7 +252,6 @@ nav {
     min-height: 200px;
 }
 
-/*Style des barres de recherches*/
 .recherche {
     width: 500px;
     background-color: white;
@@ -237,9 +272,9 @@ nav {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+    gap: 15px;
 }
 
-/*Style généraux des boutons*/
 .bouton_ {
     width: 25%;
     padding: 5px;
@@ -266,7 +301,6 @@ nav {
     padding-right: 5px;
 }
 
-/*Styles du bloc de bienvenue*/
 .article_bienvenue {
     text-align: justify;
     display: flex;
@@ -276,7 +310,6 @@ nav {
     margin: 10px auto;
 }
 
-/*Style des offres qui s'affiche en page d'accueil*/
 .dernieres_offres {
     margin: 20px auto;
 }
@@ -295,6 +328,7 @@ nav {
     padding: 20px;
     text-align: left;
     display: flex;
+    margin: 5px auto;
     flex-direction: column;
     justify-content: space-between;
     height: 180px;
@@ -360,8 +394,6 @@ nav {
     color: #FF0000;
 }
 
-
-/*Style du blocc entreprises reconnues par le site sur la page d'accueil*/
 .entreprises_reconnues h1 {
     font-size: 24px;
     font-weight: bold;
@@ -390,7 +422,6 @@ nav {
     border-radius: 8px;
 }
 
-/*Style du bloc candidature simplifiée du site sur la page d'accueil*/
 .candidature_simple {
     padding: 20px;
     background-color: #f5f5f5;
@@ -441,7 +472,7 @@ nav {
     background-color: #fff;
     border-radius: 8px;
     border: 1px solid #ccc;
-    margin-bottom: 10px;;
+    margin-bottom: 10px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     cursor: pointer;
@@ -463,12 +494,12 @@ nav {
     margin-left: 15px;
 }
 
-.offer_link{
+.offer_link {
     display: block;
     text-decoration: none;
 }
 
-.offer_link img{
+.offer_link img {
     max-width: 100%;
     height: auto;
 }
@@ -481,7 +512,6 @@ nav {
     flex: 1;
 }
 
-/*Titre de l'offre*/
 .titre_offre {
     font-size: 18px;
     font-weight: bold;
@@ -489,19 +519,16 @@ nav {
     margin-bottom: 5px;
 }
 
-/* Nom de l'entreprise */
 .entreprise_offre {
     font-size: 16px;
     color: #333;
 }
 
-/* Ville */
 .offre_ville {
     font-size: 14px;
     color: #555;
 }
 
-/* Date de mise en ligne */
 .offre_date {
     font-size: 12px;
     color: #777;
@@ -509,7 +536,6 @@ nav {
     margin-top: auto;
 }
 
-/*Image de l'offre*/
 .offre_image {
     display: flex;
     align-items: center;
@@ -518,7 +544,6 @@ nav {
     font-weight: bold;
 }
 
-/*Style du bouton des filtres*/
 .contenu_bouton_filtres {
     margin: 20px 0;
 }
@@ -536,7 +561,6 @@ nav {
     background-color: #8A7AE2;
 }
 
-/*Menu des filtres*/
 .filtres {
     display: none;
     padding: 15px;
@@ -573,9 +597,6 @@ nav {
     background-color: #218838;
 }
 
-/*Style pour la page offre_onclick*/
-
-
 .competences {
     display: flex;
     align-items: center;
@@ -591,8 +612,6 @@ nav {
     padding: 2px;
     font-size: 10px;
 }
-
-/*Style du formulaire pour postuler à une offre*/
 
 .conteneur_formulaire {
     display: flex;
@@ -614,42 +633,28 @@ textarea {
     height: 150px;
 }
 
-.grp_bouton {
-    justify-content: center;
+.note_entreprise {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 20px;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 2rem;
+    cursor: pointer;
 }
 
-/*Style de l'élément pour noter l'entreprise*/
-.note_entreprise {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    font-size: 2rem;
-    cursor: pointer;
-}
-.note_entreprise {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    font-size: 2rem;
-    cursor: pointer;
-}
 .note_entreprise input {
     display: none;
 }
+
 .note_entreprise label {
     color: lightgray;
     transition: color 0.3s;
     font-size: 2rem;
 }
+
 .note_entreprise input:checked + label {
     color: gold;
 }
 
-/*Style de la dashboard*/
 .navbar_dashboard {
     list-style: none;
     display: flex;
@@ -673,7 +678,6 @@ textarea {
     gap: 10px;
 }
 
-/* Style du tableau pour affiche les comptes */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -683,17 +687,23 @@ table {
     overflow: hidden;
     margin-top: 10px;
     margin-bottom: 10px;
+    display: center;
+    max-width: 100%;
+    display: block;
+    overflow-x: auto;
 }
-
-thead {
-    background-color: #C6AEEB;
-    color: white;
-    font-weight: bold;
+#image_entreprise {
+    width: 12%;
+    position: absolute;
+    right: 14.5rem;
+    top: 19.5rem;
 }
 
 thead th {
-    padding: 15px;
-    text-align: center;
+    white-space: nowrap;
+    padding: 8px;
+    background-color: #C6AEEB;
+    text-align: left;
 }
 
 tbody tr {
@@ -706,8 +716,8 @@ tbody tr:hover {
 }
 
 tbody td {
-    padding: 10px;
-    color: #333;
+    white-space: nowrap;
+    padding: 8px;
 }
 
 .btn_pagination {
@@ -729,9 +739,277 @@ tbody td {
     justify-content: center;
 }
 
+footer {
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+    background-color: #380F49;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: auto;
+}
+
+footer p {
+    margin: 0;
+    font-size: 16px;
+}
+
+footer p a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+footer p a:hover {
+    color: #C6AEEB;
+}
+
+footer p a:focus {
+    outline: 2px solid #C6AEEB;
+}
 #image_entreprise {
     width: 12%;
     position: absolute;
     right: 14.5rem;
     top: 19.5rem;
+}
+
+
+/* Media Queries */
+@media (max-width: 480px) {
+    .menu_interact {
+        width: 100%;
+        max-width: none;
+        border-radius: 0;
+        top: 50px;
+    }
+
+    .offre {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .menu_interact.show {
+        width: 100%;
+        border-radius: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .recherche {
+        width: 90%;
+    }
+    
+    .bouton_recherche {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .bouton_ {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .burger-menu {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+    
+    .menu_interact {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: white;
+        width: 200px;
+        height: auto;
+        max-width: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 5px;
+        margin: 5px;
+        z-index: 999;
+    }
+    
+    .menu_interact.show {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: #E6CCFF;
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 0px 6px 12px rgba(128, 0, 128, 0.4);
+        width: max-content;
+    }
+    
+    .menu_interact.show div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-width: 120px;
+        gap: 10px;
+        padding: 12px 16px;
+        background: #C49CFF;
+        color: #000;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+    }
+    
+    .menu_interact.show div:hover {
+        background: #A370F0;
+        transform: scale(1.05);
+        color: white;
+    }
+    
+    .menu_interact.show div i {
+        font-size: 18px;
+    }
+    
+    .menu_interact li {
+        margin: 5px 10px;
+        width: calc(100% - 20px);
+    }
+    
+    .menu_interact a {
+        width: 100%;
+        padding: 10px;
+        justify-content: flex-start;
+    }
+
+    .offre {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .offre h2 {
+        font-size: 18px;
+    }
+
+    .offre p {
+        font-size: 14px;
+    }
+
+    footer {
+        width: 100%;
+        position: relative;
+        bottom: 0;
+    }
+    
+    .conteneurs_dernieres_offres {
+        grid-template-columns: 1fr;
+    }
+    
+    .menu_interact.show {
+        width: 90%;
+        max-width: 250px;
+        margin: auto;
+    }
+    
+    .menu_interact.show div {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 300px) and (max-width: 900px) {
+    .grp_bouton {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        margin: 5px 0 0 0;
+        padding: 0 0 8px 0;
+    }
+    
+    .grp_bouton .bouton_ {
+        padding: 6px 12px;
+        margin: 0;
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (min-width: 900px) and (max-width: 1000px) {
+    .grp_bouton {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        margin: 5px 0 0 0 !important;
+        padding: 0 !important;
+    }
+    .grp_bouton .bouton_ {
+        padding: 8px 16px !important;
+        margin: 0 !important;
+        font-size: 0.95em !important;
+        white-space: nowrap !important;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .grp_bouton {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 12px 0;
+        padding: 6px 0;
+    }
+    #image_entreprise {
+        width: 12%;
+        position: absolute;
+        right: 14.5rem;
+        top: 19.5rem;
+    }
+
+    .grp_bouton .bouton_ {
+        padding: 8px 14px;
+        margin: 0;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+    
+    #registration_form {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    #registration_form table {
+        width: 60%;
+        max-width: 800px;
+        display: table;
+    }
+    
+    body > table:not(#registration_form) {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        max-width: 1200px;
+    }
+    
+    #registration_form + table {
+        margin: 0 auto;
+        width: 60%;
+    }
+}
+@media (max-width: 1024px) { 
+    #image_entreprise {
+        display: none;
+    }
 }
