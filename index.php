@@ -269,6 +269,14 @@ switch ($uri) {
     case 'statistique_offre':
         if ($isConnect) {
             $controller->_Page_Statistique_Offre();
+        }
+        else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
+        break;
+    
     case 'ajout_wishlist':
         if ($isConnect) {
             $controller->_Ajout_Wishlist();

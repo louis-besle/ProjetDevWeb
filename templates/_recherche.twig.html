@@ -11,10 +11,6 @@
             {% include 'composants/bouton_filtre.twig.html' %}
 
             {% include 'composants/offre_entreprise.twig.html' %}
-            {% for entreprise in entreprises %}
-                <p>{{entreprise.id_ville}}</p>
-                <p>{{entreprise.id_entreprise}}</p>
-            {% endfor %}
         </article>
         <form method="POST" action="?uri=recherche">
             <div class="container_page">
