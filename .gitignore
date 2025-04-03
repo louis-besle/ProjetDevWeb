@@ -2,4 +2,4 @@
 /templates/old/
 /gitinspector/
 /report.html
-/.vscode/
+/.env
