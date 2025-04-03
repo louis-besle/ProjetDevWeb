@@ -5,6 +5,37 @@ Ce dépôt représente notre site web complet d'aide à la recherche de stage. I
 
 # Sommaire
 
+1. [Introduction](#introduction)  
+   - [Présentation du projet](#présentation-du-projet)  
+   - [Objectifs du site](#objectifs-du-site)  
+
+2. [Conception de la base de données](#conception-de-la-base-de-données)  
+   - [Dictionnaire de données](#dictionnaire-de-données)  
+   - [Modèle Conceptuel de Données (MCD)](#modèle-conceptuel-de-données-mcd)  
+   - [Modèle Logique de Données (MLD)](#modèle-logique-de-données-mld)  
+
+3. [Hiérarchie du projet](#hiérarchie-du-projet)  
+   - [Répertoires principaux](#répertoires-principaux)  
+   - [Fichiers principaux](#fichiers-principaux)  
+
+4. [Présentation de l'interface du site](#présentation-de-linterface-du-site)  
+   - [Page de connexion](#page-de-connexion)  
+   - [Page d'accueil](#page-daccueil)  
+   - [Page de recherche](#page-de-recherche)  
+   - [Page dashboard](#page-dashboard)  
+   - [Page gestion des offres](#page-gestion-des-offres)  
+   - [Page gestion des comptes](#page-gestion-des-comptes)  
+   - [Page gestion des entreprises](#page-gestion-des-entreprises)  
+   - [Page statistiques des offres](#page-statistiques-des-offres)  
+   - [Page statistiques des entreprises](#page-statistiques-des-entreprises)  
+   - [Page statistiques des étudiants](#page-statistiques-des-étudiants)  
+   - [Page d'une offre](#page-dune-offre)  
+   - [Page d'une entreprise](#page-dune-entreprise)  
+   - [Page wishlist](#page-wishlist)  
+   - [Page CV](#page-cv)  
+   - [Page offres postulées](#page-offres-postulées)  
+
+
 ## Conception de la base de données
 
 ### Dictionnaire de données
