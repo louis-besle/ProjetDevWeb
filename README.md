@@ -5,4 +5,4 @@ Ce dépôt représente notre site web complet d'aide à la recherche de stage. I
 
 # Sommaire
 
-![alt text](documentation/image.jpg)
+![alt text](documentation/image.png)
