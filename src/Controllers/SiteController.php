@@ -66,9 +66,35 @@ class SiteController extends Controller
                     $image = $image_name;
                 }
             }
-            echo $this->model->ajout_candidater($_SESSION['user']['id'], $_POST['id_offre'],$image,$_POST['message_recruteur']);
+            echo $this->model->ajout_candidater($_SESSION['user']['id'], $_POST['id_offre'], $image, $_POST['message_recruteur']);
             header('Location: /?uri=accueil');
         }
         exit;
     }
+
+    public function noter_entreprise() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idUtilisateur = $_SESSION['user']['id'] ?? null;
+            $idEntreprise = $_POST['id_entreprise'] ?? null;
+    
+            $starId = $_POST['rating'] ?? null;
+    
+            $note = null;
+            if ($starId) {
+                $note = (int)str_replace('star', '', $starId);
+            }
+
+    
+            $commentaire = htmlspecialchars($_POST['comments'] ?? '');
+            
+            if ($idUtilisateur && $idEntreprise && $note !== null) {
+                $this->model->noter($idUtilisateur, $idEntreprise, (float)$note, $commentaire);
+                header('Location: /?uri=entreprise');
+            }
+        }
+    }
+    
+    
+
+    
 }

@@ -7,8 +7,8 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
-            //$this->connection = new FileDatabase('localhost','stageup','root','');
+            //$this->connection = new FileDatabase('172.201.220.97', 'stageup', 'azureuser', '#Cesi2024');
+            $this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
@@ -21,7 +21,6 @@ class SiteModel extends Model
     {
         return $this->connection->getLastRecord('offre', 8, 'mise_en_ligne');
     }
-
     public function getEntreprisesAccueil($offres)
     {
         $entreprises = [];
@@ -38,6 +37,16 @@ class SiteModel extends Model
         return $this->connection->addCandidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur);
     }
 
-    
+    public function noter($idUtilisateur,  $idEntreprise,  $note,  $commentaire)
+    {
+        return $this->connection->insertNote($idUtilisateur,  $idEntreprise,  $note, $commentaire);
+    }
+    public function lastcom($idEntreprise)
+    {
+        return $this->connection->getDerniersCommentaires($idEntreprise);
+    }
+    public function moynote($idEntreprise)
+    {
+        return $this->connection->getmoynote($idEntreprise);
+    }
 }
-
