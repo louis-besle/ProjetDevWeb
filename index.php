@@ -230,22 +230,55 @@ switch ($uri) {
             exit();
         }
         break;
+
     case 'mentions':
-        $controller->mentions();
+        if ($isConnect) {
+            $controller->mentions();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
         break;
+
     case 'cgu':
-        $controller->cgu();
+        if ($isConnect) {
+            $controller->cgu();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
         break;
+
     case 'politique':
-        $controller->politiqueConfidentialite();
+        if ($isConnect) {
+            $controller->politiqueConfidentialite();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
         break;
     case 'cookies':
-        $controller->cookies();
+        if ($isConnect) {
+            $controller->cookies();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
         break;
-    case 'contact':
-        $controller->contact();
+case 'contact':
+    if ($isConnect) {
+            $controller->contact();
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            echo '404 Not Found';
+            exit();
+        }
         break;
-        
+            
     default:
         echo '404 Not Found';
         break;
