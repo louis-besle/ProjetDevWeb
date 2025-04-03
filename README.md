@@ -54,10 +54,9 @@ Dans ce dictionnaire de données, vous trouverez tous les attributs de la base d
 
 ### Modèle Conceptuel de Données
 
-<p style="text-align: justify;">
 Ensuite, ce MCD (Modèle Conceptuel de Données) permet de représenter graphiquement les données et leurs relations dans le système d'information. Ainsi, nous avons réaliser ce schéma à l'aide de notre dictionnaire de données. Nous y avons modéliser nos tables qui vont contenir les données principales du site ainsi que le relations entre elles permettant aussi de voir l'interaction des tables entre elle. Ce dernier respecte la norme <a href="https://openclassrooms.com/fr/courses/6938711-modelisez-vos-bases-de-donnees/7561516-ameliorez-votre-modelisation-grace-aux-formes-normales" target="_blank">3NF</a>.
 <br>
-On peut voir que l'élément central est l'utilisateur. En effet, toutes les actions seront liées à ce dernier.</p>
+On peut voir que l'élément central est l'utilisateur. En effet, toutes les actions seront liées à ce dernier.
 
 ![alt text](documentation/mcd.png)
 
