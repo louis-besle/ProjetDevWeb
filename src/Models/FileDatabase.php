@@ -745,11 +745,11 @@ class FileDatabase implements Database
     }
 
     public function getmoynote(int $idEntreprise) {
-        $sql = "SELECT count(note) as total, sum(note) as somme_notes, commentaire, note, id_utilisateur 
+        $sql = "SELECT count(note) as total, sum(note) as somme_notes, id_entreprise, commentaire
                 FROM evaluer 
-                WHERE id_entreprise = :id_entreprise 
-                GROUP BY id_entreprise
-                ORDER BY id_utilisateur DESC";
+                WHERE id_entreprise = :id_entreprise
+                GROUP BY id_entreprise, commentaire
+                ORDER BY id_entreprise DESC";
     
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id_entreprise' => $idEntreprise]);
