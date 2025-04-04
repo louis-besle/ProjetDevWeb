@@ -735,7 +735,7 @@ tbody td {
     padding: 8px;
 }
 
-.btn_pagination {
+.btn_pagination, .btn_pagination_nb {
     background-color: #380F49;
     color: #ffffff;
     text-decoration: none;
@@ -957,6 +957,47 @@ footer p a:focus {
 
     body {
         font-size: 8px;
+    }
+
+    .candidature_simple_conteneur img, .entreprises_reconnues_conteneur img {
+        display: none;
+    }
+
+    .container_page {
+        flex-wrap: nowrap;
+    }
+
+    .btn_pagination_nb {
+        display: none;
+    }
+
+    .navbar_dashboard{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar_dashboard li {
+        margin : 0.75rem -1rem;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+    }
+    td:before {
+        position: absolute;
+        left: 10px;
+        content: attr(data-label);
+        font-weight: bold;
     }
 }
 

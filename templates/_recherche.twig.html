@@ -26,11 +26,11 @@
                 
                 {% set taille = nb_pages // 5 %}
                 {% if taille > 5 %}
-                    <a href="?uri=recherche&p=1&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination">1</a>
-                    <a href="?uri=recherche&p=2&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination">2</a>
-                    <a href="?uri=recherche&p=3&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination">3</a>
-                    <a class="btn_pagination">...</a>
-                    <a href="?uri=recherche&p={{ (nb_pages // 5) }}&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination">{{ (nb_pages // 5) }}</a>
+                    <a href="?uri=recherche&p=1&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination_nb">1</a>
+                    <a href="?uri=recherche&p=2&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination_nb">2</a>
+                    <a href="?uri=recherche&p=3&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination_nb">3</a>
+                    <a class="btn_pagination_nb">...</a>
+                    <a href="?uri=recherche&p={{ (nb_pages // 5) }}&entreprise={{ filtre_entreprise }}&ville={{ filtre_ville }}" class="btn_pagination_nb">{{ (nb_pages // 5) }}</a>
                 {% endif %} 
                 
                 {% if taille <= 5 %}
