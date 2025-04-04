@@ -61,6 +61,10 @@ class SearchModel extends Model
             $options = "v.nom_ville = '$ville'";
             $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise', $options);
             return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
+        } else {
+            $options = "v.nom_ville = '$ville' AND e.nom = '$entreprise'";
+            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise', $options);
+            return [array_slice($offres, ($page_actuelle -1) * 5, 5), count($offres)];
         }
     }
     /**
@@ -82,6 +86,9 @@ class SearchModel extends Model
             return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options))];
         } else if ($entreprise === 'Toutes') {
             $options = "v.nom_ville = '$ville'";
+            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options))];
+        } else {
+            $options = "v.nom_ville = '$ville' AND e.nom = '$entreprise'";
             return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options))];
         }
     }
