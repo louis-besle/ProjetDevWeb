@@ -261,7 +261,6 @@ switch ($uri) {
             exit();
         }
         break;
-
     case 'note_entreprise':
         if ($isConnect) {
             $searchController->noter_entreprise();
@@ -270,47 +269,46 @@ switch ($uri) {
             exit();
         }
         break;
-
-        case 'contact':
-            if ($isConnect) {
-                $controller->contact();
-            } else {
-                $controller->_Page_error('403','Accès refusé');
-                exit();
-            }
-            break;
-        case 'mention':
-            if ($isConnect) {
-                $controller->mentions();
-            } else {
-                $controller->_Page_error('403','Accès refusé');
-                exit();
-            }
-            break;
-        case 'cgu':
-            if ($isConnect) {
-                $controller->cgu();
-            } else {
-                $controller->_Page_error('403','Accès refusé');
-                exit();
-            }
-            break;
-        case 'politique':
-            if ($isConnect) {
-                $controller->politiqueConfidentialite();
-            } else {
-                $controller->_Page_error('403','Accès refusé');
-                exit();
-            }
-            break;
-        case 'cookies':
-            if ($isConnect) {
-                $controller->cookies();
-            } else {
-                $controller->_Page_error('403','Accès refusé');
-                exit();
-            }
-            break;
+    case 'contact':
+        if ($isConnect) {
+            $controller->contact();
+        } else {
+            $controller->_Page_error('403','Accès refusé');
+            exit();
+        }
+        break;
+    case 'mention':
+        if ($isConnect) {
+            $controller->mentions();
+        } else {
+            $controller->_Page_error('403','Accès refusé');
+            exit();
+        }
+        break;
+    case 'cgu':
+        if ($isConnect) {
+            $controller->cgu();
+        } else {
+            $controller->_Page_error('403','Accès refusé');
+            exit();
+        }
+        break;
+    case 'politique':
+        if ($isConnect) {
+            $controller->politiqueConfidentialite();
+        } else {
+            $controller->_Page_error('403','Accès refusé');
+            exit();
+        }
+        break;
+    case 'cookies':
+        if ($isConnect) {
+            $controller->cookies();
+        } else {
+            $controller->_Page_error('403','Accès refusé');
+            exit();
+        }
+        break;
     default:
         $controller->_Page_error('404','Page introuvable');
         break;
