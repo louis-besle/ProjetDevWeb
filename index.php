@@ -100,7 +100,7 @@ switch ($uri) {
         }
         break;
     case 'wishlist':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']=="Etudiant") {
             $dashboardController->_Page_Wishlist();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -108,7 +108,7 @@ switch ($uri) {
         }
         break;
     case 'cv':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']=="Etudiant") {
             $dashboardController->_Page_CV();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -116,7 +116,7 @@ switch ($uri) {
         }
         break;
     case 'offres_postulees':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']=="Etudiant") {
             $dashboardController->_Page_OffrePostulees();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -124,7 +124,7 @@ switch ($uri) {
         }
         break;
     case 'ajouter_offre':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->_Page_Ajouter_Offre();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -132,7 +132,7 @@ switch ($uri) {
         }
         break;
     case 'formulaire_offre':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->formulaire_offre();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -140,7 +140,7 @@ switch ($uri) {
         }
         break;
     case 'page_modifier_offre':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->_Page_Modifier_Offre();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -148,7 +148,7 @@ switch ($uri) {
         }
         break;
     case 'modifier_offre':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->modifier_offre();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -156,7 +156,7 @@ switch ($uri) {
         }
         break;
     case 'ajouter_compte':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->_Page_Ajouter_Compte();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -164,7 +164,7 @@ switch ($uri) {
         }
         break;
     case 'formulaire_compte':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->formulaire_compte();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -172,7 +172,7 @@ switch ($uri) {
         }
         break;
     case 'compte':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->_Page_Modifier_Compte();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -180,7 +180,7 @@ switch ($uri) {
         }
         break;
     case 'modifier_compte':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->modifier_compte();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -188,7 +188,7 @@ switch ($uri) {
         }
         break;
     case 'postuler':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Pilote") {
             $controller->_Page_Postuler();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -196,7 +196,7 @@ switch ($uri) {
         }
         break;
     case 'ajouter_entreprise':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->_Page_Ajouter_Entreprise();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -205,7 +205,7 @@ switch ($uri) {
         }
         break;
     case 'formulaire_entreprise':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->formulaire_entreprise();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -213,7 +213,7 @@ switch ($uri) {
         }
         break;
     case 'page_modifier_entreprise':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->_Page_Modifier_Entreprise();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -221,7 +221,7 @@ switch ($uri) {
         }
         break;
     case 'modifier_entreprise':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Etudiant") {
             $dashboardController->modifier_entreprise();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -229,7 +229,7 @@ switch ($uri) {
         }
         break;
     case 'statistique_etudiant':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']=="Administrateur") {
             $statistiqueController->_Page_Statistique_Etudiant();
         } else {
             $controller->_Page_error('403','Accès refusé');
@@ -246,7 +246,7 @@ switch ($uri) {
         }
         break;
     case 'ajout_wishlist':
-        if ($isConnect) {
+        if ($isConnect && $_SESSION['user']['role']!="Pilote") {
             $searchController->_Ajout_Wishlist();
         } else {
             $controller->_Page_error('403','Accès refusé');

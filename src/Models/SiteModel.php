@@ -7,8 +7,8 @@ class SiteModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97', 'stageup', 'azureuser', '#Cesi2024');
-            //$this->connection = new FileDatabase('localhost','stageup','root','');
+            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            //$this->connection = new FileDatabase('localhost', 'stageup', 'root', '');
         } else {
             $this->connection = $connection;
         }
@@ -44,8 +44,8 @@ class SiteModel extends Model
      * @param mixed $message_recruteur
      * @return bool|string
      */
-    public function ajout_candidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur) {
-        return $this->connection->addCandidater($id_utilisateur,$id_offre,$lettre_motivation,$message_recruteur);
+    public function ajout_candidater($id_utilisateur, $id_offre, $lettre_motivation, $message_recruteur)
+    {
+        return $this->connection->addCandidater($id_utilisateur, $id_offre, $lettre_motivation, $message_recruteur);
     }
 }
-?>
