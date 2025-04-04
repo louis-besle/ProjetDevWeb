@@ -24,14 +24,12 @@
                 <tr>
                     <td>{{selection.nom}}</td>
                     <td>
-                        <form action="/?uri=page_modifier_entreprise" method="post">
+                        <form action="/?uri=page_modifier_entreprise" method="POST">
                             <div class="grp_bouton">
-                                <button type="submit" class="bouton_" name="modif"
-                                    value={{selection.id_offre}}>Modifier</button>
-                                <button type="submit" class="bouton_" name="supp"
-                                    value={{selection.id_offre}}>Supprimer</button>
+                                <button type="submit" class="bouton_" name="modif" value="{{selection.id_entreprise}}">Modifier</button>
+                                <button type="submit" class="bouton_" name="supp" value="{{selection.id_entreprise}}">Supprimer</button>
                             </div>
-                        </form>
+                        </form> 
                     </td>
                 </tr>
                 {% endfor %}
