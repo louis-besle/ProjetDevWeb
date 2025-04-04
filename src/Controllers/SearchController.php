@@ -79,7 +79,7 @@ class SearchController extends Controller
         $moynote = $this->model->moynote($idEntreprise) / count($com);
         $moynote = round($moynote, 1);
         echo $this->templateEngine->render('_entreprise_onclick.twig.html', [
-            "entreprise" => $entreprise, 'com'=>$com, 'moynote' => $moynote
+            "entreprise" => $entreprise, 'com'=>$com, 'moynote' => $moynote, "role" => $_SESSION['user']['role']
         ]);
     }
 

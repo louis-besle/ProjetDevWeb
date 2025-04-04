@@ -66,15 +66,14 @@
                 <button type="reset" class="bouton_">Réinitialiser</button>
             </div>
         </form>
-
-        <form method="POST" action="/?uri=page_modifier_entreprise">
-            <div class="grp_bouton">
-                <button type="submit" class="bouton_" name="modif"
-                    value="{{entreprise.id_entreprise}}">Modifier</button>
-                <button type="submit" class="bouton_" name="supp"
-                    value="{{entreprise.id_entreprise}}">Supprimer</button>
-            </div>
-        </form>
+        {% if role == 'Administrateur' or role == 'Pilote' %}
+            <form action="/?uri=page_modifier_entreprise" method="POST">
+                <div class="grp_bouton">
+                    <button type="submit" class="bouton_" name="modif" value="{{entreprise.id_entreprise}}">Modifier</button>
+                    <button type="submit" class="bouton_" name="supp" value="{{entreprise.id_entreprise}}">Supprimer</button>
+                </div>
+            </form> 
+        {% endif %}
         <form action="/?uri=statistique_entreprise" method="post">
             <div class="grp_bouton"><button type="submit" name="voir" class="bouton_">Voir les statistiques des
                     entreprises</button></div>
