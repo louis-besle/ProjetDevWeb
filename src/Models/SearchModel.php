@@ -8,7 +8,7 @@ class SearchModel extends Model
     {
         if (is_null($connection)) {
             $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
-            //$this->connection = new FileDatabase('localhost','stageup','root','');
+            //$this->connection = new FileDatabase('localhost', 'stageup', 'root', '');
         } else {
             $this->connection = $connection;
         }
@@ -48,20 +48,18 @@ class SearchModel extends Model
      * @param mixed $entreprise
      * @return array<array|int>
      */
-    public function getOffreRecherche($page_actuelle,$ville,$entreprise)
+    public function getOffreRecherche($page_actuelle, $ville, $entreprise)
     {
         if ($ville === 'Toutes' && $entreprise === 'Toutes') {
             $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise');
             return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
-        } 
-        else if ($ville === 'Toutes') {
+        } else if ($ville === 'Toutes') {
             $options = "e.nom = '$entreprise'";
-            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise',$options);
+            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise', $options);
             return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
-        } 
-        else if ($entreprise === 'Toutes') {
+        } else if ($entreprise === 'Toutes') {
             $options = "v.nom_ville = '$ville'";
-            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise',$options);
+            $offres = $this->connection->getRecordBetweenTableOffreEntreprise('offre', 'entreprise', $options);
             return [array_slice($offres, ($page_actuelle - 1) * 5, 5), count($offres)];
         }
     }
@@ -72,7 +70,7 @@ class SearchModel extends Model
      * @param mixed $entreprise
      * @return array<array|int>
      */
-    public function getVillesEntreprises($page_actuelle,$ville,$entreprise)
+    public function getVillesEntreprises($page_actuelle, $ville, $entreprise)
     {
         $start = (($page_actuelle - 1) * 5) + 1;
         $end = ($page_actuelle * 5);
@@ -81,10 +79,10 @@ class SearchModel extends Model
             return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville'))];
         } else if ($ville === 'Toutes') {
             $options = "e.nom = '$entreprise'";
-            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options))];
+            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options))];
         } else if ($entreprise === 'Toutes') {
             $options = "v.nom_ville = '$ville'";
-            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options))];
+            return [$this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options), count($this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options))];
         }
     }
     /**
@@ -92,20 +90,22 @@ class SearchModel extends Model
      * @param mixed $val1
      * @param mixed $val2
      */
-    public function getNbPages($val1,$val2)
+    public function getNbPages($val1, $val2)
     {
-        return max($val1,$val2);
+        return max($val1, $val2);
     }
     /**
      * Renvoie le nombre d'offres
      */
-    public function nombre_offre(){
+    public function nombre_offre()
+    {
         return $this->connection->nbr_offre();
     }
     /**
      * Permet d'obtenir les entreprises à afficher dans la page de recherche
      */
-    public function getEntrepriseClick(){
+    public function getEntrepriseClick()
+    {
         if (isset($_GET['id'])) {
             $id_page = $_GET['id'];
         } else {
@@ -123,20 +123,22 @@ class SearchModel extends Model
      * @param mixed $id
      * @return array
      */
-    public function getCompetenceByOffer($id) {
+    public function getCompetenceByOffer($id)
+    {
         $competences = $this->connection->getAllCompetencesAssociees($id);
-            if ($competences) {
-                return $competences;
-            } else {
-                return [];
-            }
+        if ($competences) {
+            return $competences;
+        } else {
+            return [];
+        }
     }
     /**
      * Permet d'obtenir les informations d'une offre
      * @param mixed $id
      * @return array{description_offre: mixed, duree: float, entreprise: array{description: mixed, nom: mixed}}
      */
-    public function getInfosOffres($id){
+    public function getInfosOffres($id)
+    {
         $offres = $this->connection->getRecordInfoOffres($id);
 
         if ($offres && isset($offres['date_debut'], $offres['date_fin'])) {
@@ -147,15 +149,15 @@ class SearchModel extends Model
 
             $mois = ceil($interval->y * 12 + $interval->m + ($interval->d / 30));
 
-            return ['description_offre' => $offres['description_offre'], 'entreprise' => ['nom' => $offres['nom'],'description' => $offres['description_entreprise']], 'duree' => $mois];
+            return ['description_offre' => $offres['description_offre'], 'entreprise' => ['nom' => $offres['nom'], 'description' => $offres['description_entreprise']], 'duree' => $mois];
         }
-
     }
     /**
      * Permet d'obtenir le nombre de personnes ayant postulé à une offre
      * @param mixed $id_offre
      */
-    public function nombre_personne($id_offre){
+    public function nombre_personne($id_offre)
+    {
         return $this->connection->nbr_personne($id_offre);
     }
     /**
@@ -164,21 +166,22 @@ class SearchModel extends Model
      * @param mixed $id_offre
      * @return bool
      */
-    public function a_candidater($id_utilisateur,$id_offre) {
-        return $this->connection->checkCandidature($id_utilisateur,$id_offre);
+    public function a_candidater($id_utilisateur, $id_offre)
+    {
+        return $this->connection->checkCandidature($id_utilisateur, $id_offre);
     }
     /**
      * Permet d'obtenir les informations d'une offre
      * @return array{description_offre: mixed, duree: float, entreprise: array{description: mixed, nom: mixed}}
      */
-    public function getOffreClick(){
+    public function getOffreClick()
+    {
         if (isset($_GET['id'])) {
             $id_page = $_GET['id'];
         } else {
             $id_page = 1;
-
         }
-        return $this->connection->getRecordById('offre',$id_page);
+        return $this->connection->getRecordById('offre', $id_page);
     }
     /**
      * Permet de pouvoir rechercher des offres
@@ -186,7 +189,8 @@ class SearchModel extends Model
      * @param mixed $ville
      * @return array
      */
-    public function recherche($rechercheGenerale, $ville){
+    public function recherche($rechercheGenerale, $ville)
+    {
         return $this->connection->rechercherOffres($rechercheGenerale, $ville);
     }
     /**
@@ -195,8 +199,9 @@ class SearchModel extends Model
      * @param mixed $id_offre
      * @return bool
      */
-    public function ajout_wishlist($id_utilisateur,$id_offre) {
-        return $this->connection->updateSouhaiter($id_utilisateur,$id_offre);
+    public function ajout_wishlist($id_utilisateur, $id_offre)
+    {
+        return $this->connection->updateSouhaiter($id_utilisateur, $id_offre);
     }
     /**
      * Renvoie les derniers commentaires ajouter à une entreprise
@@ -228,4 +233,3 @@ class SearchModel extends Model
         return $this->connection->insertNote($idUtilisateur,  $idEntreprise,  $note, $commentaire);
     }
 }
-?>

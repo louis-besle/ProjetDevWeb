@@ -7,7 +7,8 @@ class DashboardModel extends Model
     public function __construct($connection = null)
     {
         if (is_null($connection)) {
-            $this->connection = new FileDatabase('172.201.220.97','stageup','azureuser','#Cesi2024');
+            $this->connection = new FileDatabase('172.201.220.97', 'stageup', 'azureuser', '#Cesi2024');
+            //$this->connection = new FileDatabase('localhost','stageup','root','');
         } else {
             $this->connection = $connection;
         }
@@ -16,7 +17,8 @@ class DashboardModel extends Model
      * Renvoie le nombre d'utilisateurs en fonction de leur rôle.
      * @param mixed $role
      */
-    public function nombre_utilisateur($role){
+    public function nombre_utilisateur($role)
+    {
         return $this->connection->nbr_utilisateur($role);
     }
     /**
@@ -26,7 +28,7 @@ class DashboardModel extends Model
      */
     public function getEntrepriseByVille($options = null)
     {
-        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville',$options);
+        return $this->connection->getRecordBetweenTableEntrepriseVille('entreprise', 'situer', 'ville', $options);
     }
     /**
      * Renvoie toutes les compétences.
@@ -66,7 +68,8 @@ class DashboardModel extends Model
      * Renvoie toutes les offres de stage.
      * @return array
      */
-    public function all_offre(){
+    public function all_offre()
+    {
         return $this->connection->getAllRecords('offre');
     }
     /**
@@ -186,7 +189,8 @@ class DashboardModel extends Model
      * @param mixed $mail
      * @param mixed $image
      */
-    public function updateentreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image){
+    public function updateentreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image)
+    {
         return $this->connection->updateEntreprise($id_entreprise, $entreprise_titre, $id_ville, $presentation, $tel, $mail, $image);
     }
     /**
@@ -194,24 +198,26 @@ class DashboardModel extends Model
      * @param mixed $id
      * @return array
      */
-    public function getWishlistById($id){
-        return $this->connection->getRecordOffresDashboard($id,'souhaiter');
+    public function getWishlistById($id)
+    {
+        return $this->connection->getRecordOffresDashboard($id, 'souhaiter');
     }
     /**
      * Permet d'obtenir les offres postulées par un utilisateur en fonction de son ID.
      * @param mixed $id
      * @return array
      */
-    public function getOffresPostuleesById($id){
-        return $this->connection->getRecordOffresDashboard($id,'candidater');
+    public function getOffresPostuleesById($id)
+    {
+        return $this->connection->getRecordOffresDashboard($id, 'candidater');
     }
     /**
      * Permet d'obtenir les CV d'un utilisateur en fonction de son ID.
      * @param mixed $id
      * @return array
      */
-    public function getCVById($id){
+    public function getCVById($id)
+    {
         return $this->connection->getCV($id);
     }
 }
-?>
